@@ -37,20 +37,21 @@ body {
     max-width: 400px;
 }
 
-.login-header {
-    text-align: center;
-    margin-bottom: 30px;
-}
-
 .login-logo {
+    text-align: center;
     margin-bottom: 20px;
 }
 
 .logo-image {
-    width: 80px;
-    height: 80px;
+    width: 60px;
+    height: 60px;
     object-fit: contain;
     filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.1));
+}
+
+.login-header {
+    text-align: center;
+    margin-bottom: 30px;
 }
 
 .login-header h1 {
@@ -207,8 +208,8 @@ body {
 }
 
 .nav-logo-image {
-    width: 40px;
-    height: 40px;
+    width: 35px;
+    height: 35px;
     object-fit: contain;
 }
 
@@ -348,8 +349,8 @@ body {
 }
 
 .mobile-logo-image {
-    width: 30px;
-    height: 30px;
+    width: 25px;
+    height: 25px;
     object-fit: contain;
     filter: brightness(0) invert(1);
 }
@@ -757,8 +758,8 @@ body {
 }
 
 .home-main-logo {
-    width: 200px;
-    height: 200px;
+    width: 180px;
+    height: 180px;
     object-fit: contain;
     filter: drop-shadow(0 10px 30px rgba(0, 0, 0, 0.2));
     animation: float 6s ease-in-out infinite;
@@ -769,8 +770,8 @@ body {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 250px;
-    height: 250px;
+    width: 220px;
+    height: 220px;
     background: radial-gradient(circle, rgba(102, 126, 234, 0.2) 0%, transparent 70%);
     border-radius: 50%;
     animation: pulse 4s ease-in-out infinite;
@@ -1520,6 +1521,52 @@ body {
     }
 }
 
+/* Animation Classes */
+.fade-in {
+    animation: fadeIn 0.5s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.slide-in-left {
+    animation: slideInLeft 0.6s ease-out;
+}
+
+@keyframes slideInLeft {
+    from {
+        opacity: 0;
+        transform: translateX(-50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.slide-in-right {
+    animation: slideInRight 0.6s ease-out;
+}
+
+@keyframes slideInRight {
+    from {
+        opacity: 0;
+        transform: translateX(50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
 /* Responsive Design */
 @media (max-width: 1024px) {
     .nav-menu {
@@ -1593,11 +1640,6 @@ body {
     
     .form-row {
         grid-template-columns: 1fr;
-    }
-    
-    .image-frame {
-        width: 280px;
-        height: 280px;
     }
 
     .user-info {
@@ -1675,11 +1717,6 @@ body {
         padding: 25px;
     }
     
-    .image-frame {
-        width: 240px;
-        height: 240px;
-    }
-    
     .circle-1,
     .circle-2 {
         width: 200px;
@@ -1748,53 +1785,7 @@ body {
     }
 
     .logo-image {
-        width: 60px;
-        height: 60px;
-    }
-}
-
-/* Animation Classes */
-.fade-in {
-    animation: fadeIn 0.5s ease-in-out;
-}
-
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-        transform: translateY(20px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-.slide-in-left {
-    animation: slideInLeft 0.6s ease-out;
-}
-
-@keyframes slideInLeft {
-    from {
-        opacity: 0;
-        transform: translateX(-50px);
-    }
-    to {
-        opacity: 1;
-        transform: translateX(0);
-    }
-}
-
-.slide-in-right {
-    animation: slideInRight 0.6s ease-out;
-}
-
-@keyframes slideInRight {
-    from {
-        opacity: 0;
-        transform: translateX(50px);
-    }
-    to {
-        opacity: 1;
-        transform: translateX(0);
+        width: 50px;
+        height: 50px;
     }
 }
