@@ -1567,8 +1567,11 @@ body {
     }
 }
 
-/* Responsive Design */
+/* RESPONSIVE DESIGN - OPTIMIZED FOR MOBILE AND TABLET */
+
+/* Tablet Styles (768px - 1024px) */
 @media (max-width: 1024px) {
+    /* Navigation */
     .nav-menu {
         display: none;
     }
@@ -1577,6 +1580,7 @@ body {
         display: block;
     }
     
+    /* Grid layouts become single column */
     .home-content,
     .maintenance-content,
     .contact-content {
@@ -1584,64 +1588,148 @@ body {
         gap: 40px;
     }
     
+    /* Typography adjustments */
     .home-title {
         font-size: 3.5rem;
+        text-align: center;
     }
     
     .section-header h1 {
-        font-size: 2.5rem;
+        font-size: 2.8rem;
     }
 
+    /* Hide decorative elements on tablets */
     .nav-dots.left,
     .nav-dots.bottom-right {
         display: none;
     }
 
+    /* Center stats on tablets */
     .home-stats {
         justify-content: center;
+        flex-wrap: wrap;
     }
 
+    /* Hide floating elements on tablets */
     .floating-elements {
         display: none;
     }
+
+    /* Adjust home image for tablets */
+    .home-image {
+        height: 400px;
+        order: -1;
+    }
+
+    .home-main-logo {
+        width: 160px;
+        height: 160px;
+    }
+
+    .logo-glow {
+        width: 200px;
+        height: 200px;
+    }
+
+    /* Services grid optimization */
+    .services-grid {
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 25px;
+    }
+
+    /* Portfolio grid optimization */
+    .portfolio-grid {
+        grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+        gap: 25px;
+    }
+
+    /* Team grid optimization */
+    .team-grid {
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 25px;
+    }
+
+    /* Admin grids optimization */
+    .admin-services-grid,
+    .admin-portfolio-grid,
+    .admin-team-grid,
+    .admin-images-grid {
+        grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+        gap: 25px;
+    }
+
+    /* Video container adjustments */
+    .video-container {
+        padding: 30px;
+        margin: 0 20px;
+    }
+
+    .video-container h2 {
+        font-size: 2rem;
+    }
+
+    /* Maintenance image adjustments */
+    .image-frame {
+        width: 320px;
+        height: 320px;
+    }
 }
 
+/* Mobile Styles (up to 768px) */
 @media (max-width: 768px) {
+    /* Container padding */
     .container {
         padding: 0 15px;
     }
     
+    /* Section padding */
     .section {
         padding: 40px 0;
     }
     
+    /* Typography for mobile */
     .home-title {
         font-size: 2.8rem;
+        line-height: 1.2;
     }
     
     .section-header h1 {
-        font-size: 2rem;
+        font-size: 2.2rem;
+        line-height: 1.3;
+    }
+
+    .section-description {
+        font-size: 1.1rem;
+        padding: 0 10px;
     }
     
+    /* Button adjustments */
     .home-buttons {
         flex-direction: column;
+        align-items: center;
     }
     
     .btn {
         text-align: center;
         justify-content: center;
+        min-width: 200px;
     }
     
+    /* Grid layouts - single column */
     .services-grid,
     .portfolio-grid,
     .team-grid {
         grid-template-columns: 1fr;
+        gap: 20px;
     }
     
+    /* Form adjustments */
     .form-row {
         grid-template-columns: 1fr;
+        gap: 15px;
     }
 
+    /* Navigation adjustments */
     .user-info {
         display: none;
     }
@@ -1650,73 +1738,218 @@ body {
         display: none;
     }
 
+    /* Admin tabs - vertical layout */
     .admin-tabs {
         flex-direction: column;
         align-items: center;
+        gap: 8px;
     }
 
     .admin-tab {
-        width: 200px;
+        width: 250px;
         justify-content: center;
     }
 
+    /* Admin grids - single column */
     .admin-services-grid,
     .admin-portfolio-grid,
     .admin-team-grid,
     .admin-images-grid {
         grid-template-columns: 1fr;
+        gap: 20px;
     }
 
+    /* Video container mobile */
     .video-container {
         padding: 20px;
+        margin: 0 10px;
     }
 
     .video-container h2 {
         font-size: 1.8rem;
     }
 
+    .video-container p {
+        font-size: 1rem;
+    }
+
+    /* Home logo mobile */
     .home-main-logo {
-        width: 150px;
-        height: 150px;
+        width: 140px;
+        height: 140px;
     }
 
     .logo-glow {
-        width: 200px;
-        height: 200px;
+        width: 180px;
+        height: 180px;
     }
 
+    /* Stats mobile layout */
     .home-stats {
         gap: 20px;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .stat-item {
+        min-width: 80px;
     }
 
     .stat-number {
-        font-size: 1.5rem;
+        font-size: 1.8rem;
+    }
+
+    .stat-label {
+        font-size: 0.85rem;
+    }
+
+    /* Service cards mobile */
+    .service-card {
+        padding: 25px;
+    }
+
+    .service-header {
+        padding: 15px;
+        margin-bottom: 20px;
+    }
+
+    .service-header h3 {
+        font-size: 1.3rem;
+    }
+
+    .service-content h4 {
+        font-size: 1.2rem;
+    }
+
+    .service-price {
+        font-size: 1.8rem;
+    }
+
+    /* Portfolio cards mobile */
+    .portfolio-content {
+        padding: 25px;
+    }
+
+    .portfolio-content h3 {
+        font-size: 1.3rem;
+    }
+
+    /* Team cards mobile */
+    .team-card {
+        padding: 25px;
+    }
+
+    .team-image {
+        width: 100px;
+        height: 100px;
+        margin-bottom: 20px;
+    }
+
+    .team-content h3 {
+        font-size: 1.2rem;
+    }
+
+    /* Contact cards mobile */
+    .contact-card,
+    .contact-form-container {
+        padding: 25px;
+    }
+
+    .contact-card h2,
+    .contact-form-container h2 {
+        font-size: 1.3rem;
+    }
+
+    /* Maintenance form mobile */
+    .maintenance-form {
+        padding: 25px;
+    }
+
+    .maintenance-form h2 {
+        font-size: 1.8rem;
+    }
+
+    /* Admin cards mobile */
+    .admin-service-card,
+    .admin-portfolio-card,
+    .admin-team-card,
+    .admin-image-card {
+        padding: 20px;
+    }
+
+    .admin-service-card h3,
+    .admin-portfolio-card h3,
+    .admin-team-card h3,
+    .admin-image-card h3 {
+        font-size: 1.2rem;
+    }
+
+    /* Welcome badge mobile */
+    .welcome-badge {
+        font-size: 0.9rem;
+        padding: 10px 20px;
+    }
+
+    /* Home subtitle and description mobile */
+    .home-subtitle {
+        font-size: 1.2rem;
+        text-align: center;
+    }
+
+    .home-description {
+        font-size: 1rem;
+        text-align: center;
     }
 }
 
+/* Small Mobile Styles (up to 480px) */
 @media (max-width: 480px) {
+    /* Login container */
     .login-container {
         padding: 30px 20px;
+        margin: 10px;
     }
     
+    .login-header h1 {
+        font-size: 2rem;
+    }
+
+    .logo-image {
+        width: 50px;
+        height: 50px;
+    }
+    
+    /* User type buttons - single column */
     .user-type-buttons {
         grid-template-columns: 1fr;
+        gap: 10px;
     }
     
+    /* Typography for small mobile */
     .home-title {
         font-size: 2.2rem;
+        line-height: 1.1;
     }
     
     .section-header h1 {
         font-size: 1.8rem;
+        line-height: 1.2;
+    }
+
+    .section-description {
+        font-size: 1rem;
+        padding: 0 5px;
     }
     
+    /* Form containers */
     .maintenance-form,
     .contact-form-container,
     .contact-card {
-        padding: 25px;
+        padding: 20px;
+        margin: 0 5px;
     }
     
+    /* Decorative circles - smaller */
     .circle-1,
     .circle-2 {
         width: 200px;
@@ -1733,27 +1966,47 @@ body {
         left: -100px;
     }
 
+    .circle-3,
+    .circle-4,
+    .circle-5 {
+        display: none;
+    }
+
+    /* Navigation */
     .nav-container {
         padding: 0 15px;
+        height: 60px;
     }
 
     .nav-logo h1 {
         font-size: 1.5rem;
     }
 
+    .nav-logo-image {
+        width: 30px;
+        height: 30px;
+    }
+
+    /* Admin header */
     .admin-header h1 {
         font-size: 2rem;
     }
 
-    .admin-service-card,
-    .admin-portfolio-card,
-    .admin-team-card,
-    .admin-image-card {
-        padding: 20px;
+    .admin-header p {
+        font-size: 1rem;
     }
 
+    /* Admin tabs - smaller */
+    .admin-tab {
+        width: 200px;
+        padding: 10px 20px;
+        font-size: 0.9rem;
+    }
+
+    /* Video container small mobile */
     .video-container {
         padding: 15px;
+        margin: 0 5px;
     }
 
     .video-container h2 {
@@ -1761,7 +2014,197 @@ body {
     }
 
     .video-container p {
+        font-size: 0.9rem;
+    }
+
+    /* Home logo small mobile */
+    .home-main-logo {
+        width: 120px;
+        height: 120px;
+    }
+
+    .logo-glow {
+        width: 150px;
+        height: 150px;
+    }
+
+    /* Stats small mobile */
+    .home-stats {
+        flex-direction: column;
+        gap: 15px;
+        align-items: center;
+    }
+
+    .stat-item {
+        min-width: 100px;
+    }
+
+    .stat-number {
+        font-size: 1.5rem;
+    }
+
+    .stat-label {
+        font-size: 0.8rem;
+    }
+
+    /* Buttons small mobile */
+    .btn {
+        padding: 12px 24px;
+        font-size: 0.9rem;
+        min-width: 180px;
+    }
+
+    /* Service cards small mobile */
+    .service-card {
+        padding: 20px;
+    }
+
+    .service-price {
+        font-size: 1.6rem;
+    }
+
+    /* Contact items small mobile */
+    .contact-item {
+        flex-direction: column;
+        text-align: center;
+        gap: 10px;
+    }
+
+    .contact-icon {
+        width: 40px;
+        height: 40px;
         font-size: 1rem;
+    }
+
+    /* Team social buttons small mobile */
+    .team-social {
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    .social-btn {
+        justify-content: center;
+    }
+
+    /* Mobile menu adjustments */
+    .mobile-menu-content {
+        width: 100%;
+    }
+
+    .mobile-menu-header {
+        padding: 15px;
+    }
+
+    .mobile-menu-header h2 {
+        font-size: 1.3rem;
+    }
+
+    .mobile-logo-image {
+        width: 20px;
+        height: 20px;
+    }
+
+    /* Form inputs small mobile */
+    .form input,
+    .form select,
+    .form textarea,
+    .contact-form input,
+    .contact-form select,
+    .contact-form textarea,
+    .admin-form-group input,
+    .admin-form-group textarea {
+        padding: 12px;
+        font-size: 0.9rem;
+    }
+
+    /* Image frame small mobile */
+    .image-frame {
+        width: 280px;
+        height: 280px;
+    }
+
+    /* Website URL */
+    .website-url {
+        margin-top: 40px;
+    }
+
+    .website-url p {
+        font-size: 0.9rem;
+    }
+}
+
+/* Extra Small Mobile (up to 360px) */
+@media (max-width: 360px) {
+    .container {
+        padding: 0 10px;
+    }
+
+    .home-title {
+        font-size: 2rem;
+    }
+
+    .section-header h1 {
+        font-size: 1.6rem;
+    }
+
+    .btn {
+        min-width: 160px;
+        padding: 10px 20px;
+    }
+
+    .home-main-logo {
+        width: 100px;
+        height: 100px;
+    }
+
+    .logo-glow {
+        width: 130px;
+        height: 130px;
+    }
+
+    .image-frame {
+        width: 240px;
+        height: 240px;
+    }
+
+    .service-card,
+    .portfolio-card,
+    .team-card,
+    .contact-card,
+    .contact-form-container,
+    .maintenance-form {
+        padding: 15px;
+        margin: 0 2px;
+    }
+
+    .video-container {
+        padding: 10px;
+        margin: 0 2px;
+    }
+
+    .admin-tab {
+        width: 180px;
+        padding: 8px 16px;
+    }
+}
+
+/* Landscape Mobile Optimization */
+@media (max-height: 500px) and (orientation: landscape) {
+    .section {
+        padding: 20px 0;
+    }
+
+    .section-header {
+        margin-bottom: 30px;
+    }
+
+    .section-header h1 {
+        font-size: 2rem;
+        margin-bottom: 10px;
+    }
+
+    .home-image {
+        height: 300px;
     }
 
     .home-main-logo {
@@ -1774,18 +2217,146 @@ body {
         height: 150px;
     }
 
-    .home-stats {
-        flex-direction: column;
-        gap: 15px;
+    .image-frame {
+        width: 250px;
+        height: 250px;
     }
 
-    .nav-logo-image {
-        width: 30px;
-        height: 30px;
+    .login-container {
+        padding: 20px;
     }
 
-    .logo-image {
-        width: 50px;
-        height: 50px;
+    .video-container {
+        padding: 20px;
+    }
+}
+
+/* High DPI / Retina Display Optimization */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+    .logo-image,
+    .nav-logo-image,
+    .mobile-logo-image {
+        image-rendering: -webkit-optimize-contrast;
+        image-rendering: crisp-edges;
+    }
+}
+
+/* Touch Device Optimizations */
+@media (hover: none) and (pointer: coarse) {
+    .btn:hover,
+    .nav-link:hover,
+    .user-type-btn:hover,
+    .admin-tab:hover,
+    .logout-btn:hover,
+    .mobile-menu-btn:hover,
+    .social-btn:hover {
+        transform: none;
+        box-shadow: none;
+    }
+
+    .service-card:hover,
+    .portfolio-card:hover,
+    .team-card:hover {
+        transform: none;
+    }
+
+    .portfolio-card:hover .portfolio-image img {
+        transform: none;
+    }
+
+    /* Increase touch targets */
+    .btn,
+    .nav-link,
+    .mobile-nav-link,
+    .admin-tab,
+    .user-type-btn {
+        min-height: 44px;
+        min-width: 44px;
+    }
+
+    .mobile-menu-btn,
+    .mobile-menu-close,
+    .logout-btn {
+        min-height: 44px;
+        min-width: 44px;
+    }
+}
+
+/* Print Styles */
+@media print {
+    .navbar,
+    .mobile-menu-overlay,
+    .nav-dots,
+    .floating-elements,
+    .decorative-elements,
+    .admin-panel,
+    .login-screen {
+        display: none !important;
+    }
+
+    .section {
+        display: block !important;
+        page-break-inside: avoid;
+    }
+
+    .service-card,
+    .portfolio-card,
+    .team-card {
+        break-inside: avoid;
+    }
+
+    body {
+        font-size: 12pt;
+        line-height: 1.4;
+    }
+
+    .section-header h1 {
+        font-size: 24pt;
+    }
+
+    .home-title {
+        font-size: 28pt;
+    }
+}
+
+/* Accessibility Improvements */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+
+    .home-main-logo,
+    .logo-glow,
+    .floating-card {
+        animation: none !important;
+    }
+}
+
+/* High Contrast Mode */
+@media (prefers-contrast: high) {
+    .btn,
+    .nav-link,
+    .service-card,
+    .portfolio-card,
+    .team-card,
+    .contact-card {
+        border: 2px solid currentColor;
+    }
+
+    .welcome-badge,
+    .btn-primary,
+    .btn-gradient {
+        background: #000 !important;
+        color: #fff !important;
+    }
+
+    .btn-secondary {
+        background: #fff !important;
+        color: #000 !important;
+        border: 2px solid #000 !important;
     }
 }
