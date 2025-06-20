@@ -12,43 +12,41 @@
     <div id="loginScreen" class="login-screen">
         <div class="login-container">
             <div class="login-logo">
-                <img src="images/image.png" alt="GoWeb Logo" class="logo-image">
+                <img src="images/GO WEB copy.png" alt="GoWeb Logo" class="logo-image">
             </div>
             <div class="login-header">
                 <h1>GoWeb</h1>
                 <p>Accede a tu cuenta</p>
             </div>
             
-            <form id="loginForm">
-                <div class="user-type-selector">
-                    <label>Tipo de Usuario:</label>
-                    <div class="user-type-buttons">
-                        <button type="button" class="user-type-btn active" data-role="user">
-                            <i class="fas fa-user"></i>
-                            <span>Usuario</span>
-                        </button>
-                        <button type="button" class="user-type-btn" data-role="admin">
-                            <i class="fas fa-user-shield"></i>
-                            <span>Admin</span>
-                        </button>
-                    </div>
+            <div class="user-type-selector">
+                <label>Tipo de Usuario:</label>
+                <div class="user-type-buttons">
+                    <button type="button" class="user-type-btn active" data-role="user">
+                        <i class="fas fa-user"></i>
+                        <span>Usuario</span>
+                    </button>
+                    <button type="button" class="user-type-btn" data-role="admin">
+                        <i class="fas fa-user-shield"></i>
+                        <span>Admin</span>
+                    </button>
                 </div>
+            </div>
 
+            <div id="errorMessage" class="error-message" style="display: none;">
+                <i class="fas fa-exclamation-triangle"></i>
+                <span>Credenciales incorrectas. Verifica tu email, contraseña y tipo de usuario.</span>
+            </div>
+
+            <form id="loginForm">
                 <div class="form-group">
                     <label for="email">Email:</label>
-                    <input type="email" id="email" required>
+                    <input type="email" id="email" name="email" required placeholder="tu@email.com">
                 </div>
-
                 <div class="form-group">
                     <label for="password">Contraseña:</label>
-                    <input type="password" id="password" required>
+                    <input type="password" id="password" name="password" required placeholder="Tu contraseña">
                 </div>
-
-                <div id="errorMessage" class="error-message" style="display: none;">
-                    <i class="fas fa-exclamation-triangle"></i>
-                    <span>Credenciales incorrectas. Verifica tu email, contraseña y tipo de usuario.</span>
-                </div>
-
                 <button type="submit" class="login-btn">
                     <i class="fas fa-sign-in-alt"></i>
                     Iniciar Sesión
@@ -63,7 +61,7 @@
         <nav class="navbar">
             <div class="nav-container">
                 <div class="nav-logo">
-                    <img src="images/image.png" alt="GoWeb Logo" class="nav-logo-image">
+                    <img src="images/GO WEB copy.png" alt="GoWeb Logo" class="nav-logo-image">
                     <h1>GoWeb</h1>
                 </div>
                 
@@ -111,12 +109,12 @@
             </div>
         </nav>
 
-        <!-- Mobile Menu -->
+        <!-- Mobile Menu Overlay -->
         <div id="mobileMenuOverlay" class="mobile-menu-overlay">
             <div class="mobile-menu-content">
                 <div class="mobile-menu-header">
                     <div class="mobile-menu-logo">
-                        <img src="images/image.png" alt="GoWeb Logo" class="mobile-logo-image">
+                        <img src="images/GO WEB copy.png" alt="GoWeb Logo" class="mobile-logo-image">
                         <h2>GoWeb</h2>
                     </div>
                     <button id="mobileMenuClose" class="mobile-menu-close">
@@ -216,29 +214,25 @@
 
                         <div class="home-stats">
                             <div class="stat-item">
-                                <div class="stat-number">150+</div>
+                                <div class="stat-number">50+</div>
                                 <div class="stat-label">Proyectos</div>
                             </div>
                             <div class="stat-item">
-                                <div class="stat-number">98%</div>
+                                <div class="stat-number">100%</div>
                                 <div class="stat-label">Satisfacción</div>
                             </div>
                             <div class="stat-item">
-                                <div class="stat-number">5+</div>
-                                <div class="stat-label">Años</div>
+                                <div class="stat-number">24/7</div>
+                                <div class="stat-label">Soporte</div>
                             </div>
                         </div>
 
                         <div class="home-buttons">
                             <button class="btn btn-primary" data-section="services">
-                                <i class="fas fa-arrow-right"></i>
+                                <i class="fas fa-play"></i>
                                 Ver Servicios
                             </button>
-                            <button class="btn btn-secondary" data-section="portfolio">
-                                <i class="fas fa-eye"></i>
-                                Ver Portafolio
-                            </button>
-                            <button class="btn btn-dark" data-section="contact">
+                            <button class="btn btn-secondary" data-section="contact">
                                 <i class="fas fa-phone"></i>
                                 Contactar
                             </button>
@@ -248,7 +242,7 @@
                     <div class="home-image slide-in-right">
                         <div class="home-logo-container">
                             <div class="logo-glow"></div>
-                            <img src="images/image.png" alt="GoWeb Logo" class="home-main-logo">
+                            <img src="images/GO WEB copy.png" alt="GoWeb Logo" class="home-main-logo">
                         </div>
                         
                         <div class="floating-elements">
@@ -273,7 +267,7 @@
                 </div>
 
                 <div class="website-url">
-                    <p><strong>www.goweb.com</strong> - Tu socio en desarrollo web</p>
+                    <p>🌐 www.goweb.com</p>
                 </div>
             </div>
         </section>
@@ -292,8 +286,8 @@
                 <div class="section-header">
                     <h1>Nuestros Servicios</h1>
                     <p class="section-description">
-                        Ofrecemos soluciones completas de desarrollo web adaptadas a las necesidades específicas de tu negocio. 
-                        Desde sitios web básicos hasta aplicaciones web complejas, tenemos el paquete perfecto para ti.
+                        Ofrecemos soluciones web completas adaptadas a las necesidades de tu negocio. 
+                        Desde sitios web básicos hasta aplicaciones complejas, tenemos el plan perfecto para ti.
                     </p>
                 </div>
 
@@ -316,7 +310,7 @@
                         </div>
                         <div class="service-content">
                             <h4 id="goldServiceTitle">Sitio Web Dinámico</h4>
-                            <p id="goldServiceDescription">Ideal para empresas que requieren funcionalidades avanzadas, gestión de contenido y integración con sistemas externos.</p>
+                            <p id="goldServiceDescription">Ideal para empresas que requieren funcionalidades avanzadas, gestión de contenido y integración con redes sociales.</p>
                             <div class="service-divider"></div>
                             <div class="service-price teal-text" id="goldServicePrice">$599/Mes</div>
                         </div>
@@ -327,8 +321,8 @@
                             <h3 id="expertServiceName">Expert</h3>
                         </div>
                         <div class="service-content">
-                            <h4 id="expertServiceTitle">Aplicación Web Completa</h4>
-                            <p id="expertServiceDescription">Solución completa para empresas que necesitan aplicaciones web robustas con funcionalidades personalizadas y escalabilidad.</p>
+                            <h4 id="expertServiceTitle">Aplicación Web</h4>
+                            <p id="expertServiceDescription">Solución completa para empresas que necesitan sistemas complejos, bases de datos y funcionalidades personalizadas.</p>
                             <div class="service-divider"></div>
                             <div class="service-price" id="expertServicePrice">$999/Mes</div>
                         </div>
@@ -337,8 +331,8 @@
 
                 <div class="services-video">
                     <div class="video-container">
-                        <h2>Conoce Nuestro Proceso de Desarrollo</h2>
-                        <p>Descubre cómo transformamos tus ideas en realidad digital</p>
+                        <h2>Conoce Nuestro Proceso</h2>
+                        <p>Descubre cómo trabajamos para crear sitios web excepcionales</p>
                         <div class="video-wrapper">
                             <iframe 
                                 src="https://www.youtube.com/embed/1wpK__sFuqI" 
@@ -373,7 +367,7 @@
                 </div>
 
                 <div class="maintenance-content">
-                    <div class="maintenance-form">
+                    <div class="maintenance-form slide-in-left">
                         <h2>Solicita Mantenimiento para tu Sitio Web</h2>
                         <form id="maintenanceForm" class="form">
                             <input type="text" placeholder="Nombre completo" required>
@@ -384,11 +378,11 @@
                                 <option value="">Tipo de mantenimiento</option>
                                 <option value="actualizacion">Actualización de contenido</option>
                                 <option value="seguridad">Revisión de seguridad</option>
-                                <option value="rendimiento">Optimización de rendimiento</option>
+                                <option value="optimizacion">Optimización de velocidad</option>
                                 <option value="backup">Backup y restauración</option>
                                 <option value="otro">Otro</option>
                             </select>
-                            <textarea placeholder="Describe el problema o solicitud específica" rows="4" required></textarea>
+                            <textarea placeholder="Describe el problema o servicio que necesitas" rows="4" required></textarea>
                             <button type="submit" class="btn btn-gradient">
                                 <i class="fas fa-paper-plane"></i>
                                 Enviar Solicitud
@@ -396,11 +390,11 @@
                         </form>
                     </div>
 
-                    <div class="maintenance-image">
+                    <div class="maintenance-image slide-in-right">
                         <div class="image-frame">
                             <div class="image-border"></div>
                             <div class="image-content">
-                                <img id="maintenanceImage" src="https://images.pexels.com/photos/574071/pexels-photo-574071.jpeg" alt="Mantenimiento Web">
+                                <img id="maintenanceImage" src="https://images.pexels.com/photos/574071/pexels-photo-574071.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Mantenimiento Web">
                             </div>
                         </div>
                     </div>
@@ -422,15 +416,15 @@
                 <div class="section-header">
                     <h1>Nuestro Portafolio</h1>
                     <p class="section-description">
-                        Explora algunos de nuestros proyectos más destacados. Cada sitio web que creamos es único 
-                        y está diseñado específicamente para cumplir los objetivos de nuestros clientes.
+                        Explora algunos de nuestros proyectos más destacados. Cada sitio web refleja nuestro 
+                        compromiso con la excelencia, la innovación y la satisfacción del cliente.
                     </p>
                 </div>
 
                 <div class="portfolio-grid">
                     <div class="portfolio-card">
                         <div class="portfolio-image">
-                            <img id="portfolio0Image" src="https://images.pexels.com/photos/196644/pexels-photo-196644.jpeg" alt="Proyecto 1">
+                            <img id="portfolio0Image" src="https://images.pexels.com/photos/196644/pexels-photo-196644.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Proyecto 1">
                         </div>
                         <div class="portfolio-content">
                             <h3 id="portfolio0Title">E-commerce Moderno</h3>
@@ -446,12 +440,12 @@
 
                     <div class="portfolio-card">
                         <div class="portfolio-image">
-                            <img id="portfolio1Image" src="https://images.pexels.com/photos/265087/pexels-photo-265087.jpeg" alt="Proyecto 2">
+                            <img id="portfolio1Image" src="https://images.pexels.com/photos/3184291/pexels-photo-3184291.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Proyecto 2">
                         </div>
                         <div class="portfolio-content">
                             <h3 id="portfolio1Title">App Corporativa</h3>
                             <p class="portfolio-subtitle" id="portfolio1Subtitle">Gestión Empresarial</p>
-                            <p class="portfolio-description" id="portfolio1Description">Sistema de gestión empresarial con dashboard interactivo, reportes en tiempo real y múltiples roles de usuario.</p>
+                            <p class="portfolio-description" id="portfolio1Description">Sistema de gestión empresarial con dashboard interactivo, reportes en tiempo real y múltiples usuarios.</p>
                             <div class="portfolio-tags">
                                 <span class="tag">Vue.js</span>
                                 <span class="tag">Laravel</span>
@@ -462,12 +456,12 @@
 
                     <div class="portfolio-card">
                         <div class="portfolio-image">
-                            <img id="portfolio2Image" src="https://images.pexels.com/photos/270348/pexels-photo-270348.jpeg" alt="Proyecto 3">
+                            <img id="portfolio2Image" src="https://images.pexels.com/photos/3184360/pexels-photo-3184360.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Proyecto 3">
                         </div>
                         <div class="portfolio-content">
-                            <h3 id="portfolio2Title">Landing Page Premium</h3>
+                            <h3 id="portfolio2Title">Landing Page</h3>
                             <p class="portfolio-subtitle" id="portfolio2Subtitle">Marketing Digital</p>
-                            <p class="portfolio-description" id="portfolio2Description">Landing page optimizada para conversiones con animaciones atractivas y formularios de captura de leads.</p>
+                            <p class="portfolio-description" id="portfolio2Description">Landing page optimizada para conversiones con formularios inteligentes y análisis de comportamiento.</p>
                             <div class="portfolio-tags">
                                 <span class="tag">HTML5</span>
                                 <span class="tag">CSS3</span>
@@ -501,12 +495,12 @@
                 <div class="team-grid">
                     <div class="team-card">
                         <div class="team-image">
-                            <img id="team0Image" src="https://images.pexels.com/photos/614810/pexels-photo-614810.jpeg" alt="Miembro del equipo">
+                            <img id="team0Image" src="https://images.pexels.com/photos/2379004/pexels-photo-2379004.jpeg?auto=compress&cs=tinysrgb&w=400" alt="Miembro del equipo">
                         </div>
                         <div class="team-content">
                             <h3 id="team0Name">Carlos Rodríguez</h3>
                             <p class="team-role" id="team0Role">CEO & Desarrollador Full Stack</p>
-                            <p class="team-description" id="team0Description">Con más de 8 años de experiencia en desarrollo web, Carlos lidera nuestro equipo con pasión por la innovación y la excelencia técnica.</p>
+                            <p class="team-description" id="team0Description">Con más de 8 años de experiencia en desarrollo web, lidera nuestro equipo con pasión por la innovación y la excelencia técnica.</p>
                             <div class="team-social">
                                 <a href="#" class="social-btn">
                                     <i class="fab fa-linkedin"></i>
@@ -522,12 +516,12 @@
 
                     <div class="team-card">
                         <div class="team-image">
-                            <img id="team1Image" src="https://images.pexels.com/photos/733872/pexels-photo-733872.jpeg" alt="Miembro del equipo">
+                            <img id="team1Image" src="https://images.pexels.com/photos/3777931/pexels-photo-3777931.jpeg?auto=compress&cs=tinysrgb&w=400" alt="Miembro del equipo">
                         </div>
                         <div class="team-content">
                             <h3 id="team1Name">Ana García</h3>
                             <p class="team-role" id="team1Role">Diseñadora UX/UI</p>
-                            <p class="team-description" id="team1Description">Ana se especializa en crear experiencias de usuario intuitivas y diseños atractivos que convierten visitantes en clientes satisfechos.</p>
+                            <p class="team-description" id="team1Description">Especialista en crear experiencias de usuario intuitivas y diseños atractivos que convierten visitantes en clientes.</p>
                             <div class="team-social">
                                 <a href="#" class="social-btn">
                                     <i class="fab fa-dribbble"></i>
@@ -543,12 +537,12 @@
 
                     <div class="team-card">
                         <div class="team-image">
-                            <img id="team2Image" src="https://images.pexels.com/photos/1222271/pexels-photo-1222271.jpeg" alt="Miembro del equipo">
+                            <img id="team2Image" src="https://images.pexels.com/photos/2182970/pexels-photo-2182970.jpeg?auto=compress&cs=tinysrgb&w=400" alt="Miembro del equipo">
                         </div>
                         <div class="team-content">
                             <h3 id="team2Name">Miguel Torres</h3>
                             <p class="team-role" id="team2Role">Desarrollador Frontend</p>
-                            <p class="team-description" id="team2Description">Miguel domina las últimas tecnologías frontend y se asegura de que cada sitio web sea rápido, responsive y visualmente impresionante.</p>
+                            <p class="team-description" id="team2Description">Experto en tecnologías modernas de frontend, se encarga de dar vida a los diseños con código limpio y optimizado.</p>
                             <div class="team-social">
                                 <a href="#" class="social-btn">
                                     <i class="fab fa-twitter"></i>
@@ -579,8 +573,8 @@
                 <div class="section-header">
                     <h1>Contáctanos</h1>
                     <p class="section-description">
-                        ¿Tienes un proyecto en mente? Nos encantaría escuchar tus ideas y ayudarte a convertirlas en realidad. 
-                        Contáctanos hoy mismo para una consulta gratuita.
+                        ¿Tienes un proyecto en mente? Nos encantaría escuchar tus ideas y ayudarte a 
+                        convertirlas en realidad. Contáctanos y comencemos a trabajar juntos.
                     </p>
                 </div>
 
@@ -605,7 +599,7 @@
                                 </div>
                                 <div>
                                     <div class="contact-label">Teléfono</div>
-                                    <div class="contact-value">+1 (555) 123-4567</div>
+                                    <div class="contact-value">+54 3704 047512</div>
                                 </div>
                             </div>
 
@@ -615,13 +609,13 @@
                                 </div>
                                 <div>
                                     <div class="contact-label">Ubicación</div>
-                                    <div class="contact-value">Ciudad de México, México</div>
+                                    <div class="contact-value">Argentina, Formosa</div>
                                 </div>
                             </div>
                         </div>
 
                         <div class="why-choose-us">
-                            <h3>¿Por qué elegir GoWeb?</h3>
+                            <h3>¿Por qué elegirnos?</h3>
                             <ul>
                                 <li>Experiencia comprobada en desarrollo web</li>
                                 <li>Diseños modernos y responsivos</li>
@@ -638,19 +632,22 @@
                         <form id="contactForm" class="contact-form">
                             <div class="form-row">
                                 <input type="text" placeholder="Nombre" required>
-                                <input type="email" placeholder="Email" required>
+                                <input type="text" placeholder="Apellido" required>
                             </div>
                             <div class="form-row">
+                                <input type="email" placeholder="Email" required>
                                 <input type="tel" placeholder="Teléfono">
-                                <select required>
-                                    <option value="">Tipo de proyecto</option>
-                                    <option value="sitio-web">Sitio Web</option>
-                                    <option value="ecommerce">E-commerce</option>
-                                    <option value="aplicacion">Aplicación Web</option>
-                                    <option value="mantenimiento">Mantenimiento</option>
-                                    <option value="otro">Otro</option>
-                                </select>
                             </div>
+                            <input type="text" placeholder="Asunto" required>
+                            <select required>
+                                <option value="">Tipo de proyecto</option>
+                                <option value="sitio-web">Sitio Web</option>
+                                <option value="ecommerce">E-commerce</option>
+                                <option value="aplicacion">Aplicación Web</option>
+                                <option value="mantenimiento">Mantenimiento</option>
+                                <option value="consultoria">Consultoría</option>
+                                <option value="otro">Otro</option>
+                            </select>
                             <textarea placeholder="Cuéntanos sobre tu proyecto..." rows="5" required></textarea>
                             <button type="submit" class="btn btn-gradient">
                                 <i class="fas fa-paper-plane"></i>
@@ -662,7 +659,7 @@
             </div>
         </section>
 
-        <!-- Admin Panel Section -->
+        <!-- Admin Section -->
         <section id="adminSection" class="section admin-panel">
             <div class="container">
                 <div class="admin-header">
@@ -729,7 +726,7 @@
                             </div>
                             <div class="admin-form-group">
                                 <label>Descripción:</label>
-                                <textarea id="adminGoldDescription">Ideal para empresas que requieren funcionalidades avanzadas, gestión de contenido y integración con sistemas externos.</textarea>
+                                <textarea id="adminGoldDescription">Ideal para empresas que requieren funcionalidades avanzadas, gestión de contenido y integración con redes sociales.</textarea>
                             </div>
                             <div class="admin-form-group">
                                 <label>Precio:</label>
@@ -749,11 +746,11 @@
                             </div>
                             <div class="admin-form-group">
                                 <label>Título:</label>
-                                <input type="text" id="adminExpertTitle" value="Aplicación Web Completa">
+                                <input type="text" id="adminExpertTitle" value="Aplicación Web">
                             </div>
                             <div class="admin-form-group">
                                 <label>Descripción:</label>
-                                <textarea id="adminExpertDescription">Solución completa para empresas que necesitan aplicaciones web robustas con funcionalidades personalizadas y escalabilidad.</textarea>
+                                <textarea id="adminExpertDescription">Solución completa para empresas que necesitan sistemas complejos, bases de datos y funcionalidades personalizadas.</textarea>
                             </div>
                             <div class="admin-form-group">
                                 <label>Precio:</label>
@@ -803,7 +800,7 @@
                             </div>
                             <div class="admin-form-group">
                                 <label>Descripción:</label>
-                                <textarea id="adminPortfolio1Description">Sistema de gestión empresarial con dashboard interactivo, reportes en tiempo real y múltiples roles de usuario.</textarea>
+                                <textarea id="adminPortfolio1Description">Sistema de gestión empresarial con dashboard interactivo, reportes en tiempo real y múltiples usuarios.</textarea>
                             </div>
                             <button class="admin-save-btn" onclick="savePortfolio(1)">
                                 <i class="fas fa-save"></i>
@@ -815,7 +812,7 @@
                             <h3>Proyecto 3</h3>
                             <div class="admin-form-group">
                                 <label>Título:</label>
-                                <input type="text" id="adminPortfolio2Title" value="Landing Page Premium">
+                                <input type="text" id="adminPortfolio2Title" value="Landing Page">
                             </div>
                             <div class="admin-form-group">
                                 <label>Subtítulo:</label>
@@ -823,7 +820,7 @@
                             </div>
                             <div class="admin-form-group">
                                 <label>Descripción:</label>
-                                <textarea id="adminPortfolio2Description">Landing page optimizada para conversiones con animaciones atractivas y formularios de captura de leads.</textarea>
+                                <textarea id="adminPortfolio2Description">Landing page optimizada para conversiones con formularios inteligentes y análisis de comportamiento.</textarea>
                             </div>
                             <button class="admin-save-btn" onclick="savePortfolio(2)">
                                 <i class="fas fa-save"></i>
@@ -849,7 +846,7 @@
                             </div>
                             <div class="admin-form-group">
                                 <label>Descripción:</label>
-                                <textarea id="adminTeam0Description">Con más de 8 años de experiencia en desarrollo web, Carlos lidera nuestro equipo con pasión por la innovación y la excelencia técnica.</textarea>
+                                <textarea id="adminTeam0Description">Con más de 8 años de experiencia en desarrollo web, lidera nuestro equipo con pasión por la innovación y la excelencia técnica.</textarea>
                             </div>
                             <button class="admin-save-btn" onclick="saveTeam(0)">
                                 <i class="fas fa-save"></i>
@@ -869,7 +866,7 @@
                             </div>
                             <div class="admin-form-group">
                                 <label>Descripción:</label>
-                                <textarea id="adminTeam1Description">Ana se especializa en crear experiencias de usuario intuitivas y diseños atractivos que convierten visitantes en clientes satisfechos.</textarea>
+                                <textarea id="adminTeam1Description">Especialista en crear experiencias de usuario intuitivas y diseños atractivos que convierten visitantes en clientes.</textarea>
                             </div>
                             <button class="admin-save-btn" onclick="saveTeam(1)">
                                 <i class="fas fa-save"></i>
@@ -889,7 +886,7 @@
                             </div>
                             <div class="admin-form-group">
                                 <label>Descripción:</label>
-                                <textarea id="adminTeam2Description">Miguel domina las últimas tecnologías frontend y se asegura de que cada sitio web sea rápido, responsive y visualmente impresionante.</textarea>
+                                <textarea id="adminTeam2Description">Experto en tecnologías modernas de frontend, se encarga de dar vida a los diseños con código limpio y optimizado.</textarea>
                             </div>
                             <button class="admin-save-btn" onclick="saveTeam(2)">
                                 <i class="fas fa-save"></i>
@@ -903,16 +900,15 @@
                 <div id="imagesAdmin" class="admin-content">
                     <h2>Gestionar Imágenes</h2>
                     <div class="admin-images-grid">
-                        <!-- Maintenance Image -->
                         <div class="admin-image-card">
                             <h3>Imagen de Mantenimiento</h3>
                             <div class="admin-form-group">
-                                <label>URL de la imagen:</label>
-                                <input type="url" id="adminMaintenanceImageUrl" value="https://images.pexels.com/photos/574071/pexels-photo-574071.jpeg" placeholder="https://ejemplo.com/imagen.jpg">
+                                <label>URL de la Imagen:</label>
+                                <input type="url" id="adminMaintenanceImageUrl" placeholder="https://ejemplo.com/imagen.jpg">
                             </div>
                             <div class="admin-form-group">
                                 <label>O subir archivo:</label>
-                                <input type="file" id="adminMaintenanceImageFile" accept="image/*" onchange="handleImageUpload('maintenance', this)">
+                                <input type="file" accept="image/*" onchange="handleImageUpload('maintenance', this)">
                             </div>
                             <button class="admin-save-btn" onclick="saveImage('maintenance')">
                                 <i class="fas fa-save"></i>
@@ -920,57 +916,49 @@
                             </button>
                         </div>
 
-                        <!-- Portfolio Images -->
                         <div class="admin-image-card">
                             <h3>Imágenes del Portafolio</h3>
                             <div class="admin-form-group">
                                 <label>Proyecto 1 - URL:</label>
-                                <input type="url" id="adminPortfolio0ImageUrl" value="https://images.pexels.com/photos/196644/pexels-photo-196644.jpeg" placeholder="https://ejemplo.com/imagen.jpg">
-                                <label>O subir archivo:</label>
-                                <input type="file" id="adminPortfolio0ImageFile" accept="image/*" onchange="handleImageUpload('portfolio0', this)">
+                                <input type="url" id="adminPortfolio0ImageUrl" placeholder="https://ejemplo.com/proyecto1.jpg">
+                                <input type="file" accept="image/*" onchange="handleImageUpload('portfolio0', this)">
                             </div>
                             <div class="admin-form-group">
                                 <label>Proyecto 2 - URL:</label>
-                                <input type="url" id="adminPortfolio1ImageUrl" value="https://images.pexels.com/photos/265087/pexels-photo-265087.jpeg" placeholder="https://ejemplo.com/imagen.jpg">
-                                <label>O subir archivo:</label>
-                                <input type="file" id="adminPortfolio1ImageFile" accept="image/*" onchange="handleImageUpload('portfolio1', this)">
+                                <input type="url" id="adminPortfolio1ImageUrl" placeholder="https://ejemplo.com/proyecto2.jpg">
+                                <input type="file" accept="image/*" onchange="handleImageUpload('portfolio1', this)">
                             </div>
                             <div class="admin-form-group">
                                 <label>Proyecto 3 - URL:</label>
-                                <input type="url" id="adminPortfolio2ImageUrl" value="https://images.pexels.com/photos/270348/pexels-photo-270348.jpeg" placeholder="https://ejemplo.com/imagen.jpg">
-                                <label>O subir archivo:</label>
-                                <input type="file" id="adminPortfolio2ImageFile" accept="image/*" onchange="handleImageUpload('portfolio2', this)">
+                                <input type="url" id="adminPortfolio2ImageUrl" placeholder="https://ejemplo.com/proyecto3.jpg">
+                                <input type="file" accept="image/*" onchange="handleImageUpload('portfolio2', this)">
                             </div>
                             <button class="admin-save-btn" onclick="savePortfolioImages()">
                                 <i class="fas fa-save"></i>
-                                Guardar Imágenes del Portafolio
+                                Guardar Imágenes
                             </button>
                         </div>
 
-                        <!-- Team Images -->
                         <div class="admin-image-card">
-                            <h3>Imágenes del Equipo</h3>
+                            <h3>Fotos del Equipo</h3>
                             <div class="admin-form-group">
                                 <label>Miembro 1 - URL:</label>
-                                <input type="url" id="adminTeam0ImageUrl" value="https://images.pexels.com/photos/614810/pexels-photo-614810.jpeg" placeholder="https://ejemplo.com/imagen.jpg">
-                                <label>O subir archivo:</label>
-                                <input type="file" id="adminTeam0ImageFile" accept="image/*" onchange="handleImageUpload('team0', this)">
+                                <input type="url" id="adminTeam0ImageUrl" placeholder="https://ejemplo.com/miembro1.jpg">
+                                <input type="file" accept="image/*" onchange="handleImageUpload('team0', this)">
                             </div>
                             <div class="admin-form-group">
                                 <label>Miembro 2 - URL:</label>
-                                <input type="url" id="adminTeam1ImageUrl" value="https://images.pexels.com/photos/733872/pexels-photo-733872.jpeg" placeholder="https://ejemplo.com/imagen.jpg">
-                                <label>O subir archivo:</label>
-                                <input type="file" id="adminTeam1ImageFile" accept="image/*" onchange="handleImageUpload('team1', this)">
+                                <input type="url" id="adminTeam1ImageUrl" placeholder="https://ejemplo.com/miembro2.jpg">
+                                <input type="file" accept="image/*" onchange="handleImageUpload('team1', this)">
                             </div>
                             <div class="admin-form-group">
                                 <label>Miembro 3 - URL:</label>
-                                <input type="url" id="adminTeam2ImageUrl" value="https://images.pexels.com/photos/1222271/pexels-photo-1222271.jpeg" placeholder="https://ejemplo.com/imagen.jpg">
-                                <label>O subir archivo:</label>
-                                <input type="file" id="adminTeam2ImageFile" accept="image/*" onchange="handleImageUpload('team2', this)">
+                                <input type="url" id="adminTeam2ImageUrl" placeholder="https://ejemplo.com/miembro3.jpg">
+                                <input type="file" accept="image/*" onchange="handleImageUpload('team2', this)">
                             </div>
                             <button class="admin-save-btn" onclick="saveTeamImages()">
                                 <i class="fas fa-save"></i>
-                                Guardar Imágenes del Equipo
+                                Guardar Fotos
                             </button>
                         </div>
                     </div>
