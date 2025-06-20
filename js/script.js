@@ -496,6 +496,49 @@ class AdminPanelSystem {
     }
 }
 
+// Image Upload Handler
+function handleImageUpload(imageType, fileInput) {
+    const file = fileInput.files[0];
+    if (!file) return;
+
+    // Validate file type
+    if (!file.type.startsWith('image/')) {
+        window.navigation.showAlert('Por favor selecciona un archivo de imagen válido.');
+        return;
+    }
+
+    // Validate file size (max 5MB)
+    if (file.size > 5 * 1024 * 1024) {
+        window.navigation.showAlert('El archivo es demasiado grande. Máximo 5MB.');
+        return;
+    }
+
+    const reader = new FileReader();
+    reader.onload = function(e) {
+        const dataUrl = e.target.result;
+        
+        // Update the corresponding URL input
+        const urlInput = document.getElementById(`admin${imageType.charAt(0).toUpperCase() + imageType.slice(1)}ImageUrl`);
+        if (urlInput) {
+            urlInput.value = dataUrl;
+        }
+
+        // Show preview
+        const imgEl = document.getElementById(`${imageType}Image`);
+        if (imgEl) {
+            imgEl.src = dataUrl;
+        }
+
+        window.navigation.showAlert('Imagen cargada correctamente. No olvides guardar los cambios.');
+    };
+
+    reader.onerror = function() {
+        window.navigation.showAlert('Error al cargar la imagen. Inténtalo de nuevo.');
+    };
+
+    reader.readAsDataURL(file);
+}
+
 // Global functions for admin panel
 function saveService(serviceType) {
     const nameInput = document.getElementById(`admin${serviceType.charAt(0).toUpperCase() + serviceType.slice(1)}Name`);
@@ -600,7 +643,10 @@ function saveTeam(index) {
 function saveImage(imageType) {
     const input = document.getElementById(`admin${imageType.charAt(0).toUpperCase() + imageType.slice(1)}ImageUrl`);
     
-    if (!input) return;
+    if (!input || !input.value.trim()) {
+        window.navigation.showAlert('Por favor ingresa una URL válida o sube una imagen.');
+        return;
+    }
 
     // Get existing images or create new object
     let images = JSON.parse(localStorage.getItem('gowebImages') || '{}');
@@ -613,11 +659,19 @@ function saveImage(imageType) {
 
 function savePortfolioImages() {
     const images = {};
+    let hasValidImage = false;
+    
     for (let i = 0; i < 3; i++) {
         const input = document.getElementById(`adminPortfolio${i}ImageUrl`);
-        if (input) {
+        if (input && input.value.trim()) {
             images[`portfolio${i}`] = input.value;
+            hasValidImage = true;
         }
+    }
+
+    if (!hasValidImage) {
+        window.navigation.showAlert('Por favor ingresa al menos una URL válida o sube una imagen.');
+        return;
     }
 
     // Get existing images or create new object
@@ -631,11 +685,19 @@ function savePortfolioImages() {
 
 function saveTeamImages() {
     const images = {};
+    let hasValidImage = false;
+    
     for (let i = 0; i < 3; i++) {
         const input = document.getElementById(`adminTeam${i}ImageUrl`);
-        if (input) {
+        if (input && input.value.trim()) {
             images[`team${i}`] = input.value;
+            hasValidImage = true;
         }
+    }
+
+    if (!hasValidImage) {
+        window.navigation.showAlert('Por favor ingresa al menos una URL válida o sube una imagen.');
+        return;
     }
 
     // Get existing images or create new object
