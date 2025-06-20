@@ -48,14 +48,6 @@
 
                 <button type="submit" class="login-btn">Iniciar Sesión</button>
             </form>
-
-            <div class="demo-accounts">
-                <p>Cuentas de prueba:</p>
-                <div class="demo-info">
-                    <p><strong>Admin:</strong> admin@goweb.com / admin123</p>
-                    <p><strong>Usuario:</strong> user@goweb.com / user123</p>
-                </div>
-            </div>
         </div>
     </div>
 
@@ -69,19 +61,41 @@
                 </div>
 
                 <div class="nav-menu" id="navMenu">
-                    <a href="#" class="nav-link active" data-section="home">Inicio</a>
-                    <a href="#" class="nav-link" data-section="services">Servicios</a>
-                    <a href="#" class="nav-link" data-section="maintenance">Soporte y Mantenimiento</a>
-                    <a href="#" class="nav-link" data-section="portfolio">Portafolio</a>
-                    <a href="#" class="nav-link" data-section="about">Sobre nosotros</a>
-                    <a href="#" class="nav-link" data-section="contact">Contacto</a>
+                    <a href="#" class="nav-link active" data-section="home">
+                        <i class="fas fa-home"></i>
+                        <span>Inicio</span>
+                    </a>
+                    <a href="#" class="nav-link" data-section="services">
+                        <i class="fas fa-cogs"></i>
+                        <span>Servicios</span>
+                    </a>
+                    <a href="#" class="nav-link" data-section="maintenance">
+                        <i class="fas fa-tools"></i>
+                        <span>Soporte</span>
+                    </a>
+                    <a href="#" class="nav-link" data-section="portfolio">
+                        <i class="fas fa-briefcase"></i>
+                        <span>Portafolio</span>
+                    </a>
+                    <a href="#" class="nav-link" data-section="about">
+                        <i class="fas fa-users"></i>
+                        <span>Nosotros</span>
+                    </a>
+                    <a href="#" class="nav-link" data-section="contact">
+                        <i class="fas fa-envelope"></i>
+                        <span>Contacto</span>
+                    </a>
+                    <a href="#" class="nav-link admin-only" data-section="admin" style="display: none;">
+                        <i class="fas fa-shield-alt"></i>
+                        <span>Admin</span>
+                    </a>
                 </div>
 
                 <div class="nav-user">
                     <span id="userInfo" class="user-info"></span>
                     <button id="logoutBtn" class="logout-btn">
                         <i class="fas fa-sign-out-alt"></i>
-                        Salir
+                        <span class="logout-text">Salir</span>
                     </button>
                     <button class="mobile-menu-btn" id="mobileMenuBtn">
                         <i class="fas fa-bars"></i>
@@ -89,6 +103,57 @@
                 </div>
             </div>
         </nav>
+
+        <!-- Mobile Menu Overlay -->
+        <div class="mobile-menu-overlay" id="mobileMenuOverlay">
+            <div class="mobile-menu-content">
+                <div class="mobile-menu-header">
+                    <h2>GoWeb</h2>
+                    <button class="mobile-menu-close" id="mobileMenuClose">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+                <div class="mobile-menu-items">
+                    <a href="#" class="mobile-nav-link active" data-section="home">
+                        <i class="fas fa-home"></i>
+                        <span>Inicio</span>
+                    </a>
+                    <a href="#" class="mobile-nav-link" data-section="services">
+                        <i class="fas fa-cogs"></i>
+                        <span>Servicios</span>
+                    </a>
+                    <a href="#" class="mobile-nav-link" data-section="maintenance">
+                        <i class="fas fa-tools"></i>
+                        <span>Soporte y Mantenimiento</span>
+                    </a>
+                    <a href="#" class="mobile-nav-link" data-section="portfolio">
+                        <i class="fas fa-briefcase"></i>
+                        <span>Portafolio</span>
+                    </a>
+                    <a href="#" class="mobile-nav-link" data-section="about">
+                        <i class="fas fa-users"></i>
+                        <span>Sobre nosotros</span>
+                    </a>
+                    <a href="#" class="mobile-nav-link" data-section="contact">
+                        <i class="fas fa-envelope"></i>
+                        <span>Contacto</span>
+                    </a>
+                    <a href="#" class="mobile-nav-link admin-only" data-section="admin" style="display: none;">
+                        <i class="fas fa-shield-alt"></i>
+                        <span>Panel Admin</span>
+                    </a>
+                </div>
+                <div class="mobile-menu-footer">
+                    <div class="mobile-user-info">
+                        <span id="mobileUserInfo"></span>
+                    </div>
+                    <button id="mobileLogoutBtn" class="mobile-logout-btn">
+                        <i class="fas fa-sign-out-alt"></i>
+                        Cerrar Sesión
+                    </button>
+                </div>
+            </div>
+        </div>
 
         <!-- Main Content -->
         <main class="main-content">
@@ -133,7 +198,7 @@
                             <div class="image-frame">
                                 <div class="image-border"></div>
                                 <div class="image-content">
-                                    <img src="https://images.pexels.com/photos/3184298/pexels-photo-3184298.jpeg" alt="Team collaboration">
+                                    <img id="homeImage" src="https://images.pexels.com/photos/3184298/pexels-photo-3184298.jpeg" alt="Team collaboration">
                                 </div>
                             </div>
                             <div class="logo-circle">
@@ -169,40 +234,57 @@
                         <h1>Nuestros Servicios</h1>
                     </div>
 
+                    <!-- Video Explicativo -->
+                    <div class="services-video">
+                        <div class="video-container">
+                            <h2>¿Cómo trabajamos?</h2>
+                            <p>Descubre nuestro proceso de desarrollo paso a paso</p>
+                            <div class="video-wrapper">
+                                <iframe 
+                                    src="https://www.youtube.com/embed/dQw4w9WgXcQ" 
+                                    title="Proceso de Desarrollo GoWeb"
+                                    frameborder="0" 
+                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                                    allowfullscreen>
+                                </iframe>
+                            </div>
+                        </div>
+                    </div>
+
                     <div class="services-grid">
-                        <div class="service-card teal">
+                        <div class="service-card teal" data-service="basic">
                             <div class="service-header">
-                                <h3>Paquete Básico</h3>
+                                <h3 id="basicServiceName">Paquete Básico</h3>
                             </div>
                             <div class="service-content">
-                                <h4>Landing Page</h4>
-                                <p>Sitio web de una página optimizado para conversión</p>
+                                <h4 id="basicServiceTitle">Landing Page</h4>
+                                <p id="basicServiceDescription">Sitio web de una página optimizado para conversión</p>
                                 <div class="service-divider"></div>
-                                <div class="service-price">$140/Mes</div>
+                                <div class="service-price" id="basicServicePrice">$140/Mes</div>
                             </div>
                         </div>
 
-                        <div class="service-card teal">
+                        <div class="service-card teal" data-service="gold">
                             <div class="service-header">
-                                <h3>Paquete Oro</h3>
+                                <h3 id="goldServiceName">Paquete Oro</h3>
                             </div>
                             <div class="service-content">
-                                <h4>Web Corporativa</h4>
-                                <p>Sitio web profesional con múltiples secciones</p>
+                                <h4 id="goldServiceTitle">Web Corporativa</h4>
+                                <p id="goldServiceDescription">Sitio web profesional con múltiples secciones</p>
                                 <div class="service-divider"></div>
-                                <div class="service-price">$240/Mes</div>
+                                <div class="service-price" id="goldServicePrice">$240/Mes</div>
                             </div>
                         </div>
 
-                        <div class="service-card dark">
+                        <div class="service-card dark" data-service="expert">
                             <div class="service-header">
-                                <h3>Paquete Experto</h3>
+                                <h3 id="expertServiceName">Paquete Experto</h3>
                             </div>
                             <div class="service-content">
-                                <h4>Tienda Online</h4>
-                                <p>Ecommerce completo con pasarela de pagos</p>
+                                <h4 id="expertServiceTitle">Tienda Online</h4>
+                                <p id="expertServiceDescription">Ecommerce completo con pasarela de pagos</p>
                                 <div class="service-divider"></div>
-                                <div class="service-price teal-text">$350/Mes</div>
+                                <div class="service-price teal-text" id="expertServicePrice">$350/Mes</div>
                             </div>
                         </div>
                     </div>
@@ -249,7 +331,7 @@
                             <div class="image-frame">
                                 <div class="image-border"></div>
                                 <div class="image-content">
-                                    <img src="https://images.pexels.com/photos/3184465/pexels-photo-3184465.jpeg" alt="Professional support">
+                                    <img id="maintenanceImage" src="https://images.pexels.com/photos/3184465/pexels-photo-3184465.jpeg" alt="Professional support">
                                 </div>
                             </div>
                         </div>
@@ -288,14 +370,14 @@
                     </div>
 
                     <div class="portfolio-grid">
-                        <div class="portfolio-card">
+                        <div class="portfolio-card" data-portfolio="0">
                             <div class="portfolio-image">
-                                <img src="https://images.pexels.com/photos/298864/pexels-photo-298864.jpeg" alt="Tienda de Ropa Online">
+                                <img id="portfolio0Image" src="https://images.pexels.com/photos/298864/pexels-photo-298864.jpeg" alt="Tienda de Ropa Online">
                             </div>
                             <div class="portfolio-content">
-                                <h3>Tienda de Ropa Online</h3>
-                                <p class="portfolio-subtitle">Ecommerce para marca de moda local</p>
-                                <p class="portfolio-description">Plataforma completa de comercio electrónico con catálogo de productos, carrito de compras y pasarela de pagos integrada.</p>
+                                <h3 id="portfolio0Title">Tienda de Ropa Online</h3>
+                                <p class="portfolio-subtitle" id="portfolio0Subtitle">Ecommerce para marca de moda local</p>
+                                <p class="portfolio-description" id="portfolio0Description">Plataforma completa de comercio electrónico con catálogo de productos, carrito de compras y pasarela de pagos integrada.</p>
                                 <div class="portfolio-tags">
                                     <span class="tag">React</span>
                                     <span class="tag">Tailwind</span>
@@ -304,14 +386,14 @@
                             </div>
                         </div>
 
-                        <div class="portfolio-card">
+                        <div class="portfolio-card" data-portfolio="1">
                             <div class="portfolio-image">
-                                <img src="https://images.pexels.com/photos/1640777/pexels-photo-1640777.jpeg" alt="Blog Gastronómico">
+                                <img id="portfolio1Image" src="https://images.pexels.com/photos/1640777/pexels-photo-1640777.jpeg" alt="Blog Gastronómico">
                             </div>
                             <div class="portfolio-content">
-                                <h3>Blog Gastronómico</h3>
-                                <p class="portfolio-subtitle">Sitio web para chef profesional</p>
-                                <p class="portfolio-description">Blog profesional con sistema de gestión de contenido, recetas interactivas y optimización SEO completa.</p>
+                                <h3 id="portfolio1Title">Blog Gastronómico</h3>
+                                <p class="portfolio-subtitle" id="portfolio1Subtitle">Sitio web para chef profesional</p>
+                                <p class="portfolio-description" id="portfolio1Description">Blog profesional con sistema de gestión de contenido, recetas interactivas y optimización SEO completa.</p>
                                 <div class="portfolio-tags">
                                     <span class="tag">Next.js</span>
                                     <span class="tag">SEO</span>
@@ -320,14 +402,14 @@
                             </div>
                         </div>
 
-                        <div class="portfolio-card">
+                        <div class="portfolio-card" data-portfolio="2">
                             <div class="portfolio-image">
-                                <img src="https://images.pexels.com/photos/3861969/pexels-photo-3861969.jpeg" alt="Plataforma de Cursos">
+                                <img id="portfolio2Image" src="https://images.pexels.com/photos/3861969/pexels-photo-3861969.jpeg" alt="Plataforma de Cursos">
                             </div>
                             <div class="portfolio-content">
-                                <h3>Plataforma de Cursos</h3>
-                                <p class="portfolio-subtitle">Web educativa con sistema de inscripción</p>
-                                <p class="portfolio-description">Sistema completo de gestión de aprendizaje con inscripciones, seguimiento de progreso y certificados.</p>
+                                <h3 id="portfolio2Title">Plataforma de Cursos</h3>
+                                <p class="portfolio-subtitle" id="portfolio2Subtitle">Web educativa con sistema de inscripción</p>
+                                <p class="portfolio-description" id="portfolio2Description">Sistema completo de gestión de aprendizaje con inscripciones, seguimiento de progreso y certificados.</p>
                                 <div class="portfolio-tags">
                                     <span class="tag">React</span>
                                     <span class="tag">Firebase</span>
@@ -365,14 +447,14 @@
                     </div>
 
                     <div class="team-grid">
-                        <div class="team-card">
+                        <div class="team-card" data-team="0">
                             <div class="team-image">
-                                <img src="https://images.pexels.com/photos/2379004/pexels-photo-2379004.jpeg" alt="Gomez Bobadilla, Sergio Oscar">
+                                <img id="team0Image" src="https://images.pexels.com/photos/2379004/pexels-photo-2379004.jpeg" alt="Gomez Bobadilla, Sergio Oscar">
                             </div>
                             <div class="team-content">
-                                <h3>Gomez Bobadilla, Sergio Oscar</h3>
-                                <p class="team-role">Fundador & CEO</p>
-                                <p class="team-description">Apasionado por la tecnología con 10 años de experiencia en desarrollo web.</p>
+                                <h3 id="team0Name">Gomez Bobadilla, Sergio Oscar</h3>
+                                <p class="team-role" id="team0Role">Fundador & CEO</p>
+                                <p class="team-description" id="team0Description">Apasionado por la tecnología con 10 años de experiencia en desarrollo web.</p>
                                 <div class="team-social">
                                     <a href="#" class="social-btn">
                                         <i class="fab fa-linkedin"></i>
@@ -386,14 +468,14 @@
                             </div>
                         </div>
 
-                        <div class="team-card">
+                        <div class="team-card" data-team="1">
                             <div class="team-image">
-                                <img src="https://images.pexels.com/photos/3777943/pexels-photo-3777943.jpeg" alt="Rivas, Sergio">
+                                <img id="team1Image" src="https://images.pexels.com/photos/3777943/pexels-photo-3777943.jpeg" alt="Rivas, Sergio">
                             </div>
                             <div class="team-content">
-                                <h3>Rivas, Sergio</h3>
-                                <p class="team-role">Director Creativo</p>
-                                <p class="team-description">Experto en diseño UX/UI con un enfoque en crear experiencias digitales únicas.</p>
+                                <h3 id="team1Name">Rivas, Sergio</h3>
+                                <p class="team-role" id="team1Role">Director Creativo</p>
+                                <p class="team-description" id="team1Description">Experto en diseño UX/UI con un enfoque en crear experiencias digitales únicas.</p>
                                 <div class="team-social">
                                     <a href="#" class="social-btn">
                                         <i class="fab fa-linkedin"></i>
@@ -407,14 +489,14 @@
                             </div>
                         </div>
 
-                        <div class="team-card">
+                        <div class="team-card" data-team="2">
                             <div class="team-image">
-                                <img src="https://images.pexels.com/photos/3785077/pexels-photo-3785077.jpeg" alt="Mendoza, Diego">
+                                <img id="team2Image" src="https://images.pexels.com/photos/3785077/pexels-photo-3785077.jpeg" alt="Mendoza, Diego">
                             </div>
                             <div class="team-content">
-                                <h3>Mendoza, Diego</h3>
-                                <p class="team-role">Desarrolladora Senior</p>
-                                <p class="team-description">Especialista en desarrollo frontend con pasión por crear webs de alto rendimiento.</p>
+                                <h3 id="team2Name">Mendoza, Diego</h3>
+                                <p class="team-role" id="team2Role">Desarrolladora Senior</p>
+                                <p class="team-description" id="team2Description">Especialista en desarrollo frontend con pasión por crear webs de alto rendimiento.</p>
                                 <div class="team-social">
                                     <a href="#" class="social-btn">
                                         <i class="fab fa-linkedin"></i>
@@ -531,6 +613,276 @@
                                     Enviar Mensaje
                                 </button>
                             </form>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Admin Panel Section -->
+            <section id="adminSection" class="section admin-panel">
+                <div class="container">
+                    <div class="admin-header">
+                        <h1><i class="fas fa-shield-alt"></i> Panel de Administración</h1>
+                        <p>Gestiona el contenido de tu sitio web</p>
+                    </div>
+
+                    <div class="admin-tabs">
+                        <button class="admin-tab active" data-tab="services">
+                            <i class="fas fa-cogs"></i>
+                            Servicios
+                        </button>
+                        <button class="admin-tab" data-tab="portfolio">
+                            <i class="fas fa-briefcase"></i>
+                            Portafolio
+                        </button>
+                        <button class="admin-tab" data-tab="team">
+                            <i class="fas fa-users"></i>
+                            Equipo
+                        </button>
+                        <button class="admin-tab" data-tab="images">
+                            <i class="fas fa-images"></i>
+                            Imágenes
+                        </button>
+                    </div>
+
+                    <!-- Services Admin -->
+                    <div class="admin-content active" id="servicesAdmin">
+                        <h2>Gestión de Servicios</h2>
+                        <div class="admin-services-grid">
+                            <div class="admin-service-card">
+                                <h3>Paquete Básico</h3>
+                                <div class="admin-form-group">
+                                    <label>Nombre del Paquete:</label>
+                                    <input type="text" id="adminBasicName" value="Paquete Básico">
+                                </div>
+                                <div class="admin-form-group">
+                                    <label>Título:</label>
+                                    <input type="text" id="adminBasicTitle" value="Landing Page">
+                                </div>
+                                <div class="admin-form-group">
+                                    <label>Descripción:</label>
+                                    <textarea id="adminBasicDescription">Sitio web de una página optimizado para conversión</textarea>
+                                </div>
+                                <div class="admin-form-group">
+                                    <label>Precio:</label>
+                                    <input type="text" id="adminBasicPrice" value="$140/Mes">
+                                </div>
+                                <button class="admin-save-btn" onclick="saveService('basic')">Guardar Cambios</button>
+                            </div>
+
+                            <div class="admin-service-card">
+                                <h3>Paquete Oro</h3>
+                                <div class="admin-form-group">
+                                    <label>Nombre del Paquete:</label>
+                                    <input type="text" id="adminGoldName" value="Paquete Oro">
+                                </div>
+                                <div class="admin-form-group">
+                                    <label>Título:</label>
+                                    <input type="text" id="adminGoldTitle" value="Web Corporativa">
+                                </div>
+                                <div class="admin-form-group">
+                                    <label>Descripción:</label>
+                                    <textarea id="adminGoldDescription">Sitio web profesional con múltiples secciones</textarea>
+                                </div>
+                                <div class="admin-form-group">
+                                    <label>Precio:</label>
+                                    <input type="text" id="adminGoldPrice" value="$240/Mes">
+                                </div>
+                                <button class="admin-save-btn" onclick="saveService('gold')">Guardar Cambios</button>
+                            </div>
+
+                            <div class="admin-service-card">
+                                <h3>Paquete Experto</h3>
+                                <div class="admin-form-group">
+                                    <label>Nombre del Paquete:</label>
+                                    <input type="text" id="adminExpertName" value="Paquete Experto">
+                                </div>
+                                <div class="admin-form-group">
+                                    <label>Título:</label>
+                                    <input type="text" id="adminExpertTitle" value="Tienda Online">
+                                </div>
+                                <div class="admin-form-group">
+                                    <label>Descripción:</label>
+                                    <textarea id="adminExpertDescription">Ecommerce completo con pasarela de pagos</textarea>
+                                </div>
+                                <div class="admin-form-group">
+                                    <label>Precio:</label>
+                                    <input type="text" id="adminExpertPrice" value="$350/Mes">
+                                </div>
+                                <button class="admin-save-btn" onclick="saveService('expert')">Guardar Cambios</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Portfolio Admin -->
+                    <div class="admin-content" id="portfolioAdmin">
+                        <h2>Gestión de Portafolio</h2>
+                        <div class="admin-portfolio-grid">
+                            <div class="admin-portfolio-card">
+                                <h3>Proyecto 1</h3>
+                                <div class="admin-form-group">
+                                    <label>Título:</label>
+                                    <input type="text" id="adminPortfolio0Title" value="Tienda de Ropa Online">
+                                </div>
+                                <div class="admin-form-group">
+                                    <label>Subtítulo:</label>
+                                    <input type="text" id="adminPortfolio0Subtitle" value="Ecommerce para marca de moda local">
+                                </div>
+                                <div class="admin-form-group">
+                                    <label>Descripción:</label>
+                                    <textarea id="adminPortfolio0Description">Plataforma completa de comercio electrónico con catálogo de productos, carrito de compras y pasarela de pagos integrada.</textarea>
+                                </div>
+                                <button class="admin-save-btn" onclick="savePortfolio(0)">Guardar Cambios</button>
+                            </div>
+
+                            <div class="admin-portfolio-card">
+                                <h3>Proyecto 2</h3>
+                                <div class="admin-form-group">
+                                    <label>Título:</label>
+                                    <input type="text" id="adminPortfolio1Title" value="Blog Gastronómico">
+                                </div>
+                                <div class="admin-form-group">
+                                    <label>Subtítulo:</label>
+                                    <input type="text" id="adminPortfolio1Subtitle" value="Sitio web para chef profesional">
+                                </div>
+                                <div class="admin-form-group">
+                                    <label>Descripción:</label>
+                                    <textarea id="adminPortfolio1Description">Blog profesional con sistema de gestión de contenido, recetas interactivas y optimización SEO completa.</textarea>
+                                </div>
+                                <button class="admin-save-btn" onclick="savePortfolio(1)">Guardar Cambios</button>
+                            </div>
+
+                            <div class="admin-portfolio-card">
+                                <h3>Proyecto 3</h3>
+                                <div class="admin-form-group">
+                                    <label>Título:</label>
+                                    <input type="text" id="adminPortfolio2Title" value="Plataforma de Cursos">
+                                </div>
+                                <div class="admin-form-group">
+                                    <label>Subtítulo:</label>
+                                    <input type="text" id="adminPortfolio2Subtitle" value="Web educativa con sistema de inscripción">
+                                </div>
+                                <div class="admin-form-group">
+                                    <label>Descripción:</label>
+                                    <textarea id="adminPortfolio2Description">Sistema completo de gestión de aprendizaje con inscripciones, seguimiento de progreso y certificados.</textarea>
+                                </div>
+                                <button class="admin-save-btn" onclick="savePortfolio(2)">Guardar Cambios</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Team Admin -->
+                    <div class="admin-content" id="teamAdmin">
+                        <h2>Gestión del Equipo</h2>
+                        <div class="admin-team-grid">
+                            <div class="admin-team-card">
+                                <h3>Miembro 1</h3>
+                                <div class="admin-form-group">
+                                    <label>Nombre:</label>
+                                    <input type="text" id="adminTeam0Name" value="Gomez Bobadilla, Sergio Oscar">
+                                </div>
+                                <div class="admin-form-group">
+                                    <label>Cargo:</label>
+                                    <input type="text" id="adminTeam0Role" value="Fundador & CEO">
+                                </div>
+                                <div class="admin-form-group">
+                                    <label>Descripción:</label>
+                                    <textarea id="adminTeam0Description">Apasionado por la tecnología con 10 años de experiencia en desarrollo web.</textarea>
+                                </div>
+                                <button class="admin-save-btn" onclick="saveTeam(0)">Guardar Cambios</button>
+                            </div>
+
+                            <div class="admin-team-card">
+                                <h3>Miembro 2</h3>
+                                <div class="admin-form-group">
+                                    <label>Nombre:</label>
+                                    <input type="text" id="adminTeam1Name" value="Rivas, Sergio">
+                                </div>
+                                <div class="admin-form-group">
+                                    <label>Cargo:</label>
+                                    <input type="text" id="adminTeam1Role" value="Director Creativo">
+                                </div>
+                                <div class="admin-form-group">
+                                    <label>Descripción:</label>
+                                    <textarea id="adminTeam1Description">Experto en diseño UX/UI con un enfoque en crear experiencias digitales únicas.</textarea>
+                                </div>
+                                <button class="admin-save-btn" onclick="saveTeam(1)">Guardar Cambios</button>
+                            </div>
+
+                            <div class="admin-team-card">
+                                <h3>Miembro 3</h3>
+                                <div class="admin-form-group">
+                                    <label>Nombre:</label>
+                                    <input type="text" id="adminTeam2Name" value="Mendoza, Diego">
+                                </div>
+                                <div class="admin-form-group">
+                                    <label>Cargo:</label>
+                                    <input type="text" id="adminTeam2Role" value="Desarrolladora Senior">
+                                </div>
+                                <div class="admin-form-group">
+                                    <label>Descripción:</label>
+                                    <textarea id="adminTeam2Description">Especialista en desarrollo frontend con pasión por crear webs de alto rendimiento.</textarea>
+                                </div>
+                                <button class="admin-save-btn" onclick="saveTeam(2)">Guardar Cambios</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Images Admin -->
+                    <div class="admin-content" id="imagesAdmin">
+                        <h2>Gestión de Imágenes</h2>
+                        <div class="admin-images-grid">
+                            <div class="admin-image-card">
+                                <h3>Imagen Principal (Inicio)</h3>
+                                <div class="admin-form-group">
+                                    <label>URL de la imagen:</label>
+                                    <input type="url" id="adminHomeImageUrl" value="https://images.pexels.com/photos/3184298/pexels-photo-3184298.jpeg">
+                                </div>
+                                <button class="admin-save-btn" onclick="saveImage('home')">Actualizar Imagen</button>
+                            </div>
+
+                            <div class="admin-image-card">
+                                <h3>Imagen de Mantenimiento</h3>
+                                <div class="admin-form-group">
+                                    <label>URL de la imagen:</label>
+                                    <input type="url" id="adminMaintenanceImageUrl" value="https://images.pexels.com/photos/3184465/pexels-photo-3184465.jpeg">
+                                </div>
+                                <button class="admin-save-btn" onclick="saveImage('maintenance')">Actualizar Imagen</button>
+                            </div>
+
+                            <div class="admin-image-card">
+                                <h3>Imágenes del Portafolio</h3>
+                                <div class="admin-form-group">
+                                    <label>Proyecto 1:</label>
+                                    <input type="url" id="adminPortfolio0ImageUrl" value="https://images.pexels.com/photos/298864/pexels-photo-298864.jpeg">
+                                </div>
+                                <div class="admin-form-group">
+                                    <label>Proyecto 2:</label>
+                                    <input type="url" id="adminPortfolio1ImageUrl" value="https://images.pexels.com/photos/1640777/pexels-photo-1640777.jpeg">
+                                </div>
+                                <div class="admin-form-group">
+                                    <label>Proyecto 3:</label>
+                                    <input type="url" id="adminPortfolio2ImageUrl" value="https://images.pexels.com/photos/3861969/pexels-photo-3861969.jpeg">
+                                </div>
+                                <button class="admin-save-btn" onclick="savePortfolioImages()">Actualizar Imágenes</button>
+                            </div>
+
+                            <div class="admin-image-card">
+                                <h3>Imágenes del Equipo</h3>
+                                <div class="admin-form-group">
+                                    <label>Miembro 1:</label>
+                                    <input type="url" id="adminTeam0ImageUrl" value="https://images.pexels.com/photos/2379004/pexels-photo-2379004.jpeg">
+                                </div>
+                                <div class="admin-form-group">
+                                    <label>Miembro 2:</label>
+                                    <input type="url" id="adminTeam1ImageUrl" value="https://images.pexels.com/photos/3777943/pexels-photo-3777943.jpeg">
+                                </div>
+                                <div class="admin-form-group">
+                                    <label>Miembro 3:</label>
+                                    <input type="url" id="adminTeam2ImageUrl" value="https://images.pexels.com/photos/3785077/pexels-photo-3785077.jpeg">
+                                </div>
+                                <button class="admin-save-btn" onclick="saveTeamImages()">Actualizar Imágenes</button>
+                            </div>
                         </div>
                     </div>
                 </div>

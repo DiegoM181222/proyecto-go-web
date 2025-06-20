@@ -36,8 +36,13 @@ class AuthSystem {
 
     setupLogout() {
         const logoutBtn = document.getElementById('logoutBtn');
+        const mobileLogoutBtn = document.getElementById('mobileLogoutBtn');
+        
         if (logoutBtn) {
             logoutBtn.addEventListener('click', () => this.logout());
+        }
+        if (mobileLogoutBtn) {
+            mobileLogoutBtn.addEventListener('click', () => this.logout());
         }
     }
 
@@ -70,6 +75,7 @@ class AuthSystem {
         const loginScreen = document.getElementById('loginScreen');
         const mainWebsite = document.getElementById('mainWebsite');
         const userInfo = document.getElementById('userInfo');
+        const mobileUserInfo = document.getElementById('mobileUserInfo');
 
         loginScreen.style.display = 'none';
         mainWebsite.style.display = 'block';
@@ -77,9 +83,21 @@ class AuthSystem {
         if (userInfo && this.currentUser) {
             userInfo.textContent = `${this.currentUser.name} (${this.currentUser.role})`;
         }
+        if (mobileUserInfo && this.currentUser) {
+            mobileUserInfo.textContent = `${this.currentUser.name} (${this.currentUser.role})`;
+        }
+
+        // Show admin menu if user is admin
+        if (this.currentUser.role === 'admin') {
+            const adminLinks = document.querySelectorAll('.admin-only');
+            adminLinks.forEach(link => {
+                link.style.display = 'flex';
+            });
+        }
 
         // Initialize navigation
         window.navigation.init();
+        window.adminPanel.init();
     }
 
     logout() {
@@ -100,6 +118,15 @@ class AuthSystem {
         });
         document.querySelector('.user-type-btn[data-role="user"]').classList.add('active');
         this.selectedRole = 'user';
+
+        // Hide admin menu
+        const adminLinks = document.querySelectorAll('.admin-only');
+        adminLinks.forEach(link => {
+            link.style.display = 'none';
+        });
+
+        // Close mobile menu if open
+        window.navigation.closeMobileMenu();
     }
 }
 
@@ -107,7 +134,7 @@ class AuthSystem {
 class NavigationSystem {
     constructor() {
         this.currentSection = 'home';
-        this.sections = ['home', 'services', 'maintenance', 'portfolio', 'about', 'contact'];
+        this.sections = ['home', 'services', 'maintenance', 'portfolio', 'about', 'contact', 'admin'];
     }
 
     init() {
@@ -118,24 +145,56 @@ class NavigationSystem {
     }
 
     setupNavigation() {
-        const navLinks = document.querySelectorAll('.nav-link');
+        const navLinks = document.querySelectorAll('.nav-link, .mobile-nav-link');
         navLinks.forEach(link => {
             link.addEventListener('click', (e) => {
                 e.preventDefault();
                 const section = link.dataset.section;
                 this.showSection(section);
+                this.closeMobileMenu();
             });
         });
     }
 
     setupMobileMenu() {
         const mobileMenuBtn = document.getElementById('mobileMenuBtn');
-        const navMenu = document.getElementById('navMenu');
+        const mobileMenuOverlay = document.getElementById('mobileMenuOverlay');
+        const mobileMenuClose = document.getElementById('mobileMenuClose');
         
-        if (mobileMenuBtn && navMenu) {
+        if (mobileMenuBtn) {
             mobileMenuBtn.addEventListener('click', () => {
-                navMenu.classList.toggle('active');
+                this.openMobileMenu();
             });
+        }
+
+        if (mobileMenuClose) {
+            mobileMenuClose.addEventListener('click', () => {
+                this.closeMobileMenu();
+            });
+        }
+
+        if (mobileMenuOverlay) {
+            mobileMenuOverlay.addEventListener('click', (e) => {
+                if (e.target === mobileMenuOverlay) {
+                    this.closeMobileMenu();
+                }
+            });
+        }
+    }
+
+    openMobileMenu() {
+        const mobileMenuOverlay = document.getElementById('mobileMenuOverlay');
+        if (mobileMenuOverlay) {
+            mobileMenuOverlay.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+    }
+
+    closeMobileMenu() {
+        const mobileMenuOverlay = document.getElementById('mobileMenuOverlay');
+        if (mobileMenuOverlay) {
+            mobileMenuOverlay.classList.remove('active');
+            document.body.style.overflow = '';
         }
     }
 
@@ -143,7 +202,7 @@ class NavigationSystem {
         // Home page buttons
         const sectionButtons = document.querySelectorAll('[data-section]');
         sectionButtons.forEach(btn => {
-            if (!btn.classList.contains('nav-link')) {
+            if (!btn.classList.contains('nav-link') && !btn.classList.contains('mobile-nav-link')) {
                 btn.addEventListener('click', () => {
                     const section = btn.dataset.section;
                     this.showSection(section);
@@ -201,7 +260,7 @@ class NavigationSystem {
     }
 
     updateNavigation(sectionName) {
-        const navLinks = document.querySelectorAll('.nav-link');
+        const navLinks = document.querySelectorAll('.nav-link, .mobile-nav-link');
         navLinks.forEach(link => {
             link.classList.remove('active');
             if (link.dataset.section === sectionName) {
@@ -240,6 +299,7 @@ class NavigationSystem {
             z-index: 1000;
             font-weight: 500;
             max-width: 300px;
+            animation: slideInRight 0.3s ease;
         `;
         alertDiv.textContent = message;
         
@@ -250,6 +310,341 @@ class NavigationSystem {
             alertDiv.remove();
         }, 4000);
     }
+}
+
+// Admin Panel System
+class AdminPanelSystem {
+    constructor() {
+        this.currentTab = 'services';
+    }
+
+    init() {
+        this.setupTabs();
+        this.loadStoredData();
+    }
+
+    setupTabs() {
+        const adminTabs = document.querySelectorAll('.admin-tab');
+        adminTabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                const tabName = tab.dataset.tab;
+                this.showTab(tabName);
+            });
+        });
+    }
+
+    showTab(tabName) {
+        // Update tab buttons
+        const adminTabs = document.querySelectorAll('.admin-tab');
+        adminTabs.forEach(tab => {
+            tab.classList.remove('active');
+            if (tab.dataset.tab === tabName) {
+                tab.classList.add('active');
+            }
+        });
+
+        // Update tab content
+        const adminContents = document.querySelectorAll('.admin-content');
+        adminContents.forEach(content => {
+            content.classList.remove('active');
+        });
+
+        const targetContent = document.getElementById(`${tabName}Admin`);
+        if (targetContent) {
+            targetContent.classList.add('active');
+        }
+
+        this.currentTab = tabName;
+    }
+
+    loadStoredData() {
+        // Load services data
+        const servicesData = localStorage.getItem('gowebServices');
+        if (servicesData) {
+            const services = JSON.parse(servicesData);
+            this.updateServicesDisplay(services);
+            this.updateAdminServicesForm(services);
+        }
+
+        // Load portfolio data
+        const portfolioData = localStorage.getItem('gowebPortfolio');
+        if (portfolioData) {
+            const portfolio = JSON.parse(portfolioData);
+            this.updatePortfolioDisplay(portfolio);
+            this.updateAdminPortfolioForm(portfolio);
+        }
+
+        // Load team data
+        const teamData = localStorage.getItem('gowebTeam');
+        if (teamData) {
+            const team = JSON.parse(teamData);
+            this.updateTeamDisplay(team);
+            this.updateAdminTeamForm(team);
+        }
+
+        // Load images data
+        const imagesData = localStorage.getItem('gowebImages');
+        if (imagesData) {
+            const images = JSON.parse(imagesData);
+            this.updateImagesDisplay(images);
+            this.updateAdminImagesForm(images);
+        }
+    }
+
+    updateServicesDisplay(services) {
+        services.forEach((service, index) => {
+            const serviceTypes = ['basic', 'gold', 'expert'];
+            const serviceType = serviceTypes[index];
+            
+            if (serviceType) {
+                const nameEl = document.getElementById(`${serviceType}ServiceName`);
+                const titleEl = document.getElementById(`${serviceType}ServiceTitle`);
+                const descEl = document.getElementById(`${serviceType}ServiceDescription`);
+                const priceEl = document.getElementById(`${serviceType}ServicePrice`);
+
+                if (nameEl) nameEl.textContent = service.name;
+                if (titleEl) titleEl.textContent = service.title;
+                if (descEl) descEl.textContent = service.description;
+                if (priceEl) priceEl.textContent = service.price;
+            }
+        });
+    }
+
+    updateAdminServicesForm(services) {
+        services.forEach((service, index) => {
+            const serviceTypes = ['basic', 'gold', 'expert'];
+            const serviceType = serviceTypes[index];
+            
+            if (serviceType) {
+                const nameInput = document.getElementById(`admin${serviceType.charAt(0).toUpperCase() + serviceType.slice(1)}Name`);
+                const titleInput = document.getElementById(`admin${serviceType.charAt(0).toUpperCase() + serviceType.slice(1)}Title`);
+                const descInput = document.getElementById(`admin${serviceType.charAt(0).toUpperCase() + serviceType.slice(1)}Description`);
+                const priceInput = document.getElementById(`admin${serviceType.charAt(0).toUpperCase() + serviceType.slice(1)}Price`);
+
+                if (nameInput) nameInput.value = service.name;
+                if (titleInput) titleInput.value = service.title;
+                if (descInput) descInput.value = service.description;
+                if (priceInput) priceInput.value = service.price;
+            }
+        });
+    }
+
+    updatePortfolioDisplay(portfolio) {
+        portfolio.forEach((project, index) => {
+            const titleEl = document.getElementById(`portfolio${index}Title`);
+            const subtitleEl = document.getElementById(`portfolio${index}Subtitle`);
+            const descEl = document.getElementById(`portfolio${index}Description`);
+
+            if (titleEl) titleEl.textContent = project.title;
+            if (subtitleEl) subtitleEl.textContent = project.subtitle;
+            if (descEl) descEl.textContent = project.description;
+        });
+    }
+
+    updateAdminPortfolioForm(portfolio) {
+        portfolio.forEach((project, index) => {
+            const titleInput = document.getElementById(`adminPortfolio${index}Title`);
+            const subtitleInput = document.getElementById(`adminPortfolio${index}Subtitle`);
+            const descInput = document.getElementById(`adminPortfolio${index}Description`);
+
+            if (titleInput) titleInput.value = project.title;
+            if (subtitleInput) subtitleInput.value = project.subtitle;
+            if (descInput) descInput.value = project.description;
+        });
+    }
+
+    updateTeamDisplay(team) {
+        team.forEach((member, index) => {
+            const nameEl = document.getElementById(`team${index}Name`);
+            const roleEl = document.getElementById(`team${index}Role`);
+            const descEl = document.getElementById(`team${index}Description`);
+
+            if (nameEl) nameEl.textContent = member.name;
+            if (roleEl) roleEl.textContent = member.role;
+            if (descEl) descEl.textContent = member.description;
+        });
+    }
+
+    updateAdminTeamForm(team) {
+        team.forEach((member, index) => {
+            const nameInput = document.getElementById(`adminTeam${index}Name`);
+            const roleInput = document.getElementById(`adminTeam${index}Role`);
+            const descInput = document.getElementById(`adminTeam${index}Description`);
+
+            if (nameInput) nameInput.value = member.name;
+            if (roleInput) roleInput.value = member.role;
+            if (descInput) descInput.value = member.description;
+        });
+    }
+
+    updateImagesDisplay(images) {
+        Object.keys(images).forEach(key => {
+            const imgEl = document.getElementById(`${key}Image`);
+            if (imgEl) {
+                imgEl.src = images[key];
+            }
+        });
+    }
+
+    updateAdminImagesForm(images) {
+        Object.keys(images).forEach(key => {
+            const input = document.getElementById(`admin${key.charAt(0).toUpperCase() + key.slice(1)}ImageUrl`);
+            if (input) {
+                input.value = images[key];
+            }
+        });
+    }
+}
+
+// Global functions for admin panel
+function saveService(serviceType) {
+    const nameInput = document.getElementById(`admin${serviceType.charAt(0).toUpperCase() + serviceType.slice(1)}Name`);
+    const titleInput = document.getElementById(`admin${serviceType.charAt(0).toUpperCase() + serviceType.slice(1)}Title`);
+    const descInput = document.getElementById(`admin${serviceType.charAt(0).toUpperCase() + serviceType.slice(1)}Description`);
+    const priceInput = document.getElementById(`admin${serviceType.charAt(0).toUpperCase() + serviceType.slice(1)}Price`);
+
+    if (!nameInput || !titleInput || !descInput || !priceInput) return;
+
+    const serviceData = {
+        name: nameInput.value,
+        title: titleInput.value,
+        description: descInput.value,
+        price: priceInput.value
+    };
+
+    // Get existing services or create new array
+    let services = JSON.parse(localStorage.getItem('gowebServices') || '[]');
+    
+    // Ensure we have at least 3 services
+    while (services.length < 3) {
+        services.push({
+            name: 'Nuevo Servicio',
+            title: 'Título del Servicio',
+            description: 'Descripción del servicio',
+            price: '$0/Mes'
+        });
+    }
+
+    const serviceIndex = serviceType === 'basic' ? 0 : serviceType === 'gold' ? 1 : 2;
+    services[serviceIndex] = serviceData;
+
+    localStorage.setItem('gowebServices', JSON.stringify(services));
+    window.adminPanel.updateServicesDisplay(services);
+    window.navigation.showAlert('Servicio actualizado correctamente');
+}
+
+function savePortfolio(index) {
+    const titleInput = document.getElementById(`adminPortfolio${index}Title`);
+    const subtitleInput = document.getElementById(`adminPortfolio${index}Subtitle`);
+    const descInput = document.getElementById(`adminPortfolio${index}Description`);
+
+    if (!titleInput || !subtitleInput || !descInput) return;
+
+    const projectData = {
+        title: titleInput.value,
+        subtitle: subtitleInput.value,
+        description: descInput.value
+    };
+
+    // Get existing portfolio or create new array
+    let portfolio = JSON.parse(localStorage.getItem('gowebPortfolio') || '[]');
+    
+    // Ensure we have at least 3 projects
+    while (portfolio.length < 3) {
+        portfolio.push({
+            title: 'Nuevo Proyecto',
+            subtitle: 'Subtítulo del proyecto',
+            description: 'Descripción del proyecto'
+        });
+    }
+
+    portfolio[index] = projectData;
+
+    localStorage.setItem('gowebPortfolio', JSON.stringify(portfolio));
+    window.adminPanel.updatePortfolioDisplay(portfolio);
+    window.navigation.showAlert('Proyecto actualizado correctamente');
+}
+
+function saveTeam(index) {
+    const nameInput = document.getElementById(`adminTeam${index}Name`);
+    const roleInput = document.getElementById(`adminTeam${index}Role`);
+    const descInput = document.getElementById(`adminTeam${index}Description`);
+
+    if (!nameInput || !roleInput || !descInput) return;
+
+    const memberData = {
+        name: nameInput.value,
+        role: roleInput.value,
+        description: descInput.value
+    };
+
+    // Get existing team or create new array
+    let team = JSON.parse(localStorage.getItem('gowebTeam') || '[]');
+    
+    // Ensure we have at least 3 members
+    while (team.length < 3) {
+        team.push({
+            name: 'Nuevo Miembro',
+            role: 'Cargo',
+            description: 'Descripción del miembro del equipo'
+        });
+    }
+
+    team[index] = memberData;
+
+    localStorage.setItem('gowebTeam', JSON.stringify(team));
+    window.adminPanel.updateTeamDisplay(team);
+    window.navigation.showAlert('Miembro del equipo actualizado correctamente');
+}
+
+function saveImage(imageType) {
+    const input = document.getElementById(`admin${imageType.charAt(0).toUpperCase() + imageType.slice(1)}ImageUrl`);
+    
+    if (!input) return;
+
+    // Get existing images or create new object
+    let images = JSON.parse(localStorage.getItem('gowebImages') || '{}');
+    images[imageType] = input.value;
+
+    localStorage.setItem('gowebImages', JSON.stringify(images));
+    window.adminPanel.updateImagesDisplay(images);
+    window.navigation.showAlert('Imagen actualizada correctamente');
+}
+
+function savePortfolioImages() {
+    const images = {};
+    for (let i = 0; i < 3; i++) {
+        const input = document.getElementById(`adminPortfolio${i}ImageUrl`);
+        if (input) {
+            images[`portfolio${i}`] = input.value;
+        }
+    }
+
+    // Get existing images or create new object
+    let allImages = JSON.parse(localStorage.getItem('gowebImages') || '{}');
+    Object.assign(allImages, images);
+
+    localStorage.setItem('gowebImages', JSON.stringify(allImages));
+    window.adminPanel.updateImagesDisplay(allImages);
+    window.navigation.showAlert('Imágenes del portafolio actualizadas correctamente');
+}
+
+function saveTeamImages() {
+    const images = {};
+    for (let i = 0; i < 3; i++) {
+        const input = document.getElementById(`adminTeam${i}ImageUrl`);
+        if (input) {
+            images[`team${i}`] = input.value;
+        }
+    }
+
+    // Get existing images or create new object
+    let allImages = JSON.parse(localStorage.getItem('gowebImages') || '{}');
+    Object.assign(allImages, images);
+
+    localStorage.setItem('gowebImages', JSON.stringify(allImages));
+    window.adminPanel.updateImagesDisplay(allImages);
+    window.navigation.showAlert('Imágenes del equipo actualizadas correctamente');
 }
 
 // Animation System
@@ -302,6 +697,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Initialize systems
     window.auth = new AuthSystem();
     window.navigation = new NavigationSystem();
+    window.adminPanel = new AdminPanelSystem();
     window.animations = new AnimationSystem();
     
     console.log('GoWeb Website initialized successfully!');
@@ -322,6 +718,8 @@ function debounce(func, wait) {
 
 // Handle window resize
 window.addEventListener('resize', debounce(() => {
-    // Handle responsive adjustments if needed
-    console.log('Window resized');
+    // Close mobile menu on resize to desktop
+    if (window.innerWidth > 1024) {
+        window.navigation.closeMobileMenu();
+    }
 }, 250));
