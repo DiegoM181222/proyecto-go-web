@@ -1,18 +1,20 @@
-# GoWeb - Sitio Web Corporativo
+# GoWeb - Sitio Web Estático
 
 ## Descripción
 GoWeb es un sitio web corporativo moderno para una agencia de desarrollo web. Incluye un sistema de autenticación completo y múltiples secciones informativas.
 
 ## Características
+- **100% Estático** - Solo HTML, CSS y JavaScript vanilla
 - Sistema de autenticación con roles (Admin/Usuario)
 - Diseño responsive y moderno
 - Múltiples secciones: Inicio, Servicios, Mantenimiento, Portafolio, Sobre nosotros, Contacto
 - Formularios funcionales
 - Animaciones suaves
-- Compatible con XAMPP/Localhost
+- Compatible con cualquier servidor web (XAMPP, Apache, Nginx, etc.)
 
-## Instalación en XAMPP
+## Instalación
 
+### Para XAMPP:
 1. **Descargar e instalar XAMPP**
    - Descarga XAMPP desde: https://www.apachefriends.org/
    - Instala XAMPP en tu sistema
@@ -28,6 +30,12 @@ GoWeb es un sitio web corporativo moderno para una agencia de desarrollo web. In
 4. **Acceder al sitio**
    - Abre tu navegador web
    - Ve a: `http://localhost/goweb/`
+
+### Para otros servidores:
+- **Apache/Nginx**: Copia los archivos a tu directorio web
+- **Python**: `python -m http.server 8000` en la carpeta del proyecto
+- **Node.js**: `npx http-server` en la carpeta del proyecto
+- **PHP**: `php -S localhost:8000` en la carpeta del proyecto
 
 ## Cuentas de Prueba
 
@@ -45,11 +53,11 @@ GoWeb es un sitio web corporativo moderno para una agencia de desarrollo web. In
 
 ```
 goweb/
-├── index.html          # Página principal
+├── index.html          # Página principal con todo el contenido
 ├── css/
-│   └── styles.css      # Estilos CSS
+│   └── styles.css      # Todos los estilos CSS
 ├── js/
-│   └── script.js       # JavaScript funcional
+│   └── script.js       # Toda la funcionalidad JavaScript
 └── README.md           # Este archivo
 ```
 
@@ -76,17 +84,17 @@ goweb/
 - Diseño responsive
 - Animaciones CSS
 - Font Awesome para iconos
+- Imágenes de Pexels
 
 ## Personalización
 
 ### Cambiar Colores
 Edita las variables CSS en `css/styles.css`:
 ```css
-:root {
-    --primary-color: #007bff;
-    --secondary-color: #20b2aa;
-    --dark-color: #333;
-}
+/* Busca y modifica estos colores */
+#007bff (azul principal)
+#20b2aa (verde azulado)
+#333 (gris oscuro)
 ```
 
 ### Agregar Usuarios
@@ -100,6 +108,19 @@ this.users = [
 ### Cambiar Contenido
 Edita directamente el HTML en `index.html` para modificar textos, imágenes y contenido.
 
+### Cambiar Imágenes
+Las imágenes actuales son de Pexels. Puedes:
+1. Reemplazar las URLs por tus propias imágenes
+2. Subir imágenes locales a una carpeta `images/`
+3. Usar otros servicios de imágenes gratuitas
+
+## Compatibilidad
+- ✅ Todos los navegadores modernos
+- ✅ Internet Explorer 11+
+- ✅ Dispositivos móviles
+- ✅ Tablets
+- ✅ Desktop
+
 ## Soporte
 
 Para soporte técnico o consultas:
@@ -109,3 +130,7 @@ Para soporte técnico o consultas:
 ## Licencia
 
 Este proyecto es de uso libre para fines educativos y comerciales.
+
+---
+
+**¡Listo para usar!** Solo abre `index.html` en tu navegador o súbelo a tu servidor web favorito.
