@@ -12,6 +12,9 @@
     <div id="loginScreen" class="login-screen">
         <div class="login-container">
             <div class="login-header">
+                <div class="login-logo">
+                    <img src="images/GO WEB copy.png" alt="GoWeb Logo" class="logo-image">
+                </div>
                 <h1>GoWeb</h1>
                 <p>Ingresa a tu cuenta</p>
             </div>
@@ -57,6 +60,7 @@
         <nav class="navbar">
             <div class="nav-container">
                 <div class="nav-logo">
+                    <img src="images/GO WEB copy.png" alt="GoWeb Logo" class="nav-logo-image">
                     <h1>GoWeb</h1>
                 </div>
 
@@ -108,7 +112,10 @@
         <div class="mobile-menu-overlay" id="mobileMenuOverlay">
             <div class="mobile-menu-content">
                 <div class="mobile-menu-header">
-                    <h2>GoWeb</h2>
+                    <div class="mobile-menu-logo">
+                        <img src="images/GO WEB copy.png" alt="GoWeb Logo" class="mobile-logo-image">
+                        <h2>GoWeb</h2>
+                    </div>
                     <button class="mobile-menu-close" id="mobileMenuClose">
                         <i class="fas fa-times"></i>
                     </button>
@@ -183,34 +190,70 @@
                     <div class="home-content">
                         <div class="home-text">
                             <div class="welcome-badge">
-                                <span>Bienvenido a</span>
+                                <span>✨ Bienvenido a</span>
                             </div>
-                            <h1 class="home-title">Go<br>Web</h1>
-                            <p class="home-subtitle">Creación y Diseño de Páginas Web</p>
+                            <h1 class="home-title">
+                                <span class="title-go">Go</span>
+                                <span class="title-web">Web</span>
+                            </h1>
+                            <p class="home-subtitle">Transformamos tus ideas en experiencias digitales extraordinarias</p>
+                            <p class="home-description">Somos expertos en crear sitios web modernos, funcionales y optimizados que impulsan el crecimiento de tu negocio en el mundo digital.</p>
+                            
+                            <div class="home-stats">
+                                <div class="stat-item">
+                                    <div class="stat-number">100+</div>
+                                    <div class="stat-label">Proyectos</div>
+                                </div>
+                                <div class="stat-item">
+                                    <div class="stat-number">5★</div>
+                                    <div class="stat-label">Calificación</div>
+                                </div>
+                                <div class="stat-item">
+                                    <div class="stat-number">24/7</div>
+                                    <div class="stat-label">Soporte</div>
+                                </div>
+                            </div>
                             
                             <div class="home-buttons">
-                                <button class="btn btn-secondary" data-section="services">Ver Servicios</button>
-                                <button class="btn btn-primary" data-section="contact">Cotizar Proyecto</button>
+                                <button class="btn btn-primary" data-section="contact">
+                                    <i class="fas fa-rocket"></i>
+                                    Comenzar Proyecto
+                                </button>
+                                <button class="btn btn-secondary" data-section="services">
+                                    <i class="fas fa-play"></i>
+                                    Ver Servicios
+                                </button>
                             </div>
                         </div>
 
                         <div class="home-image">
-                            <div class="image-frame">
-                                <div class="image-border"></div>
-                                <div class="image-content">
-                                    <img id="homeImage" src="https://images.pexels.com/photos/3184298/pexels-photo-3184298.jpeg" alt="Team collaboration">
-                                </div>
+                            <div class="home-logo-container">
+                                <img src="images/GO WEB copy.png" alt="GoWeb Logo" class="home-main-logo">
+                                <div class="logo-glow"></div>
                             </div>
-                            <div class="logo-circle">
-                                <div class="logo-inner">
-                                    <span>GW</span>
+                            <div class="floating-elements">
+                                <div class="floating-card card-1">
+                                    <i class="fas fa-code"></i>
+                                    <span>Desarrollo</span>
+                                </div>
+                                <div class="floating-card card-2">
+                                    <i class="fas fa-palette"></i>
+                                    <span>Diseño</span>
+                                </div>
+                                <div class="floating-card card-3">
+                                    <i class="fas fa-mobile-alt"></i>
+                                    <span>Responsive</span>
+                                </div>
+                                <div class="floating-card card-4">
+                                    <i class="fas fa-search"></i>
+                                    <span>SEO</span>
                                 </div>
                             </div>
                         </div>
                     </div>
 
                     <div class="website-url">
-                        <p>www.GoWeb.com</p>
+                        <p>🌐 www.GoWeb.com</p>
                     </div>
                 </div>
             </section>
@@ -232,23 +275,7 @@
                 <div class="container">
                     <div class="section-header">
                         <h1>Nuestros Servicios</h1>
-                    </div>
-
-                    <!-- Video Explicativo -->
-                    <div class="services-video">
-                        <div class="video-container">
-                            <h2>¿Cómo trabajamos?</h2>
-                            <p>Descubre nuestro proceso de desarrollo paso a paso</p>
-                            <div class="video-wrapper">
-                                <iframe 
-                                    src="https://www.youtube.com/embed/dQw4w9WgXcQ" 
-                                    title="Proceso de Desarrollo GoWeb"
-                                    frameborder="0" 
-                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-                                    allowfullscreen>
-                                </iframe>
-                            </div>
-                        </div>
+                        <p class="section-description">Ofrecemos soluciones completas para llevar tu negocio al siguiente nivel digital</p>
                     </div>
 
                     <div class="services-grid">
@@ -285,6 +312,23 @@
                                 <p id="expertServiceDescription">Ecommerce completo con pasarela de pagos</p>
                                 <div class="service-divider"></div>
                                 <div class="service-price teal-text" id="expertServicePrice">$350/Mes</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Video Explicativo -->
+                    <div class="services-video">
+                        <div class="video-container">
+                            <h2>¿Cómo trabajamos?</h2>
+                            <p>Descubre nuestro proceso de desarrollo paso a paso</p>
+                            <div class="video-wrapper">
+                                <iframe 
+                                    src="https://www.youtube.com/embed/dQw4w9WgXcQ" 
+                                    title="Proceso de Desarrollo GoWeb"
+                                    frameborder="0" 
+                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                                    allowfullscreen>
+                                </iframe>
                             </div>
                         </div>
                     </div>
@@ -832,15 +876,6 @@
                     <div class="admin-content" id="imagesAdmin">
                         <h2>Gestión de Imágenes</h2>
                         <div class="admin-images-grid">
-                            <div class="admin-image-card">
-                                <h3>Imagen Principal (Inicio)</h3>
-                                <div class="admin-form-group">
-                                    <label>URL de la imagen:</label>
-                                    <input type="url" id="adminHomeImageUrl" value="https://images.pexels.com/photos/3184298/pexels-photo-3184298.jpeg">
-                                </div>
-                                <button class="admin-save-btn" onclick="saveImage('home')">Actualizar Imagen</button>
-                            </div>
-
                             <div class="admin-image-card">
                                 <h3>Imagen de Mantenimiento</h3>
                                 <div class="admin-form-group">
