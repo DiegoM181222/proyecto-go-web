@@ -1,51 +1,6 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <title>Formulario Test EmailJS</title>
-</head>
-<body>
-  <form id="formulario">
-    <input type="text" name="nombre" placeholder="Tu nombre" required><br>
-    <input type="email" name="email" placeholder="Tu correo" required><br>
-    <textarea name="mensaje" placeholder="Tu mensaje" required></textarea><br>
-    <button type="submit">Enviar</button>
-  </form>
-
-  <!-- EmailJS SDK -->
-  <script src="https://cdn.emailjs.com/dist/email.min.js"></script>
-  <script>
-    // Inicializar EmailJS
-    (function(){
-      emailjs.init("YtGb5glgnpSHFupp4"); // 👈 Reemplazar
-    })();
-
-    // Enviar formulario
-    document.getElementById('formulario').addEventListener('submit', function(e) {
-      e.preventDefault();
-
-      emailjs.sendForm('service_fzbcjn2', 'template_k956gl2', this) // 👈 Reemplazar
-        .then(function() {
-          alert("Mensaje enviado con éxito ✅");
-        }, function(error) {
-          console.error("Error EmailJS:", error); // Mostrar error técnico real
-          alert("Error técnico: " + JSON.stringify(error));
-        });
-    });
-  </script>
-</body>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GoWeb - Desarrollo Web Profesional</title>
-    <link rel="stylesheet" href="css/styles.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <!-- EmailJS SDK -->
-   <script src="https://cdn.emailjs.com/dist/email.min.js"></script>
-<script>
-  emailjs.init("n-nrqiOPNueJz0jcC");
-</script>
-</head>
-<body>
     <!-- Login Screen -->
     <div id="loginScreen" class="login-screen">
         <div class="login-container">
