@@ -1,3 +1,80 @@
+// EmailJS Configuration
+const EMAILJS_CONFIG = {
+    serviceId: 'YOUR_SERVICE_ID', // Reemplaza con tu Service ID de EmailJS
+    templateId: 'YOUR_TEMPLATE_ID', // Reemplaza con tu Template ID de EmailJS
+    publicKey: 'YOUR_PUBLIC_KEY' // Reemplaza con tu Public Key de EmailJS
+};
+
+// Initialize EmailJS
+(function() {
+    emailjs.init(EMAILJS_CONFIG.publicKey);
+})();
+
+// Email Service
+class EmailService {
+    static async sendEmail(templateParams, formType = 'contact') {
+        try {
+            // Show loading state
+            const submitBtn = document.querySelector(`#${formType}Form button[type="submit"]`);
+            const originalText = submitBtn.innerHTML;
+            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Enviando...';
+            submitBtn.disabled = true;
+
+            // Send email using EmailJS
+            const response = await emailjs.send(
+                EMAILJS_CONFIG.serviceId,
+                EMAILJS_CONFIG.templateId,
+                templateParams
+            );
+
+            // Success
+            window.navigation.showAlert('¡Mensaje enviado correctamente! Nos pondremos en contacto contigo pronto.', 'success');
+            
+            // Reset form
+            document.getElementById(`${formType}Form`).reset();
+
+            return response;
+        } catch (error) {
+            console.error('Error sending email:', error);
+            window.navigation.showAlert('Error al enviar el mensaje. Por favor, inténtalo de nuevo o contáctanos directamente.', 'error');
+            throw error;
+        } finally {
+            // Restore button state
+            const submitBtn = document.querySelector(`#${formType}Form button[type="submit"]`);
+            const originalIcon = formType === 'contact' ? 'fa-paper-plane' : 'fa-paper-plane';
+            const originalText = formType === 'contact' ? 'Enviar Mensaje' : 'Enviar Solicitud';
+            submitBtn.innerHTML = `<i class="fas ${originalIcon}"></i> ${originalText}`;
+            submitBtn.disabled = false;
+        }
+    }
+
+    static formatContactEmail(formData) {
+        return {
+            from_name: `${formData.firstName} ${formData.lastName}`,
+            from_email: formData.email,
+            phone: formData.phone,
+            company: formData.company || 'No especificada',
+            service: formData.service,
+            message: formData.message,
+            form_type: 'Contacto General',
+            to_email: 'contacto@goweb.com' // Tu email de destino
+        };
+    }
+
+    static formatMaintenanceEmail(formData) {
+        return {
+            from_name: formData.name,
+            from_email: formData.email,
+            phone: formData.phone,
+            website: formData.website,
+            service: formData.service,
+            message: formData.message,
+            form_type: 'Solicitud de Mantenimiento',
+            to_email: 'contacto@goweb.com' // Tu email de destino
+        };
+    }
+}
+
 // Authentication System
 class AuthSystem {
     constructor() {
@@ -215,21 +292,43 @@ class NavigationSystem {
         // Maintenance form
         const maintenanceForm = document.getElementById('maintenanceForm');
         if (maintenanceForm) {
-            maintenanceForm.addEventListener('submit', (e) => {
+            maintenanceForm.addEventListener('submit', async (e) => {
                 e.preventDefault();
-                this.showAlert('Solicitud enviada correctamente. Nos pondremos en contacto contigo pronto.');
-                maintenanceForm.reset();
+                await this.handleMaintenanceForm(e);
             });
         }
 
         // Contact form
         const contactForm = document.getElementById('contactForm');
         if (contactForm) {
-            contactForm.addEventListener('submit', (e) => {
+            contactForm.addEventListener('submit', async (e) => {
                 e.preventDefault();
-                this.showAlert('Mensaje enviado correctamente. Nos pondremos en contacto contigo pronto.');
-                contactForm.reset();
+                await this.handleContactForm(e);
             });
+        }
+    }
+
+    async handleMaintenanceForm(e) {
+        const formData = new FormData(e.target);
+        const data = Object.fromEntries(formData.entries());
+
+        try {
+            const emailParams = EmailService.formatMaintenanceEmail(data);
+            await EmailService.sendEmail(emailParams, 'maintenance');
+        } catch (error) {
+            console.error('Error handling maintenance form:', error);
+        }
+    }
+
+    async handleContactForm(e) {
+        const formData = new FormData(e.target);
+        const data = Object.fromEntries(formData.entries());
+
+        try {
+            const emailParams = EmailService.formatContactEmail(data);
+            await EmailService.sendEmail(emailParams, 'contact');
+        } catch (error) {
+            console.error('Error handling contact form:', error);
         }
     }
 
@@ -284,31 +383,46 @@ class NavigationSystem {
         });
     }
 
-    showAlert(message) {
-        // Create a simple alert
+    showAlert(message, type = 'success') {
+        // Create a styled alert
         const alertDiv = document.createElement('div');
+        const bgColor = type === 'success' ? '#28a745' : type === 'error' ? '#dc3545' : '#17a2b8';
+        const icon = type === 'success' ? 'fa-check-circle' : type === 'error' ? 'fa-exclamation-triangle' : 'fa-info-circle';
+        
         alertDiv.style.cssText = `
             position: fixed;
             top: 20px;
             right: 20px;
-            background: #28a745;
+            background: ${bgColor};
             color: white;
             padding: 15px 20px;
             border-radius: 8px;
             box-shadow: 0 4px 12px rgba(0,0,0,0.15);
             z-index: 1000;
             font-weight: 500;
-            max-width: 300px;
+            max-width: 350px;
             animation: slideInRight 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 10px;
         `;
-        alertDiv.textContent = message;
+        
+        alertDiv.innerHTML = `
+            <i class="fas ${icon}"></i>
+            <span>${message}</span>
+        `;
         
         document.body.appendChild(alertDiv);
         
-        // Remove after 4 seconds
+        // Remove after 5 seconds
         setTimeout(() => {
-            alertDiv.remove();
-        }, 4000);
+            alertDiv.style.animation = 'slideOutRight 0.3s ease';
+            setTimeout(() => {
+                if (alertDiv.parentNode) {
+                    alertDiv.remove();
+                }
+            }, 300);
+        }, 5000);
     }
 }
 
@@ -503,13 +617,13 @@ function handleImageUpload(imageType, fileInput) {
 
     // Validate file type
     if (!file.type.startsWith('image/')) {
-        window.navigation.showAlert('Por favor selecciona un archivo de imagen válido.');
+        window.navigation.showAlert('Por favor selecciona un archivo de imagen válido.', 'error');
         return;
     }
 
     // Validate file size (max 5MB)
     if (file.size > 5 * 1024 * 1024) {
-        window.navigation.showAlert('El archivo es demasiado grande. Máximo 5MB.');
+        window.navigation.showAlert('El archivo es demasiado grande. Máximo 5MB.', 'error');
         return;
     }
 
@@ -529,11 +643,11 @@ function handleImageUpload(imageType, fileInput) {
             imgEl.src = dataUrl;
         }
 
-        window.navigation.showAlert('Imagen cargada correctamente. No olvides guardar los cambios.');
+        window.navigation.showAlert('Imagen cargada correctamente. No olvides guardar los cambios.', 'success');
     };
 
     reader.onerror = function() {
-        window.navigation.showAlert('Error al cargar la imagen. Inténtalo de nuevo.');
+        window.navigation.showAlert('Error al cargar la imagen. Inténtalo de nuevo.', 'error');
     };
 
     reader.readAsDataURL(file);
@@ -573,7 +687,7 @@ function saveService(serviceType) {
 
     localStorage.setItem('gowebServices', JSON.stringify(services));
     window.adminPanel.updateServicesDisplay(services);
-    window.navigation.showAlert('Servicio actualizado correctamente');
+    window.navigation.showAlert('Servicio actualizado correctamente', 'success');
 }
 
 function savePortfolio(index) {
@@ -605,7 +719,7 @@ function savePortfolio(index) {
 
     localStorage.setItem('gowebPortfolio', JSON.stringify(portfolio));
     window.adminPanel.updatePortfolioDisplay(portfolio);
-    window.navigation.showAlert('Proyecto actualizado correctamente');
+    window.navigation.showAlert('Proyecto actualizado correctamente', 'success');
 }
 
 function saveTeam(index) {
@@ -637,14 +751,14 @@ function saveTeam(index) {
 
     localStorage.setItem('gowebTeam', JSON.stringify(team));
     window.adminPanel.updateTeamDisplay(team);
-    window.navigation.showAlert('Miembro del equipo actualizado correctamente');
+    window.navigation.showAlert('Miembro del equipo actualizado correctamente', 'success');
 }
 
 function saveImage(imageType) {
     const input = document.getElementById(`admin${imageType.charAt(0).toUpperCase() + imageType.slice(1)}ImageUrl`);
     
     if (!input || !input.value.trim()) {
-        window.navigation.showAlert('Por favor ingresa una URL válida o sube una imagen.');
+        window.navigation.showAlert('Por favor ingresa una URL válida o sube una imagen.', 'error');
         return;
     }
 
@@ -654,7 +768,7 @@ function saveImage(imageType) {
 
     localStorage.setItem('gowebImages', JSON.stringify(images));
     window.adminPanel.updateImagesDisplay(images);
-    window.navigation.showAlert('Imagen actualizada correctamente');
+    window.navigation.showAlert('Imagen actualizada correctamente', 'success');
 }
 
 function savePortfolioImages() {
@@ -670,7 +784,7 @@ function savePortfolioImages() {
     }
 
     if (!hasValidImage) {
-        window.navigation.showAlert('Por favor ingresa al menos una URL válida o sube una imagen.');
+        window.navigation.showAlert('Por favor ingresa al menos una URL válida o sube una imagen.', 'error');
         return;
     }
 
@@ -680,7 +794,7 @@ function savePortfolioImages() {
 
     localStorage.setItem('gowebImages', JSON.stringify(allImages));
     window.adminPanel.updateImagesDisplay(allImages);
-    window.navigation.showAlert('Imágenes del portafolio actualizadas correctamente');
+    window.navigation.showAlert('Imágenes del portafolio actualizadas correctamente', 'success');
 }
 
 function saveTeamImages() {
@@ -696,7 +810,7 @@ function saveTeamImages() {
     }
 
     if (!hasValidImage) {
-        window.navigation.showAlert('Por favor ingresa al menos una URL válida o sube una imagen.');
+        window.navigation.showAlert('Por favor ingresa al menos una URL válida o sube una imagen.', 'error');
         return;
     }
 
@@ -706,7 +820,7 @@ function saveTeamImages() {
 
     localStorage.setItem('gowebImages', JSON.stringify(allImages));
     window.adminPanel.updateImagesDisplay(allImages);
-    window.navigation.showAlert('Imágenes del equipo actualizadas correctamente');
+    window.navigation.showAlert('Imágenes del equipo actualizadas correctamente', 'success');
 }
 
 // Animation System
@@ -718,6 +832,7 @@ class AnimationSystem {
     init() {
         this.setupScrollAnimations();
         this.setupHoverEffects();
+        this.addCustomAnimations();
     }
 
     setupScrollAnimations() {
@@ -752,6 +867,35 @@ class AnimationSystem {
             });
         });
     }
+
+    addCustomAnimations() {
+        // Add slide animations for alerts
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes slideInRight {
+                from {
+                    opacity: 0;
+                    transform: translateX(100%);
+                }
+                to {
+                    opacity: 1;
+                    transform: translateX(0);
+                }
+            }
+            
+            @keyframes slideOutRight {
+                from {
+                    opacity: 1;
+                    transform: translateX(0);
+                }
+                to {
+                    opacity: 0;
+                    transform: translateX(100%);
+                }
+            }
+        `;
+        document.head.appendChild(style);
+    }
 }
 
 // Initialize everything when DOM is loaded
@@ -763,6 +907,17 @@ document.addEventListener('DOMContentLoaded', () => {
     window.animations = new AnimationSystem();
     
     console.log('GoWeb Website initialized successfully!');
+    
+    // Show configuration reminder for EmailJS
+    if (EMAILJS_CONFIG.serviceId === 'YOUR_SERVICE_ID') {
+        console.warn('⚠️ CONFIGURACIÓN REQUERIDA: Por favor configura EmailJS en js/script.js');
+        console.log('📧 Pasos para configurar EmailJS:');
+        console.log('1. Ve a https://www.emailjs.com/');
+        console.log('2. Crea una cuenta gratuita');
+        console.log('3. Configura un servicio de email');
+        console.log('4. Crea un template de email');
+        console.log('5. Reemplaza las variables en EMAILJS_CONFIG');
+    }
 });
 
 // Utility functions
