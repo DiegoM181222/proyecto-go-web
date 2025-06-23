@@ -17,14 +17,14 @@
   <script>
     // Inicializar EmailJS
     (function(){
-      emailjs.init("TU_PUBLIC_KEY"); // 👈 Reemplazar
+      emailjs.init("YtGb5glgnpSHFupp4"); // 👈 Reemplazar
     })();
 
     // Enviar formulario
     document.getElementById('formulario').addEventListener('submit', function(e) {
       e.preventDefault();
 
-      emailjs.sendForm('TU_SERVICE_ID', 'TU_TEMPLATE_ID', this) // 👈 Reemplazar
+      emailjs.sendForm('service_fzbcjn2', 'template_k956gl2', this) // 👈 Reemplazar
         .then(function() {
           alert("Mensaje enviado con éxito ✅");
         }, function(error) {
