@@ -2,7 +2,7 @@
 const EMAILJS_CONFIG = {
     serviceId: 'service_fzbcjn2', // Reemplaza con tu Service ID de EmailJS
     templateId: 'template_0gticm6', // Reemplaza con tu Template ID de EmailJS
-    publicKey: 'n-nrqiOPNueJz0jcC' // Reemplaza con tu Public Key de EmailJS
+    publicKey: 'YtGb5glgnpSHFupp4' // Reemplaza con tu Public Key de EmailJS
 };
 
 // Initialize EmailJS
