@@ -1,3 +1,8 @@
+const EMAILJS_CONFIG = {
+    serviceId: 'service_fzbcjn2',
+    templateId: 'template_k956gl2', 
+    publicKey: 'YtGb5glgnpSHFupp4'
+};
 class AuthSystem {
     constructor() {
         this.users = [
