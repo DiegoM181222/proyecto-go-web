@@ -3,11 +3,21 @@ const EMAILJS_CONFIG = {
     templateId: 'template_k956gl2', 
     publicKey: 'rfarXJP58WdYBoU0E'
 };
+
 class AuthSystem {
     constructor() {
         this.users = [
-            { id: '1', email: 'admin@goweb.com', password: 'admin123', name: 'Administrador', role: 'admin' },
-            { id: '2', email: 'user@goweb.com', password: 'user123', name: 'Usuario Regular', role: 'user' }
+            // Oscar accounts
+            { id: '1', email: 'oscar@goweb.com', password: 'oscaruser123', name: 'Oscar Gómez', role: 'user' },
+            { id: '2', email: 'oscar@goweb.com', password: 'oscaradmin123', name: 'Oscar Gómez', role: 'admin' },
+            
+            // Sergio accounts
+            { id: '3', email: 'sergio@goweb.com', password: 'sergiouser123', name: 'Sergio Rivas', role: 'user' },
+            { id: '4', email: 'sergio@goweb.com', password: 'sergioadmin123', name: 'Sergio Rivas', role: 'admin' },
+            
+            // Diego accounts
+            { id: '5', email: 'diego@goweb.com', password: 'diegouser123', name: 'Diego Mendoza', role: 'user' },
+            { id: '6', email: 'diego@goweb.com', password: 'diegoadmin123', name: 'Diego Mendoza', role: 'admin' }
         ];
         this.currentUser = null;
         this.selectedRole = 'user';
@@ -18,6 +28,7 @@ class AuthSystem {
         this.setupLoginForm();
         this.setupUserTypeButtons();
         this.setupLogout();
+        this.setupHomeNavigation();
     }
 
     setupLoginForm() {
@@ -47,6 +58,25 @@ class AuthSystem {
         }
         if (mobileLogoutBtn) {
             mobileLogoutBtn.addEventListener('click', () => this.logout());
+        }
+    }
+
+    setupHomeNavigation() {
+        // Desktop logo navigation
+        const navLogo = document.querySelector('.nav-logo');
+        if (navLogo) {
+            navLogo.addEventListener('click', () => {
+                window.navigation.showSection('home');
+            });
+        }
+
+        // Mobile logo navigation
+        const mobileMenuLogo = document.querySelector('.mobile-menu-logo');
+        if (mobileMenuLogo) {
+            mobileMenuLogo.addEventListener('click', () => {
+                window.navigation.showSection('home');
+                window.navigation.closeMobileMenu();
+            });
         }
     }
 
@@ -261,6 +291,9 @@ class NavigationSystem {
                 EMAILJS_CONFIG.publicKey
             );
 
+            // Store message in localStorage for admin panel
+            this.storeMessage(formData);
+
             this.showAlert('¡Solicitud enviada correctamente! Nos pondremos en contacto contigo pronto.', 'success');
             form.reset();
             
@@ -306,6 +339,9 @@ class NavigationSystem {
                 EMAILJS_CONFIG.publicKey
             );
 
+            // Store message in localStorage for admin panel
+            this.storeMessage(formData);
+
             this.showAlert('¡Mensaje enviado correctamente! Nos pondremos en contacto contigo pronto.', 'success');
             form.reset();
             
@@ -317,6 +353,29 @@ class NavigationSystem {
             submitBtn.innerHTML = originalText;
             submitBtn.disabled = false;
         }
+    }
+
+    storeMessage(formData) {
+        // Get existing messages or create new array
+        let messages = JSON.parse(localStorage.getItem('gowebMessages') || '[]');
+        
+        // Add timestamp and ID to message
+        const message = {
+            id: Date.now(),
+            timestamp: new Date().toLocaleString('es-ES'),
+            ...formData
+        };
+        
+        // Add to beginning of array (newest first)
+        messages.unshift(message);
+        
+        // Keep only last 100 messages
+        if (messages.length > 100) {
+            messages = messages.slice(0, 100);
+        }
+        
+        // Store back to localStorage
+        localStorage.setItem('gowebMessages', JSON.stringify(messages));
     }
 
     showSection(sectionName) {
@@ -424,6 +483,7 @@ class AdminPanelSystem {
     init() {
         this.setupTabs();
         this.loadStoredData();
+        this.setupMessagesClearButton();
     }
 
     setupTabs() {
@@ -458,6 +518,85 @@ class AdminPanelSystem {
         }
 
         this.currentTab = tabName;
+
+        // Load messages if messages tab is selected
+        if (tabName === 'messages') {
+            this.loadMessages();
+        }
+    }
+
+    setupMessagesClearButton() {
+        const clearBtn = document.getElementById('clearMessagesBtn');
+        if (clearBtn) {
+            clearBtn.addEventListener('click', () => {
+                if (confirm('¿Estás seguro de que quieres eliminar todos los mensajes? Esta acción no se puede deshacer.')) {
+                    localStorage.removeItem('gowebMessages');
+                    this.loadMessages();
+                    window.navigation.showAlert('Todos los mensajes han sido eliminados.', 'success');
+                }
+            });
+        }
+    }
+
+    loadMessages() {
+        const messages = JSON.parse(localStorage.getItem('gowebMessages') || '[]');
+        const messagesContainer = document.getElementById('messagesContainer');
+        
+        if (!messagesContainer) return;
+
+        if (messages.length === 0) {
+            messagesContainer.innerHTML = `
+                <div class="no-messages">
+                    <i class="fas fa-inbox"></i>
+                    <h3>No hay mensajes</h3>
+                    <p>Los mensajes enviados desde los formularios aparecerán aquí.</p>
+                </div>
+            `;
+            return;
+        }
+
+        messagesContainer.innerHTML = messages.map(message => `
+            <div class="message-card">
+                <div class="message-header">
+                    <span class="message-type">${message.form_type}</span>
+                    <span class="message-date">${message.timestamp}</span>
+                </div>
+                <div class="message-info">
+                    <div class="message-info-item">
+                        <span class="message-info-label">Nombre:</span>
+                        <span class="message-info-value">${message.from_name}</span>
+                    </div>
+                    <div class="message-info-item">
+                        <span class="message-info-label">Email:</span>
+                        <span class="message-info-value">${message.from_email}</span>
+                    </div>
+                    <div class="message-info-item">
+                        <span class="message-info-label">Teléfono:</span>
+                        <span class="message-info-value">${message.phone}</span>
+                    </div>
+                    ${message.company ? `
+                        <div class="message-info-item">
+                            <span class="message-info-label">Empresa:</span>
+                            <span class="message-info-value">${message.company}</span>
+                        </div>
+                    ` : ''}
+                    ${message.website ? `
+                        <div class="message-info-item">
+                            <span class="message-info-label">Sitio Web:</span>
+                            <span class="message-info-value">${message.website}</span>
+                        </div>
+                    ` : ''}
+                    <div class="message-info-item">
+                        <span class="message-info-label">Servicio:</span>
+                        <span class="message-info-value">${message.service}</span>
+                    </div>
+                </div>
+                <div class="message-content">
+                    <h4>Mensaje:</h4>
+                    <p class="message-text">${message.message}</p>
+                </div>
+            </div>
+        `).join('');
     }
 
     loadStoredData() {

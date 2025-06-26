@@ -205,6 +205,12 @@ body {
     display: flex;
     align-items: center;
     gap: 12px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.nav-logo:hover {
+    transform: translateY(-2px);
 }
 
 .nav-logo-image {
@@ -346,6 +352,12 @@ body {
     display: flex;
     align-items: center;
     gap: 10px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.mobile-menu-logo:hover {
+    transform: translateY(-2px);
 }
 
 .mobile-logo-image {
@@ -1491,6 +1503,133 @@ body {
     display: none;
 }
 
+/* Messages Admin Styles */
+.messages-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+    gap: 20px;
+}
+
+.message-card {
+    background: white;
+    border-radius: 15px;
+    padding: 25px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+    border-left: 4px solid #667eea;
+    transition: all 0.3s ease;
+}
+
+.message-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 35px rgba(0, 0, 0, 0.15);
+}
+
+.message-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 15px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #f1f3f4;
+}
+
+.message-type {
+    background: #667eea;
+    color: white;
+    padding: 4px 12px;
+    border-radius: 15px;
+    font-size: 0.8rem;
+    font-weight: 600;
+}
+
+.message-date {
+    color: #666;
+    font-size: 0.85rem;
+}
+
+.message-info {
+    margin-bottom: 15px;
+}
+
+.message-info-item {
+    display: flex;
+    margin-bottom: 8px;
+}
+
+.message-info-label {
+    font-weight: 600;
+    color: #333;
+    min-width: 80px;
+    margin-right: 10px;
+}
+
+.message-info-value {
+    color: #666;
+    flex: 1;
+}
+
+.message-content {
+    background: #f8f9fa;
+    padding: 15px;
+    border-radius: 8px;
+    margin-top: 15px;
+}
+
+.message-content h4 {
+    color: #333;
+    font-size: 0.9rem;
+    font-weight: 600;
+    margin-bottom: 8px;
+}
+
+.message-text {
+    color: #555;
+    font-size: 0.9rem;
+    line-height: 1.5;
+}
+
+.no-messages {
+    text-align: center;
+    padding: 60px 20px;
+    color: #666;
+}
+
+.no-messages i {
+    font-size: 3rem;
+    color: #ddd;
+    margin-bottom: 20px;
+}
+
+.no-messages h3 {
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+    color: #333;
+}
+
+.no-messages p {
+    font-size: 1rem;
+}
+
+.clear-messages-btn {
+    background: #dc3545;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-bottom: 30px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.clear-messages-btn:hover {
+    background: #c82333;
+    transform: translateY(-2px);
+}
+
 /* Animations */
 @keyframes float {
     0%, 100% {
@@ -1658,6 +1797,12 @@ body {
         gap: 25px;
     }
 
+    /* Messages grid optimization */
+    .messages-grid {
+        grid-template-columns: 1fr;
+        gap: 15px;
+    }
+
     /* Video container adjustments */
     .video-container {
         padding: 30px;
@@ -1759,6 +1904,16 @@ body {
         gap: 20px;
     }
 
+    /* Messages grid - single column */
+    .messages-grid {
+        grid-template-columns: 1fr;
+        gap: 15px;
+    }
+
+    .message-card {
+        padding: 20px;
+    }
+
     /* Video container mobile */
     .video-container {
         padding: 20px;
@@ -1773,7 +1928,14 @@ body {
         font-size: 1rem;
     }
 
-    /* Home logo mobile */
+    /* Home logo mobile - MOVED BELOW DESCRIPTION */
+    .home-image {
+        order: 1; /* Moved after text content */
+        height: 300px;
+        margin-top: 30px;
+        margin-bottom: 30px;
+    }
+
     .home-main-logo {
         width: 140px;
         height: 140px;
@@ -1784,11 +1946,12 @@ body {
         height: 180px;
     }
 
-    /* Stats mobile layout */
+    /* Stats mobile layout - MOVED AFTER LOGO */
     .home-stats {
         gap: 20px;
         flex-wrap: wrap;
         justify-content: center;
+        order: 2; /* Moved after logo */
     }
 
     .stat-item {
@@ -1801,6 +1964,34 @@ body {
 
     .stat-label {
         font-size: 0.85rem;
+    }
+
+    /* Home buttons - MOVED AFTER STATS */
+    .home-buttons {
+        order: 3; /* Moved after stats */
+        margin-top: 30px;
+    }
+
+    /* Contact section mobile reorder */
+    .contact-content {
+        grid-template-columns: 1fr;
+        gap: 30px;
+    }
+
+    /* Contact form container - MOVED TO SECOND POSITION */
+    .contact-form-container {
+        order: 2;
+        padding: 25px;
+    }
+
+    /* Why choose us - STAYS IN THIRD POSITION */
+    .why-choose-us {
+        order: 3;
+    }
+
+    /* Contact info - MOVED TO LAST POSITION */
+    .contact-info {
+        order: 4;
     }
 
     /* Service cards mobile */
@@ -1850,8 +2041,7 @@ body {
     }
 
     /* Contact cards mobile */
-    .contact-card,
-    .contact-form-container {
+    .contact-card {
         padding: 25px;
     }
 
@@ -2131,6 +2321,26 @@ body {
     .website-url p {
         font-size: 0.9rem;
     }
+
+    /* Message cards small mobile */
+    .message-card {
+        padding: 15px;
+    }
+
+    .message-info-item {
+        flex-direction: column;
+        gap: 2px;
+    }
+
+    .message-info-label {
+        min-width: auto;
+        margin-right: 0;
+        font-size: 0.85rem;
+    }
+
+    .message-info-value {
+        font-size: 0.9rem;
+    }
 }
 
 /* Extra Small Mobile (up to 360px) */
@@ -2185,6 +2395,11 @@ body {
     .admin-tab {
         width: 180px;
         padding: 8px 16px;
+    }
+
+    .message-card {
+        padding: 12px;
+        margin: 0 2px;
     }
 }
 
