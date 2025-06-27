@@ -176,6 +176,7 @@ class NavigationSystem {
         this.setupMobileMenu();
         this.setupSectionButtons();
         this.setupForms();
+        this.setupServiceForms();
     }
 
     setupNavigation() {
@@ -256,6 +257,70 @@ class NavigationSystem {
         const contactForm = document.getElementById('contactForm');
         if (contactForm) {
             contactForm.addEventListener('submit', (e) => this.handleContactForm(e));
+        }
+    }
+
+    setupServiceForms() {
+        // Service forms
+        const basicServiceForm = document.getElementById('basicServiceForm');
+        const goldServiceForm = document.getElementById('goldServiceForm');
+        const expertServiceForm = document.getElementById('expertServiceForm');
+
+        if (basicServiceForm) {
+            basicServiceForm.addEventListener('submit', (e) => this.handleServiceForm(e, 'Sitio Web Básico'));
+        }
+        if (goldServiceForm) {
+            goldServiceForm.addEventListener('submit', (e) => this.handleServiceForm(e, 'Sitio Web Gold'));
+        }
+        if (expertServiceForm) {
+            expertServiceForm.addEventListener('submit', (e) => this.handleServiceForm(e, 'Sitio Web Expert'));
+        }
+    }
+
+    async handleServiceForm(e, serviceName) {
+        e.preventDefault();
+        
+        const form = e.target;
+        const submitBtn = form.querySelector('button[type="submit"]');
+        const originalText = submitBtn.innerHTML;
+        
+        // Show loading state
+        submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Enviando...';
+        submitBtn.disabled = true;
+
+        try {
+            // Prepare form data
+            const formData = {
+                form_type: `Solicitud de Servicio - ${serviceName}`,
+                from_name: form.querySelector('input[placeholder*="nombre"]').value,
+                from_email: form.querySelector('input[placeholder*="correo"]').value,
+                phone: form.querySelector('input[placeholder*="teléfono"]').value,
+                service: serviceName,
+                message: form.querySelector('textarea').value || `Solicito información sobre el servicio: ${serviceName}`,
+                to_email: 'contacto@goweb.com'
+            };
+
+            // Send email using EmailJS
+            await emailjs.send(
+                EMAILJS_CONFIG.serviceId,
+                EMAILJS_CONFIG.templateId,
+                formData,
+                EMAILJS_CONFIG.publicKey
+            );
+
+            // Store message in localStorage for admin panel
+            this.storeMessage(formData);
+
+            this.showAlert(`¡Solicitud de ${serviceName} enviada correctamente! Nos pondremos en contacto contigo pronto.`, 'success');
+            form.reset();
+            
+        } catch (error) {
+            console.error('Error sending email:', error);
+            this.showAlert('Error al enviar la solicitud. Por favor, inténtalo de nuevo o contáctanos directamente.', 'error');
+        } finally {
+            // Restore button state
+            submitBtn.innerHTML = originalText;
+            submitBtn.disabled = false;
         }
     }
 
