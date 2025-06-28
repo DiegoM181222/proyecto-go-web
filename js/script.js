@@ -176,7 +176,7 @@ class NavigationSystem {
         this.setupMobileMenu();
         this.setupSectionButtons();
         this.setupForms();
-        this.setupServiceForms();
+        this.setupServiceButtons();
     }
 
     setupNavigation() {
@@ -246,6 +246,31 @@ class NavigationSystem {
         });
     }
 
+    setupServiceButtons() {
+        // Service selection buttons
+        const serviceButtons = document.querySelectorAll('.service-select-btn');
+        serviceButtons.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const serviceType = btn.dataset.service;
+                this.toggleServiceForm(serviceType);
+            });
+        });
+    }
+
+    toggleServiceForm(serviceType) {
+        // Hide all service forms first
+        const allForms = document.querySelectorAll('.service-form-hidden');
+        allForms.forEach(form => {
+            form.classList.remove('active');
+        });
+
+        // Show the selected form
+        const targetForm = document.getElementById(`${serviceType}ServiceForm`);
+        if (targetForm) {
+            targetForm.classList.add('active');
+        }
+    }
+
     setupForms() {
         // Maintenance form
         const maintenanceForm = document.getElementById('maintenanceForm');
@@ -258,9 +283,7 @@ class NavigationSystem {
         if (contactForm) {
             contactForm.addEventListener('submit', (e) => this.handleContactForm(e));
         }
-    }
 
-    setupServiceForms() {
         // Service forms
         const basicServiceForm = document.getElementById('basicServiceForm');
         const goldServiceForm = document.getElementById('goldServiceForm');
@@ -803,21 +826,6 @@ class AdminPanelSystem {
                 input.value = images[key];
             }
         });
-    }
-}
-
-// Service Form Functions
-function toggleServiceForm(serviceType) {
-    // Hide all service forms first
-    const allForms = document.querySelectorAll('.service-form-hidden');
-    allForms.forEach(form => {
-        form.classList.remove('active');
-    });
-
-    // Show the selected form
-    const targetForm = document.getElementById(`${serviceType}ServiceForm`);
-    if (targetForm) {
-        targetForm.classList.add('active');
     }
 }
 
