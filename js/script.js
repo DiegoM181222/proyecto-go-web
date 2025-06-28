@@ -29,6 +29,7 @@ class AuthSystem {
         this.setupUserTypeButtons();
         this.setupLogout();
         this.setupHomeNavigation();
+        this.setupPasswordToggle();
     }
 
     setupLoginForm() {
@@ -76,6 +77,29 @@ class AuthSystem {
             mobileMenuLogo.addEventListener('click', () => {
                 window.navigation.showSection('home');
                 window.navigation.closeMobileMenu();
+            });
+        }
+    }
+
+    setupPasswordToggle() {
+        const passwordInput = document.getElementById('password');
+        const passwordToggle = document.getElementById('passwordToggle');
+        
+        if (passwordToggle && passwordInput) {
+            passwordToggle.addEventListener('click', () => {
+                const isPassword = passwordInput.type === 'password';
+                
+                // Toggle input type
+                passwordInput.type = isPassword ? 'text' : 'password';
+                
+                // Toggle icon
+                const icon = passwordToggle.querySelector('i');
+                if (icon) {
+                    icon.className = isPassword ? 'fas fa-eye-slash' : 'fas fa-eye';
+                }
+                
+                // Update button title for accessibility
+                passwordToggle.title = isPassword ? 'Ocultar contraseña' : 'Mostrar contraseña';
             });
         }
     }
@@ -145,6 +169,18 @@ class AuthSystem {
         // Reset form
         document.getElementById('loginForm').reset();
         document.getElementById('errorMessage').style.display = 'none';
+        
+        // Reset password toggle
+        const passwordInput = document.getElementById('password');
+        const passwordToggle = document.getElementById('passwordToggle');
+        if (passwordInput && passwordToggle) {
+            passwordInput.type = 'password';
+            const icon = passwordToggle.querySelector('i');
+            if (icon) {
+                icon.className = 'fas fa-eye';
+            }
+            passwordToggle.title = 'Mostrar contraseña';
+        }
         
         // Reset user type selection
         document.querySelectorAll('.user-type-btn').forEach(btn => {
