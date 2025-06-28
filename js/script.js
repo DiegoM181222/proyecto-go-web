@@ -176,7 +176,7 @@ class NavigationSystem {
         this.setupMobileMenu();
         this.setupSectionButtons();
         this.setupForms();
-        this.setupServiceButtons();
+        this.setupServiceModal();
     }
 
     setupNavigation() {
@@ -246,64 +246,113 @@ class NavigationSystem {
         });
     }
 
-    setupServiceButtons() {
-        // Service selection buttons
-        const serviceButtons = document.querySelectorAll('.service-select-btn');
-        serviceButtons.forEach(btn => {
-            btn.addEventListener('click', () => {
-                const serviceType = btn.dataset.service;
-                this.toggleServiceForm(serviceType);
+    setupServiceModal() {
+        // Service card click handlers
+        const serviceCards = document.querySelectorAll('.service-card');
+        serviceCards.forEach(card => {
+            card.addEventListener('click', () => {
+                const serviceType = card.dataset.service;
+                this.openServiceModal(serviceType);
             });
         });
-    }
 
-    toggleServiceForm(serviceType) {
-        // Hide all service forms first
-        const allForms = document.querySelectorAll('.service-form-hidden');
-        allForms.forEach(form => {
-            form.classList.remove('active');
+        // Modal close handlers
+        const modalOverlay = document.getElementById('serviceModalOverlay');
+        const modalClose = document.getElementById('serviceModalClose');
+
+        if (modalClose) {
+            modalClose.addEventListener('click', () => {
+                this.closeServiceModal();
+            });
+        }
+
+        if (modalOverlay) {
+            modalOverlay.addEventListener('click', (e) => {
+                if (e.target === modalOverlay) {
+                    this.closeServiceModal();
+                }
+            });
+        }
+
+        // Escape key to close modal
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                this.closeServiceModal();
+            }
         });
 
-        // Show the selected form
-        const targetForm = document.getElementById(`${serviceType}ServiceForm`);
-        if (targetForm) {
-            targetForm.classList.add('active');
+        // Service form submission
+        const serviceForm = document.getElementById('serviceModalForm');
+        if (serviceForm) {
+            serviceForm.addEventListener('submit', (e) => this.handleServiceModalForm(e));
         }
     }
 
-    setupForms() {
-        // Maintenance form
-        const maintenanceForm = document.getElementById('maintenanceForm');
-        if (maintenanceForm) {
-            maintenanceForm.addEventListener('submit', (e) => this.handleMaintenanceForm(e));
+    openServiceModal(serviceType) {
+        const modal = document.getElementById('serviceModalOverlay');
+        const modalTitle = document.getElementById('serviceModalTitle');
+        const modalSubtitle = document.getElementById('serviceModalSubtitle');
+        
+        if (!modal) return;
+
+        // Set modal content based on service type
+        const serviceData = {
+            'basic': {
+                title: 'Sitio Web Básico',
+                subtitle: 'Landing Page - $299/Mes'
+            },
+            'gold': {
+                title: 'Sitio Web Gold',
+                subtitle: 'Web Corporativa - $599/Mes'
+            },
+            'expert': {
+                title: 'Sitio Web Expert',
+                subtitle: 'Aplicación Web Completa - $999/Mes'
+            }
+        };
+
+        const service = serviceData[serviceType];
+        if (service && modalTitle && modalSubtitle) {
+            modalTitle.textContent = service.title;
+            modalSubtitle.textContent = service.subtitle;
         }
 
-        // Contact form
-        const contactForm = document.getElementById('contactForm');
-        if (contactForm) {
-            contactForm.addEventListener('submit', (e) => this.handleContactForm(e));
-        }
+        // Store selected service type
+        modal.dataset.serviceType = serviceType;
 
-        // Service forms
-        const basicServiceForm = document.getElementById('basicServiceForm');
-        const goldServiceForm = document.getElementById('goldServiceForm');
-        const expertServiceForm = document.getElementById('expertServiceForm');
+        // Show modal
+        modal.classList.add('active');
+        document.body.style.overflow = 'hidden';
 
-        if (basicServiceForm) {
-            basicServiceForm.addEventListener('submit', (e) => this.handleServiceForm(e, 'Sitio Web Básico'));
-        }
-        if (goldServiceForm) {
-            goldServiceForm.addEventListener('submit', (e) => this.handleServiceForm(e, 'Sitio Web Gold'));
-        }
-        if (expertServiceForm) {
-            expertServiceForm.addEventListener('submit', (e) => this.handleServiceForm(e, 'Sitio Web Expert'));
+        // Focus on first input
+        setTimeout(() => {
+            const firstInput = modal.querySelector('input');
+            if (firstInput) {
+                firstInput.focus();
+            }
+        }, 300);
+    }
+
+    closeServiceModal() {
+        const modal = document.getElementById('serviceModalOverlay');
+        if (modal) {
+            modal.classList.remove('active');
+            document.body.style.overflow = '';
+            
+            // Reset form
+            const form = document.getElementById('serviceModalForm');
+            if (form) {
+                form.reset();
+            }
         }
     }
 
-    async handleServiceForm(e, serviceName) {
+    async handleServiceModalForm(e) {
         e.preventDefault();
         
         const form = e.target;
+        const modal = document.getElementById('serviceModalOverlay');
+        const serviceType = modal.dataset.serviceType;
         const submitBtn = form.querySelector('button[type="submit"]');
         const originalText = submitBtn.innerHTML;
         
@@ -312,14 +361,21 @@ class NavigationSystem {
         submitBtn.disabled = true;
 
         try {
+            // Get service name
+            const serviceNames = {
+                'basic': 'Sitio Web Básico',
+                'gold': 'Sitio Web Gold',
+                'expert': 'Sitio Web Expert'
+            };
+
             // Prepare form data
             const formData = {
-                form_type: `Solicitud de Servicio - ${serviceName}`,
+                form_type: `Solicitud de Servicio - ${serviceNames[serviceType]}`,
                 from_name: form.querySelector('input[placeholder*="nombre"]').value,
                 from_email: form.querySelector('input[placeholder*="correo"]').value,
                 phone: form.querySelector('input[placeholder*="teléfono"]').value,
-                service: serviceName,
-                message: form.querySelector('textarea').value || `Solicito información sobre el servicio: ${serviceName}`,
+                service: serviceNames[serviceType],
+                message: form.querySelector('textarea').value || `Solicito información sobre el servicio: ${serviceNames[serviceType]}`,
                 to_email: 'contacto@goweb.com'
             };
 
@@ -334,11 +390,10 @@ class NavigationSystem {
             // Store message in localStorage for admin panel
             this.storeMessage(formData);
 
-            this.showAlert(`¡Solicitud de ${serviceName} enviada correctamente! Nos pondremos en contacto contigo pronto.`, 'success');
-            form.reset();
+            this.showAlert(`¡Solicitud de ${serviceNames[serviceType]} enviada correctamente! Nos pondremos en contacto contigo pronto.`, 'success');
             
-            // Hide the form after successful submission
-            form.closest('.service-form-hidden').classList.remove('active');
+            // Close modal and reset form
+            this.closeServiceModal();
             
         } catch (error) {
             console.error('Error sending email:', error);
@@ -347,6 +402,20 @@ class NavigationSystem {
             // Restore button state
             submitBtn.innerHTML = originalText;
             submitBtn.disabled = false;
+        }
+    }
+
+    setupForms() {
+        // Maintenance form
+        const maintenanceForm = document.getElementById('maintenanceForm');
+        if (maintenanceForm) {
+            maintenanceForm.addEventListener('submit', (e) => this.handleMaintenanceForm(e));
+        }
+
+        // Contact form
+        const contactForm = document.getElementById('contactForm');
+        if (contactForm) {
+            contactForm.addEventListener('submit', (e) => this.handleContactForm(e));
         }
     }
 

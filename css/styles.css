@@ -525,62 +525,143 @@ body {
     height: 100%;
 }
 
-/* Service Form Styles */
-.service-form-container {
-    margin-top: 25px;
-}
-
-.service-select-btn {
-    width: 100%;
-    margin-bottom: 0;
-}
-
-.service-form-hidden {
+/* Service Modal Styles */
+.service-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(10px);
+    z-index: 2000;
     display: none;
-    margin-top: 20px;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
 }
 
-.service-form-hidden.active {
-    display: block;
-}
-
-.service-form {
+.service-modal-overlay.active {
     display: flex;
-    flex-direction: column;
-    gap: 15px;
+    opacity: 1;
 }
 
-.service-form input,
-.service-form textarea {
+.service-modal {
+    background: white;
+    border-radius: 25px;
+    padding: 40px;
+    max-width: 500px;
     width: 100%;
-    padding: 12px;
-    border: 1px solid rgba(255, 255, 255, 0.3);
-    border-radius: 8px;
-    font-size: 1rem;
-    background: rgba(255, 255, 255, 0.1);
-    color: white;
+    max-height: 90vh;
+    overflow-y: auto;
+    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.3);
+    transform: scale(0.9);
+    transition: transform 0.3s ease;
+    position: relative;
+}
+
+.service-modal-overlay.active .service-modal {
+    transform: scale(1);
+}
+
+.service-modal-header {
+    text-align: center;
+    margin-bottom: 30px;
+    padding-bottom: 20px;
+    border-bottom: 2px solid #f1f3f4;
+}
+
+.service-modal-title {
+    font-size: 2rem;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.service-modal-subtitle {
+    font-size: 1.2rem;
+    color: #667eea;
+    font-weight: 600;
+}
+
+.service-modal-close {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    color: #666;
+    cursor: pointer;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     transition: all 0.3s ease;
 }
 
-.service-form input::placeholder,
-.service-form textarea::placeholder {
-    color: rgba(255, 255, 255, 0.7);
+.service-modal-close:hover {
+    background: #f1f3f4;
+    color: #333;
 }
 
-.service-form input:focus,
-.service-form textarea:focus {
+.service-modal-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.service-modal-form input,
+.service-modal-form textarea {
+    width: 100%;
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 12px;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+}
+
+.service-modal-form input:focus,
+.service-modal-form textarea:focus {
     outline: none;
-    border-color: rgba(255, 255, 255, 0.6);
-    background: rgba(255, 255, 255, 0.2);
+    border-color: #667eea;
+    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
 }
 
-.service-form textarea {
+.service-modal-form textarea {
     resize: vertical;
-    min-height: 80px;
+    min-height: 100px;
 }
 
-.service-form button {
-    margin-top: 10px;
+.service-modal-submit {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border: none;
+    padding: 15px 30px;
+    border-radius: 12px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+.service-modal-submit:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
+}
+
+.service-modal-submit:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none;
 }
 
 /* Decorative Elements */
@@ -923,6 +1004,7 @@ body {
     box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
     transition: transform 0.3s ease;
     text-align: center;
+    cursor: pointer;
 }
 
 .service-card:hover {
@@ -1883,6 +1965,16 @@ body {
         width: 320px;
         height: 320px;
     }
+
+    /* Service modal adjustments */
+    .service-modal {
+        padding: 30px;
+        margin: 20px;
+    }
+
+    .service-modal-title {
+        font-size: 1.8rem;
+    }
 }
 
 /* Desktop Contact Centering (1025px and up) */
@@ -2169,6 +2261,21 @@ body {
         font-size: 1rem;
         text-align: center;
     }
+
+    /* Service modal mobile */
+    .service-modal {
+        padding: 25px;
+        margin: 10px;
+        max-height: 85vh;
+    }
+
+    .service-modal-title {
+        font-size: 1.6rem;
+    }
+
+    .service-modal-subtitle {
+        font-size: 1.1rem;
+    }
 }
 
 /* Small Mobile Styles (up to 480px) */
@@ -2382,8 +2489,8 @@ body {
     .contact-form textarea,
     .admin-form-group input,
     .admin-form-group textarea,
-    .service-form input,
-    .service-form textarea {
+    .service-modal-form input,
+    .service-modal-form textarea {
         padding: 12px;
         font-size: 0.9rem;
     }
@@ -2421,6 +2528,20 @@ body {
 
     .message-info-value {
         font-size: 0.9rem;
+    }
+
+    /* Service modal small mobile */
+    .service-modal {
+        padding: 20px;
+        margin: 5px;
+    }
+
+    .service-modal-title {
+        font-size: 1.4rem;
+    }
+
+    .service-modal-subtitle {
+        font-size: 1rem;
     }
 }
 
@@ -2482,6 +2603,15 @@ body {
         padding: 12px;
         margin: 0 2px;
     }
+
+    .service-modal {
+        padding: 15px;
+        margin: 2px;
+    }
+
+    .service-modal-title {
+        font-size: 1.2rem;
+    }
 }
 
 /* Landscape Mobile Optimization */
@@ -2523,6 +2653,11 @@ body {
     }
 
     .video-container {
+        padding: 20px;
+    }
+
+    .service-modal {
+        max-height: 80vh;
         padding: 20px;
     }
 }
@@ -2586,7 +2721,8 @@ body {
     .floating-elements,
     .decorative-elements,
     .admin-panel,
-    .login-screen {
+    .login-screen,
+    .service-modal-overlay {
         display: none !important;
     }
 
