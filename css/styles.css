@@ -525,6 +525,64 @@ body {
     height: 100%;
 }
 
+/* Service Form Styles */
+.service-form-container {
+    margin-top: 25px;
+}
+
+.service-select-btn {
+    width: 100%;
+    margin-bottom: 0;
+}
+
+.service-form-hidden {
+    display: none;
+    margin-top: 20px;
+}
+
+.service-form-hidden.active {
+    display: block;
+}
+
+.service-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.service-form input,
+.service-form textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 8px;
+    font-size: 1rem;
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+    transition: all 0.3s ease;
+}
+
+.service-form input::placeholder,
+.service-form textarea::placeholder {
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.service-form input:focus,
+.service-form textarea:focus {
+    outline: none;
+    border-color: rgba(255, 255, 255, 0.6);
+    background: rgba(255, 255, 255, 0.2);
+}
+
+.service-form textarea {
+    resize: vertical;
+    min-height: 80px;
+}
+
+.service-form button {
+    margin-top: 10px;
+}
+
 /* Decorative Elements */
 .decorative-elements {
     position: absolute;
@@ -1721,10 +1779,17 @@ body {
     
     /* Grid layouts become single column */
     .home-content,
-    .maintenance-content,
+    .maintenance-content {
+        grid-template-columns: 1fr;
+        gap: 40px;
+    }
+
+    /* Contact content - CENTERED LAYOUT FOR PC */
     .contact-content {
         grid-template-columns: 1fr;
         gap: 40px;
+        max-width: 800px;
+        margin: 0 auto;
     }
     
     /* Typography adjustments */
@@ -1817,6 +1882,20 @@ body {
     .image-frame {
         width: 320px;
         height: 320px;
+    }
+}
+
+/* Desktop Contact Centering (1025px and up) */
+@media (min-width: 1025px) {
+    .contact-content {
+        max-width: 1000px;
+        margin: 0 auto;
+        justify-items: center;
+    }
+
+    .contact-form-container,
+    .contact-info {
+        max-width: 500px;
     }
 }
 
@@ -2302,7 +2381,9 @@ body {
     .contact-form select,
     .contact-form textarea,
     .admin-form-group input,
-    .admin-form-group textarea {
+    .admin-form-group textarea,
+    .service-form input,
+    .service-form textarea {
         padding: 12px;
         font-size: 0.9rem;
     }
