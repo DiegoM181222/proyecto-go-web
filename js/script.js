@@ -1,7 +1,7 @@
 const EMAILJS_CONFIG = {
     serviceId: 'service_fzbcjn2',
     templateId: 'template_k956gl2', 
-    publicKey: 'rfarXJP58WdYBoU0E'
+    publicKey: 'Eq7na919j59oXPRcd'
 };
 
 class AuthSystem {
