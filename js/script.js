@@ -404,29 +404,37 @@ class NavigationSystem {
                 'expert': 'Sitio Web Expert'
             };
 
-            // Prepare form data
-            const formData = {
+            // Prepare form data for EmailJS
+            const templateParams = {
                 form_type: `Solicitud de Servicio - ${serviceNames[serviceType]}`,
                 from_name: form.querySelector('input[placeholder*="nombre"]').value,
                 from_email: form.querySelector('input[placeholder*="correo"]').value,
                 phone: form.querySelector('input[placeholder*="teléfono"]').value,
                 service: serviceNames[serviceType],
                 message: form.querySelector('textarea').value || `Solicito información sobre el servicio: ${serviceNames[serviceType]}`,
-                to_email: 'contacto@goweb.com'
+                to_email: 'contacto@goweb.com',
+                reply_to: form.querySelector('input[placeholder*="correo"]').value
             };
+
+            console.log('Enviando email con datos:', templateParams);
+
+            // Check if EmailJS is available
+            if (typeof emailjs === 'undefined') {
+                throw new Error('EmailJS no está disponible');
+            }
 
             // Send email using EmailJS
             const result = await emailjs.send(
                 EMAILJS_CONFIG.serviceId,
                 EMAILJS_CONFIG.templateId,
-                formData,
+                templateParams,
                 EMAILJS_CONFIG.publicKey
             );
 
-            console.log('Email sent successfully:', result);
+            console.log('Email enviado exitosamente:', result);
 
             // Store message in localStorage for admin panel
-            this.storeMessage(formData);
+            this.storeMessage(templateParams);
 
             this.showAlert(`¡Solicitud de ${serviceNames[serviceType]} enviada correctamente! Nos pondremos en contacto contigo pronto.`, 'success');
             
@@ -434,10 +442,10 @@ class NavigationSystem {
             this.closeServiceModal();
             
         } catch (error) {
-            console.error('Error sending email:', error);
+            console.error('Error enviando email:', error);
             
             // Store message locally even if email fails
-            const formData = {
+            const fallbackData = {
                 form_type: `Solicitud de Servicio - ${serviceNames[serviceType] || 'Servicio'}`,
                 from_name: form.querySelector('input[placeholder*="nombre"]').value,
                 from_email: form.querySelector('input[placeholder*="correo"]').value,
@@ -446,9 +454,9 @@ class NavigationSystem {
                 message: form.querySelector('textarea').value || `Solicito información sobre el servicio`,
                 to_email: 'contacto@goweb.com'
             };
-            this.storeMessage(formData);
+            this.storeMessage(fallbackData);
             
-            this.showAlert('Tu solicitud se ha guardado localmente. El administrador podrá verla en el panel de administración.', 'success');
+            this.showAlert('Hubo un problema con el envío del email, pero tu solicitud se ha guardado localmente. El administrador podrá verla en el panel de administración.', 'success');
             this.closeServiceModal();
         } finally {
             // Restore button state
@@ -483,8 +491,8 @@ class NavigationSystem {
         submitBtn.disabled = true;
 
         try {
-            // Prepare form data
-            const formData = {
+            // Prepare form data for EmailJS
+            const templateParams = {
                 form_type: 'Solicitud de Mantenimiento',
                 from_name: form.querySelector('input[placeholder="Tu nombre completo"]').value,
                 from_email: form.querySelector('input[placeholder="Tu correo electrónico"]').value,
@@ -492,30 +500,38 @@ class NavigationSystem {
                 website: form.querySelector('input[placeholder="URL de tu sitio web"]').value,
                 service: form.querySelector('select').value,
                 message: form.querySelector('textarea').value,
-                to_email: 'contacto@goweb.com'
+                to_email: 'contacto@goweb.com',
+                reply_to: form.querySelector('input[placeholder="Tu correo electrónico"]').value
             };
+
+            console.log('Enviando email con datos:', templateParams);
+
+            // Check if EmailJS is available
+            if (typeof emailjs === 'undefined') {
+                throw new Error('EmailJS no está disponible');
+            }
 
             // Send email using EmailJS
             const result = await emailjs.send(
                 EMAILJS_CONFIG.serviceId,
                 EMAILJS_CONFIG.templateId,
-                formData,
+                templateParams,
                 EMAILJS_CONFIG.publicKey
             );
 
-            console.log('Email sent successfully:', result);
+            console.log('Email enviado exitosamente:', result);
 
             // Store message in localStorage for admin panel
-            this.storeMessage(formData);
+            this.storeMessage(templateParams);
 
             this.showAlert('¡Solicitud enviada correctamente! Nos pondremos en contacto contigo pronto.', 'success');
             form.reset();
             
         } catch (error) {
-            console.error('Error sending email:', error);
+            console.error('Error enviando email:', error);
             
             // Store message locally even if email fails
-            const formData = {
+            const fallbackData = {
                 form_type: 'Solicitud de Mantenimiento',
                 from_name: form.querySelector('input[placeholder="Tu nombre completo"]').value,
                 from_email: form.querySelector('input[placeholder="Tu correo electrónico"]').value,
@@ -525,9 +541,9 @@ class NavigationSystem {
                 message: form.querySelector('textarea').value,
                 to_email: 'contacto@goweb.com'
             };
-            this.storeMessage(formData);
+            this.storeMessage(fallbackData);
             
-            this.showAlert('Tu solicitud se ha guardado localmente. El administrador podrá verla en el panel de administración.', 'success');
+            this.showAlert('Hubo un problema con el envío del email, pero tu solicitud se ha guardado localmente. El administrador podrá verla en el panel de administración.', 'success');
             form.reset();
         } finally {
             // Restore button state
@@ -548,8 +564,8 @@ class NavigationSystem {
         submitBtn.disabled = true;
 
         try {
-            // Prepare form data
-            const formData = {
+            // Prepare form data for EmailJS
+            const templateParams = {
                 form_type: 'Mensaje de Contacto',
                 from_name: form.querySelector('input[placeholder="Tu nombre"]').value,
                 from_email: form.querySelector('input[placeholder="Tu correo electrónico"]').value,
@@ -557,30 +573,38 @@ class NavigationSystem {
                 company: form.querySelector('input[placeholder="Tu empresa (opcional)"]').value,
                 service: form.querySelector('select').value,
                 message: form.querySelector('textarea').value,
-                to_email: 'contacto@goweb.com'
+                to_email: 'contacto@goweb.com',
+                reply_to: form.querySelector('input[placeholder="Tu correo electrónico"]').value
             };
+
+            console.log('Enviando email con datos:', templateParams);
+
+            // Check if EmailJS is available
+            if (typeof emailjs === 'undefined') {
+                throw new Error('EmailJS no está disponible');
+            }
 
             // Send email using EmailJS
             const result = await emailjs.send(
                 EMAILJS_CONFIG.serviceId,
                 EMAILJS_CONFIG.templateId,
-                formData,
+                templateParams,
                 EMAILJS_CONFIG.publicKey
             );
 
-            console.log('Email sent successfully:', result);
+            console.log('Email enviado exitosamente:', result);
 
             // Store message in localStorage for admin panel
-            this.storeMessage(formData);
+            this.storeMessage(templateParams);
 
             this.showAlert('¡Mensaje enviado correctamente! Nos pondremos en contacto contigo pronto.', 'success');
             form.reset();
             
         } catch (error) {
-            console.error('Error sending email:', error);
+            console.error('Error enviando email:', error);
             
             // Store message locally even if email fails
-            const formData = {
+            const fallbackData = {
                 form_type: 'Mensaje de Contacto',
                 from_name: form.querySelector('input[placeholder="Tu nombre"]').value,
                 from_email: form.querySelector('input[placeholder="Tu correo electrónico"]').value,
@@ -590,9 +614,9 @@ class NavigationSystem {
                 message: form.querySelector('textarea').value,
                 to_email: 'contacto@goweb.com'
             };
-            this.storeMessage(formData);
+            this.storeMessage(fallbackData);
             
-            this.showAlert('Tu mensaje se ha guardado localmente. El administrador podrá verlo en el panel de administración.', 'success');
+            this.showAlert('Hubo un problema con el envío del email, pero tu mensaje se ha guardado localmente. El administrador podrá verlo en el panel de administración.', 'success');
             form.reset();
         } finally {
             // Restore button state
@@ -1244,12 +1268,12 @@ class AnimationSystem {
 
 // Initialize everything when DOM is loaded
 document.addEventListener('DOMContentLoaded', () => {
-    // Initialize EmailJS
+    // Initialize EmailJS first
     if (typeof emailjs !== 'undefined') {
         emailjs.init(EMAILJS_CONFIG.publicKey);
-        console.log('EmailJS initialized successfully');
+        console.log('EmailJS inicializado correctamente');
     } else {
-        console.warn('EmailJS library not loaded');
+        console.warn('EmailJS library no está cargada. Verifica que el script esté incluido.');
     }
     
     // Initialize systems
@@ -1258,7 +1282,7 @@ document.addEventListener('DOMContentLoaded', () => {
     window.adminPanel = new AdminPanelSystem();
     window.animations = new AnimationSystem();
     
-    console.log('GoWeb Website initialized successfully!');
+    console.log('GoWeb Website inicializado exitosamente!');
 });
 
 // Utility functions
