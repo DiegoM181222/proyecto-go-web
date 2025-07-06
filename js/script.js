@@ -30,6 +30,40 @@ class AuthSystem {
         this.setupLogout();
         this.setupHomeNavigation();
         this.setupPasswordToggle();
+        this.preventPasswordSave();
+    }
+
+    preventPasswordSave() {
+        // Prevenir que el navegador guarde contraseñas en formularios de contacto
+        const contactForms = document.querySelectorAll('#serviceModalForm, #maintenanceForm, #contactForm');
+        contactForms.forEach(form => {
+            if (form) {
+                form.setAttribute('autocomplete', 'off');
+                
+                // Agregar atributos a campos de email para prevenir autoguardado
+                const emailInputs = form.querySelectorAll('input[type="email"], input[placeholder*="correo"], input[placeholder*="email"]');
+                emailInputs.forEach(input => {
+                    input.setAttribute('autocomplete', 'new-email');
+                    input.setAttribute('data-form-type', 'other');
+                });
+
+                // Si hay campos que parecen contraseñas, marcarlos como no-password
+                const allInputs = form.querySelectorAll('input');
+                allInputs.forEach(input => {
+                    if (input.type !== 'password') {
+                        input.setAttribute('autocomplete', 'off');
+                    }
+                });
+            }
+        });
+
+        // Agregar meta tag para prevenir autoguardado global
+        if (!document.querySelector('meta[name="save-password"]')) {
+            const meta = document.createElement('meta');
+            meta.name = 'save-password';
+            meta.content = 'never';
+            document.head.appendChild(meta);
+        }
     }
 
     setupLoginForm() {
