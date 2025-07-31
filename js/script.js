@@ -1,9 +1,3 @@
-const EMAILJS_CONFIG = {
-    serviceId: 'service_fzbcjn2',
-    templateId: 'template_k956gl2', 
-    publicKey: 'Eq7na919j59oXPRcd'
-};
-
 // =========================================================
 // Archivo script.js final (Firebase + Navegación)
 // =========================================================
