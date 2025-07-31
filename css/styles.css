@@ -3050,3 +3050,20 @@ body {
         border: 2px solid #000 !important;
     }
 }
+
+/* --- Centrado vertical del formulario --- */
+.contact-content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh; /* ocupa toda la altura de la pantalla */
+    padding: 20px;
+}
+
+.form-wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 100%;
+    padding: 20px;
+}
