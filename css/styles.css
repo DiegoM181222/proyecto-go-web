@@ -1367,12 +1367,19 @@ body {
 }
 
 /* Contact Section Styles */
+.form-wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;   /* centra verticalmente */
+    height: 100%;              /* se puede usar 100vh si querés ocupar toda la pantalla */
+    padding: 20px;
+}
+
 .contact-content {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 60px;
-    position: relative;
-    z-index: 10;
+    display: flex;
+    align-items: center;       /* centra el bloque en altura */
+    justify-content: center;   /* opcional: también centrado horizontal */
+    min-height: 100vh;         /* ocupa toda la altura de la pantalla */
 }
 
 .contact-info {
