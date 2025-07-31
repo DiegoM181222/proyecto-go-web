@@ -238,7 +238,7 @@ class AuthSystem {
 class NavigationSystem {
     constructor() {
         this.currentSection = 'home';
-        this.sections = ['home', 'services', 'maintenance', 'portfolio', 'about', 'contact', 'admin'];
+        this.sections = ['home', 'services', 'maintenance', 'portfolio', 'about', 'contact', 'admin', 'privacy', 'terms'];
     }
 
     init() {
@@ -250,7 +250,7 @@ class NavigationSystem {
     }
 
     setupNavigation() {
-        const navLinks = document.querySelectorAll('.nav-link, .mobile-nav-link');
+        const navLinks = document.querySelectorAll('.nav-link, .mobile-nav-link, .footer-nav-link, .footer-legal-link');
         navLinks.forEach(link => {
             link.addEventListener('click', (e) => {
                 e.preventDefault();
