@@ -604,83 +604,38 @@
 
                  <section class="contact-section">
                      
-  <div class="contact-wrapper">
+  <div style="display: flex; justify-content: center; align-items: flex-start; gap: 40px; padding: 40px; background-color: #f0f2f5;">
+
     <!-- Formulario -->
-    <div class="contact-form-container">
-      <h2>Envíanos un Mensaje</h2>
-      <form id="contactForm" class="contact-form">
-        <div class="form-row">
-          <input type="text" placeholder="Tu nombre" required>
-          <input type="email" placeholder="Tu correo electrónico" required>
-        </div>
-        <div class="form-row">
-          <input type="tel" placeholder="Tu teléfono" required>
-          <input type="text" placeholder="Tu empresa (opcional)">
-        </div>
-        <select required>
-          <option value="">¿Qué servicio te interesa?</option>
-          <option value="Sitio Web Básico">Sitio Web Básico</option>
-          <option value="Sitio Web Corporativo">Sitio Web Corporativo</option>
-          <option value="Aplicación Web">Aplicación Web</option>
-          <option value="Mantenimiento">Mantenimiento</option>
-          <option value="Consultoría">Consultoría</option>
-          <option value="Otro">Otro</option>
-        </select>
-        <textarea placeholder="Cuéntanos sobre tu proyecto" required></textarea>
-        <button type="submit" class="btn btn-gradient">
-          <i class="fas fa-paper-plane"></i>
-          Enviar Mensaje
-        </button>
-      </form>
+    <div style="background: white; padding: 20px; border-radius: 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); width: 400px;">
+        <h2>Envíanos un Mensaje</h2>
+        <form id="contactForm" class="contact-form">
+            <div class="form-row" style="display: flex; gap: 10px;">
+                <input type="text" placeholder="Tu nombre" required style="flex: 1;">
+                <input type="email" placeholder="Tu correo electrónico" required style="flex: 1;">
+            </div><br>
+            <div class="form-row" style="display: flex; gap: 10px;">
+                <input type="tel" placeholder="Tu teléfono" required style="flex: 1;">
+                <input type="text" placeholder="Tu empresa (opcional)" style="flex: 1;">
+            </div><br>
+            <select required style="width: 100%; padding: 8px;">
+                <option value="">¿Qué servicio te interesa?</option>
+                <option value="Sitio Web Básico">Sitio Web Básico</option>
+                <option value="Sitio Web Corporativo">Sitio Web Corporativo</option>
+                <option value="Aplicación Web">Aplicación Web</option>
+                <option value="Mantenimiento">Mantenimiento</option>
+                <option value="Consultoría">Consultoría</option>
+                <option value="Otro">Otro</option>
+            </select><br><br>
+            <textarea placeholder="Cuéntanos sobre tu proyecto" required style="width: 100%; height: 100px;"></textarea><br><br>
+            <button type="submit" class="btn btn-gradient" style="width: 100%; padding: 10px; background: linear-gradient(to right, #6a11cb, #2575fc); color: white; border: none; border-radius: 5px;">
+                <i class="fas fa-paper-plane"></i> Enviar Mensaje
+            </button>
+        </form>
     </div>
 
-    <!-- Información de Contacto -->
-    <div class="contact-info">
-      <div class="why-choose-us">
-        <h3>¿Por qué elegirnos?</h3>
-        <ul>
-          <li>Experiencia comprobada en desarrollo web</li>
-          <li>Diseños modernos y responsivos</li>
-          <li>Soporte técnico continuo</li>
-          <li>Precios competitivos</li>
-          <li>Entrega puntual de proyectos</li>
-          <li>Tecnologías de vanguardia</li>
-        </ul>
-      </div>
-
-      <div class="contact-card">
-        <h2>Información de Contacto</h2>
-        <div class="contact-item">
-          <div class="contact-icon email">
-            <i class="fas fa-envelope"></i>
-          </div>
-          <div>
-            <div class="contact-label">Email</div>
-            <div class="contact-value">contacto@goweb.com</div>
-          </div>
-        </div>
-        <div class="contact-item">
-          <div class="contact-icon phone">
-            <i class="fas fa-phone"></i>
-          </div>
-          <div>
-            <div class="contact-label">Teléfono</div>
-            <div class="contact-value">+54 3704 047512</div>
-          </div>
-        </div>
-        <div class="contact-item">
-          <div class="contact-icon location">
-            <i class="fas fa-map-marker-alt"></i>
-          </div>
-          <div>
-            <div class="contact-label">Ubicación</div>
-            <div class="contact-value">Argentina, Formosa</div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
+    <!-- Información de contacto -->
+    <div style="background: white; padding: 20px; border-radius: 10px; box-shadow: 0 4px
 
         <!-- Admin Panel Section -->
         <section id="adminSection" class="section admin-panel">
