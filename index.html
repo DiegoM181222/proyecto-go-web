@@ -77,55 +77,63 @@
     <div id="mainWebsite" class="main-website" style="display: none;">
         <!-- Navigation -->
         <nav class="navbar">
-            <div class="nav-container">
-                <div class="nav-logo">
-                    <img src="images/image copy copy.png" alt="GoWeb Logo" class="nav-logo-image">
-                    <h1>GoWeb</h1>
-                </div>
-                
-                <div class="nav-menu">
-                    <a href="#" class="nav-link active" data-section="home">
-                        <i class="fas fa-home"></i>
-                        <span>Inicio</span>
-                    </a>
-                    <a href="#" class="nav-link" data-section="services">
-                        <i class="fas fa-cogs"></i>
-                        <span>Servicios</span>
-                    </a>
-                    <a href="#" class="nav-link" data-section="maintenance">
-                        <i class="fas fa-tools"></i>
-                        <span>Mantenimiento</span>
-                    </a>
-                    <a href="#" class="nav-link" data-section="portfolio">
-                        <i class="fas fa-briefcase"></i>
-                        <span>Portafolio</span>
-                    </a>
-                    <a href="#" class="nav-link" data-section="about">
-                        <i class="fas fa-users"></i>
-                        <span>Nosotros</span>
-                    </a>
-                    <a href="#" class="nav-link" data-section="contact">
-                        <i class="fas fa-envelope"></i>
-                        <span>Contacto</span>
-                    </a>
-                    <a href="#" class="nav-link admin-only" data-section="admin" style="display: none;">
-                        <i class="fas fa-user-shield"></i>
-                        <span>Admin</span>
-                    </a>
-                </div>
+    <div class="nav-container">
+        <div class="nav-logo">
+            <img src="images/image copy copy.png" alt="GoWeb Logo" class="nav-logo-image">
+            <h1>GoWeb</h1>
+        </div>
+        
+        <div class="nav-menu">
+            <a href="#" class="nav-link active" data-section="home">
+                <i class="fas fa-home"></i>
+                <span>Inicio</span>
+            </a>
+            <a href="#" class="nav-link" data-section="services">
+                <i class="fas fa-cogs"></i>
+                <span>Servicios</span>
+            </a>
+            <a href="#" class="nav-link" data-section="maintenance">
+                <i class="fas fa-tools"></i>
+                <span>Mantenimiento</span>
+            </a>
+            <a href="#" class="nav-link" data-section="portfolio">
+                <i class="fas fa-briefcase"></i>
+                <span>Portafolio</span>
+            </a>
+            <a href="#" class="nav-link" data-section="about">
+                <i class="fas fa-users"></i>
+                <span>Nosotros</span>
+            </a>
+            <a href="#" class="nav-link" data-section="contact">
+                <i class="fas fa-envelope"></i>
+                <span>Contacto</span>
+            </a>
+            <a href="#" class="nav-link admin-only" data-section="admin" style="display: none;">
+                <i class="fas fa-user-shield"></i>
+                <span>Admin</span>
+            </a>
+        </div>
 
-                <div class="nav-user">
-                    <span id="userInfo" class="user-info"></span>
-                    <button id="logoutBtn" class="logout-btn">
-                        <i class="fas fa-sign-out-alt"></i>
-                        <span class="logout-text">Salir</span>
-                    </button>
-                    <button id="mobileMenuBtn" class="mobile-menu-btn">
-                        <i class="fas fa-bars"></i>
-                    </button>
-                </div>
+        <div class="nav-user">
+            <button id="google-signin-button" class="google-signin-btn">
+                <i class="fas fa-sign-in-alt"></i>
+                <span>Iniciar sesión</span>
+            </button>
+            
+            <div id="user-signed-in" style="display: none;">
+                <span id="userInfo" class="user-info"></span>
+                <button id="logoutBtn" class="logout-btn">
+                    <i class="fas fa-sign-out-alt"></i>
+                    <span class="logout-text">Salir</span>
+                </button>
             </div>
-        </nav>
+            
+            <button id="mobileMenuBtn" class="mobile-menu-btn">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </div>
+</nav>
 
         <!-- Mobile Menu -->
         <div id="mobileMenuOverlay" class="mobile-menu-overlay">
