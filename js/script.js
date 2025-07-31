@@ -5,10 +5,10 @@ const EMAILJS_CONFIG = {
 };
 
 // =========================================================
-// Archivo script.js final con la integración de Firebase
+// Archivo script.js final (Firebase + Navegación)
 // =========================================================
 
-// Configuración de Firebase (debe ser la que copiaste de tu consola)
+// Configuración de Firebase
 const firebaseConfig = {
     apiKey: "AIzaSyB9RY4wK8PR1zIYXOqbku8_snieNY37M5k",
     authDomain: "go-web-login.firebaseapp.com",
@@ -32,33 +32,76 @@ const auth = firebase.auth();
 const db = firebase.firestore();
 const provider = new firebase.auth.GoogleAuthProvider();
 
+// =========================================================
+// Lógica de Navegación SPA
+// =========================================================
+class Navigation {
+    constructor() {
+        this.sections = document.querySelectorAll('.page-section'); // Asumimos que las secciones tienen esta clase
+        this.navLinks = document.querySelectorAll('.nav-link');
+        this.setupNavigation();
+    }
+
+    setupNavigation() {
+        this.navLinks.forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                const sectionId = link.dataset.section;
+                if (sectionId) {
+                    this.showSection(sectionId);
+                }
+            });
+        });
+        
+        // Clic en el logo para ir a inicio
+        const navLogo = document.querySelector('.nav-logo');
+        if (navLogo) {
+            navLogo.addEventListener('click', () => this.showSection('home'));
+        }
+    }
+
+    showSection(sectionId) {
+        this.sections.forEach(section => {
+            if (section.id === sectionId) {
+                section.style.display = 'block'; // Muestra la sección
+            } else {
+                section.style.display = 'none'; // Oculta las demás
+            }
+        });
+        this.updateActiveLink(sectionId);
+    }
+    
+    updateActiveLink(sectionId) {
+        this.navLinks.forEach(link => {
+            if (link.dataset.section === sectionId) {
+                link.classList.add('active');
+            } else {
+                link.classList.remove('active');
+            }
+        });
+    }
+}
+
+// =========================================================
+// Lógica de Autenticación de Firebase
+// =========================================================
 // Referencias a los elementos HTML
 const signInButton = document.getElementById('google-signin-button');
 const userSignedInContainer = document.getElementById('user-signed-in');
 const userInfoSpan = document.getElementById('userInfo');
 const logoutBtn = document.getElementById('logoutBtn');
-const adminLink = document.querySelector('.admin-only'); // Usamos el selector de clase
-
-// =========================================================
-// Lógica de Autenticación de Firebase
-// =========================================================
+const adminLink = document.querySelector('.admin-only');
 
 // Maneja el estado de autenticación (cuando el usuario inicia o cierra sesión)
 auth.onAuthStateChanged(user => {
     if (user) {
-        // El usuario está conectado
         signInButton.style.display = 'none';
         userSignedInContainer.style.display = 'flex';
         userInfoSpan.textContent = user.displayName;
-        
-        // Verifica el rol del usuario en la base de datos
         checkUserRole(user);
     } else {
-        // El usuario está desconectado
         signInButton.style.display = 'flex';
         userSignedInContainer.style.display = 'none';
-        
-        // Oculta el enlace de admin
         if (adminLink) {
             adminLink.style.display = 'none';
         }
@@ -72,10 +115,8 @@ if (signInButton) {
             .then(result => {
                 const user = result.user;
                 const userRef = db.collection('users').doc(user.uid);
-                
                 userRef.get().then(doc => {
                     if (!doc.exists) {
-                        // Si el usuario es nuevo, lo registra con el rol por defecto
                         userRef.set({ name: user.displayName, email: user.email, role: 'user' });
                     }
                 });
@@ -105,11 +146,11 @@ function checkUserRole(user) {
             const userRole = doc.data().role;
             if (userRole === 'admin') {
                 if (adminLink) {
-                    adminLink.style.display = 'flex'; // Muestra el enlace si es admin
+                    adminLink.style.display = 'flex';
                 }
             } else {
                 if (adminLink) {
-                    adminLink.style.display = 'none'; // Oculta si no es admin
+                    adminLink.style.display = 'none';
                 }
             }
         }
@@ -118,6 +159,13 @@ function checkUserRole(user) {
     });
 }
 
+// =========================================================
+// Inicialización
+// =========================================================
+document.addEventListener('DOMContentLoaded', () => {
+    window.navigation = new Navigation();
+    window.navigation.showSection('home'); // Muestra la sección de inicio por defecto
+});
 // Navigation System
 class NavigationSystem {
     constructor() {
