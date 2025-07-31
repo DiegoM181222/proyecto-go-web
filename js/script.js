@@ -66,6 +66,13 @@ class AuthSystem {
         }
     }
 
+    setupLoginForm() {
+        const loginForm = document.getElementById('loginForm');
+        if (loginForm) {
+            loginForm.addEventListener('submit', (e) => this.handleLogin(e));
+        }
+    }
+
     setupUserTypeButtons() {
         const userTypeButtons = document.querySelectorAll('.user-type-btn');
         userTypeButtons.forEach(btn => {
@@ -156,6 +163,22 @@ class AuthSystem {
         }
     }
 
+    showMainWebsite() {
+        const loginScreen = document.getElementById('loginScreen');
+        const mainWebsite = document.getElementById('mainWebsite');
+        const userInfo = document.getElementById('userInfo');
+        const mobileUserInfo = document.getElementById('mobileUserInfo');
+
+        loginScreen.style.display = 'none';
+        mainWebsite.style.display = 'block';
+        
+        if (userInfo && this.currentUser) {
+            userInfo.textContent = `${this.currentUser.name} (${this.currentUser.role})`;
+        }
+        if (mobileUserInfo && this.currentUser) {
+            mobileUserInfo.textContent = `${this.currentUser.name} (${this.currentUser.role})`;
+        }
+
         // Show admin menu if user is admin
         if (this.currentUser.role === 'admin') {
             const adminLinks = document.querySelectorAll('.admin-only');
@@ -169,7 +192,13 @@ class AuthSystem {
         window.adminPanel.init();
     }
 
-    logout() 
+    logout() {
+        this.currentUser = null;
+        const loginScreen = document.getElementById('loginScreen');
+        const mainWebsite = document.getElementById('mainWebsite');
+        
+        loginScreen.style.display = 'flex';
+        mainWebsite.style.display = 'none';
         
         // Reset form
         document.getElementById('loginForm').reset();
