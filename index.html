@@ -19,38 +19,16 @@
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 </head>
 <body>
-    <nav class="navbar">
-    <div class="nav-brand">
-        <a href="#" class="nav-logo" data-section="home">
-            GoWeb
-        </a>
-    </div>
-    <div class="nav-links-container">
-        <a href="#" class="nav-link" data-section="home">Inicio</a>
-        <a href="#" class="nav-link" data-section="servicios">Servicios</a>
-        <a href="#" class="nav-link" data-section="mantenimiento">Mantenimiento</a>
-        <a href="#" class="nav-link" data-section="portafolio">Portafolio</a>
-        <a href="#" class="nav-link" data-section="nosotros">Nosotros</a>
-        <a href="#" class="nav-link" data-section="contacto">Contacto</a>
-        <a href="#" class="nav-link admin-only" data-section="adminPanel" style="display: none;">Panel de Admin</a>
-    </div>
-    
-    <div class="nav-user">
-        <button id="google-signin-button" class="btn btn-primary">
-            Iniciar sesión
-        </button>
-        <div id="user-signed-in" style="display: none;">
-            <span id="userInfo"></span>
-            <button id="logoutBtn" class="btn btn-secondary">
-                Salir
-            </button>
-        </div>
-    </div>
-</nav>
-
-<div id="mainWebsite">
-    ...
-</div>
+    <!-- Login Screen -->
+    <div id="loginScreen" class="login-screen">
+        <div class="login-container">
+            <div class="login-logo">
+                <img src="images/image copy copy.png" alt="GoWeb Logo" class="logo-image">
+            </div>
+            <div class="login-header">
+                <h1>GoWeb</h1>
+                <p>Accede a tu cuenta</p>
+            </div>
             
             <form id="loginForm">
                 <div class="user-type-selector">
@@ -1398,14 +1376,7 @@
             </form>
         </div>
     </div>
-<script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-auth-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore-compat.js"></script>
 
-    <script src="js/script.js"></script>
-
-</body>
-</html>
     <script src="js/script.js"></script>
 </body>
 </html>
