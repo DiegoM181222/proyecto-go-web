@@ -31,7 +31,7 @@ const provider = new firebase.auth.GoogleAuthProvider();
 // =========================================================
 class Navigation {
     constructor() {
-        this.sections = document.querySelectorAll('.page-section'); // Asumimos que las secciones tienen esta clase
+        this.sections = document.querySelectorAll('.page-section');
         this.navLinks = document.querySelectorAll('.nav-link');
         this.setupNavigation();
     }
@@ -46,8 +46,7 @@ class Navigation {
                 }
             });
         });
-        
-        // Clic en el logo para ir a inicio
+
         const navLogo = document.querySelector('.nav-logo');
         if (navLogo) {
             navLogo.addEventListener('click', () => this.showSection('home'));
@@ -57,14 +56,14 @@ class Navigation {
     showSection(sectionId) {
         this.sections.forEach(section => {
             if (section.id === sectionId) {
-                section.style.display = 'block'; // Muestra la sección
+                section.style.display = 'block';
             } else {
-                section.style.display = 'none'; // Oculta las demás
+                section.style.display = 'none';
             }
         });
         this.updateActiveLink(sectionId);
     }
-    
+
     updateActiveLink(sectionId) {
         this.navLinks.forEach(link => {
             if (link.dataset.section === sectionId) {
@@ -79,14 +78,12 @@ class Navigation {
 // =========================================================
 // Lógica de Autenticación de Firebase
 // =========================================================
-// Referencias a los elementos HTML
 const signInButton = document.getElementById('google-signin-button');
 const userSignedInContainer = document.getElementById('user-signed-in');
 const userInfoSpan = document.getElementById('userInfo');
 const logoutBtn = document.getElementById('logoutBtn');
 const adminLink = document.querySelector('.admin-only');
 
-// Maneja el estado de autenticación (cuando el usuario inicia o cierra sesión)
 auth.onAuthStateChanged(user => {
     if (user) {
         signInButton.style.display = 'none';
@@ -102,7 +99,6 @@ auth.onAuthStateChanged(user => {
     }
 });
 
-// Event listener para el botón de inicio de sesión con Google
 if (signInButton) {
     signInButton.addEventListener('click', () => {
         auth.signInWithPopup(provider)
@@ -121,7 +117,6 @@ if (signInButton) {
     });
 }
 
-// Event listener para el botón de cerrar sesión
 if (logoutBtn) {
     logoutBtn.addEventListener('click', () => {
         auth.signOut().then(() => {
@@ -132,7 +127,6 @@ if (logoutBtn) {
     });
 }
 
-// Función para verificar el rol del usuario en Firestore
 function checkUserRole(user) {
     const userRef = db.collection('users').doc(user.uid);
     userRef.get().then(doc => {
@@ -158,8 +152,9 @@ function checkUserRole(user) {
 // =========================================================
 document.addEventListener('DOMContentLoaded', () => {
     window.navigation = new Navigation();
-    window.navigation.showSection('home'); // Muestra la sección de inicio por defecto
+    window.navigation.showSection('home');
 });
+
 // Navigation System
 class NavigationSystem {
     constructor() {
