@@ -1,7 +1,7 @@
 const EMAILJS_CONFIG = {
-    serviceId: 'service_fzbcjn2',
-    templateId: 'template_k956gl2', 
-    publicKey: 'Eq7na919j59oXPRcd'
+    serviceId: 'service_rb0ryqe',
+    templateId: 'template_94s3vbc', 
+    publicKey: 'sfBqoTr7DbNcxJOXF'
 };
 
 // Navigation System
