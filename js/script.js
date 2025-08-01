@@ -6,12 +6,12 @@ const EMAILJS_CONFIG = {
 
 // Configuración de Firebase
 const firebaseConfig = {
-    apiKey: "TU_API_KEY",
-    authDomain: "TU_AUTH_DOMAIN",
-    projectId: "TU_PROJECT_ID",
-    storageBucket: "TU_STORAGE_BUCKET",
-    messagingSenderId: "TU_MESSAGING_SENDER_ID",
-    appId: "TU_APP_ID"
+    apiKey: "AIzaSyB9RY4wK8PR1zIYXOqbku8_snieNY37M5k",
+    authDomain: "go-web-login.firebaseapp.com",
+    projectId: "go-web-login",
+    storageBucket: "go-web-login.firebasestorage.app",
+    messagingSenderId: "100324552886",
+    appId: "1:100324552886:web:e4fd5104155f3b7b2c3617"
 };
 
 // Inicializar Firebase
