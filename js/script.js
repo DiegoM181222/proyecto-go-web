@@ -5,12 +5,13 @@ const EMAILJS_CONFIG = {
 };
 
 const firebaseConfig = {
-    apiKey: "TU_API_KEY",
-    authDomain: "TU_AUTH_DOMAIN",
-    projectId: "TU_PROJECT_ID",
-    storageBucket: "TU_STORAGE_BUCKET",
-    messagingSenderId: "TU_MESSAGING_SENDER_ID",
-    appId: "TU_APP_ID"
+  apiKey: "AIzaSyB9RY4wK8PR1zIYXOqbku8_snieNY37M5k",
+  authDomain: "go-web-login.firebaseapp.com",
+  projectId: "go-web-login",
+  storageBucket: "go-web-login.firebasestorage.app",
+  messagingSenderId: "100324552886",
+  appId: "1:100324552886:web:e4fd5104155f3b7b2c3617",
+  measurementId: "G-1VNK1K706D"
 };
 
 const app = firebase.initializeApp(firebaseConfig);
@@ -23,12 +24,12 @@ class GoWebSystem {
     }
 
     init() {
+        this.setupAuthentication();
         this.setupNavigation();
         this.setupMobileMenu();
-        this.setupAuthentication();
         this.setupForms();
         this.setupModals();
-        this.showSection('home'); // Asegura que la página se inicie en la sección "home"
+        this.showSection('home'); 
     }
 
     // --- Lógica de Navegación ---
@@ -49,6 +50,17 @@ class GoWebSystem {
                 this.showSection('home');
             });
         }
+
+        const sectionButtons = document.querySelectorAll('[data-section]');
+        sectionButtons.forEach(btn => {
+            if (!btn.classList.contains('nav-link') && !btn.classList.contains('mobile-nav-link') && !btn.classList.contains('footer-nav-link') && !btn.classList.contains('footer-legal-link')) {
+                btn.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const section = btn.dataset.section;
+                    this.showSection(section);
+                });
+            }
+        });
     }
 
     setupMobileMenu() {
@@ -123,6 +135,7 @@ class GoWebSystem {
         const authModalOverlay = document.getElementById('authModalOverlay');
         const authModalClose = document.getElementById('authModalClose');
         const loginBtn = document.getElementById('loginBtn');
+        const mobileLoginBtn = document.getElementById('mobileLoginBtn');
         const emailPasswordForm = document.getElementById('emailPasswordForm');
         const authEmail = document.getElementById('authEmail');
         const authPassword = document.getElementById('authPassword');
@@ -135,6 +148,9 @@ class GoWebSystem {
 
         if (loginBtn) {
             loginBtn.addEventListener('click', () => this.openAuthModal());
+        }
+        if (mobileLoginBtn) {
+            mobileLoginBtn.addEventListener('click', () => this.openAuthModal());
         }
         if (authModalClose) {
             authModalClose.addEventListener('click', () => this.closeAuthModal());
