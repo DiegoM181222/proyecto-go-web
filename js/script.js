@@ -5,13 +5,13 @@ const EMAILJS_CONFIG = {
 };
 
 const firebaseConfig = {
-  apiKey: "AIzaSyB9RY4wK8PR1zIYXOqbku8_snieNY37M5k",
-  authDomain: "go-web-login.firebaseapp.com",
-  projectId: "go-web-login",
-  storageBucket: "go-web-login.firebasestorage.app",
-  messagingSenderId: "100324552886",
-  appId: "1:100324552886:web:e4fd5104155f3b7b2c3617",
-  measurementId: "G-1VNK1K706D"
+    apiKey: "AIzaSyB9RY4wK8PR1zIYXOqbku8_snieNY37M5k",
+    authDomain: "go-web-login.firebaseapp.com",
+    projectId: "go-web-login",
+    storageBucket: "go-web-login.firebasestorage.app",
+    messagingSenderId: "100324552886",
+    appId: "1:100324552886:web:e4fd5104155f3b7b2c3617",
+    measurementId: "G-1VNK1K706D"
 };
 
 const app = firebase.initializeApp(firebaseConfig);
