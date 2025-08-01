@@ -2053,14 +2053,19 @@ body {
     0%, 100% {
         transform: translateY(0px);
     }
-    50% {
+    display: none !important;
         transform: translateY(-15px);
     }
 }
 
 /* Animation Classes */
-.fade-in {
+    display: block !important;
     animation: fadeIn 0.5s ease-in-out;
+}
+
+.page-section.fade-in {
+    opacity: 1;
+    transform: translateY(0);
 }
 
 @keyframes fadeIn {

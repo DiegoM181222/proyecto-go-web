@@ -1330,10 +1330,31 @@
                 </button>
             </form>
         </div>
+    </div>
         
-<script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-auth-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
+    
+    <!-- Initialize Firebase before other scripts -->
+    <script>
+        // Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyB9RY4wK8PR1zIYXOqbku8_snieNY37M5k",
+            authDomain: "go-web-login.firebaseapp.com",
+            projectId: "go-web-login",
+            storageBucket: "go-web-login.firebasestorage.app",
+            messagingSenderId: "100324552886",
+            appId: "1:100324552886:web:e4fd5104155f3b7b2c3617",
+            measurementId: "G-1VNK1K706D"
+        };
+        
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+        const auth = firebase.auth();
+        const db = firebase.firestore();
+        const provider = new firebase.auth.GoogleAuthProvider();
+    </script>
 
     <script src="script.js"></script>
 
