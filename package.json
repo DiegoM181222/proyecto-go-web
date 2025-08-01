@@ -1,0 +1,17 @@
+{
+  "name": "goweb-static",
+  "version": "1.0.0",
+  "description": "GoWeb - Sitio Web Estático con Integración de Email",
+  "main": "index.html",
+  "scripts": {
+    "start": "echo 'Este es un proyecto estático. Abre index.html en tu navegador o usa un servidor web como XAMPP.'",
+    "dev": "echo 'Para desarrollo local, usa: python -m http.server 8000 o php -S localhost:8000'",
+    "build": "echo 'No se requiere build. Los archivos están listos para producción.'",
+    "test": "echo 'No hay tests configurados para este proyecto estático.'"
+  },
+  "keywords": ["static", "html", "css", "javascript", "emailjs", "goweb"],
+  "author": "GoWeb",
+  "license": "MIT",
+  "devDependencies": {},
+  "dependencies": {}
+}
