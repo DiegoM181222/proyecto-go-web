@@ -4,6 +4,127 @@ const EMAILJS_CONFIG = {
     publicKey: 'GZ9_VuSUCf8r-u4vE'
 };
 
+// Configuración de Firebase
+const firebaseConfig = {
+    apiKey: "TU_API_KEY",
+    authDomain: "TU_AUTH_DOMAIN",
+    projectId: "TU_PROJECT_ID",
+    storageBucket: "TU_STORAGE_BUCKET",
+    messagingSenderId: "TU_MESSAGING_SENDER_ID",
+    appId: "TU_APP_ID"
+};
+
+// Inicializar Firebase
+const app = firebase.initializeApp(firebaseConfig);
+const auth = firebase.auth();
+
+// Lógica de Autenticación
+const authModalOverlay = document.getElementById('authModalOverlay');
+const authModalClose = document.getElementById('authModalClose');
+const emailPasswordForm = document.getElementById('emailPasswordForm');
+const authEmail = document.getElementById('authEmail');
+const authPassword = document.getElementById('authPassword');
+const authSubmitBtn = document.getElementById('authSubmitBtn');
+const authMessage = document.getElementById('authMessage');
+const googleSignInBtn = document.getElementById('googleSignInBtn');
+const facebookSignInBtn = document.getElementById('facebookSignInBtn');
+const toggleAuthMode = document.getElementById('toggleAuthMode');
+
+let isLoginMode = true;
+
+// Abrir/Cerrar el modal
+function openAuthModal() {
+    authModalOverlay.classList.add('active');
+}
+
+function closeAuthModal() {
+    authModalOverlay.classList.remove('active');
+    authMessage.textContent = '';
+    emailPasswordForm.reset();
+}
+
+authModalClose.addEventListener('click', closeAuthModal);
+
+// Toggle entre Iniciar Sesión y Crear Cuenta
+toggleAuthMode.addEventListener('click', (e) => {
+    e.preventDefault();
+    isLoginMode = !isLoginMode;
+    if (isLoginMode) {
+        document.querySelector('.auth-modal-title').textContent = 'Iniciar Sesión';
+        authSubmitBtn.textContent = 'Iniciar Sesión';
+        toggleAuthMode.textContent = 'Crea una aquí';
+    } else {
+        document.querySelector('.auth-modal-title').textContent = 'Crear Cuenta';
+        authSubmitBtn.textContent = 'Crear Cuenta';
+        toggleAuthMode.textContent = 'Inicia sesión aquí';
+    }
+});
+
+// Manejar el formulario de email/contraseña
+emailPasswordForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const email = authEmail.value;
+    const password = authPassword.value;
+    
+    authMessage.textContent = 'Cargando...';
+
+    if (isLoginMode) {
+        auth.signInWithEmailAndPassword(email, password)
+            .then((userCredential) => {
+                authMessage.textContent = '¡Inicio de sesión exitoso!';
+                setTimeout(closeAuthModal, 2000);
+            })
+            .catch((error) => {
+                authMessage.textContent = `Error al iniciar sesión: ${error.message}`;
+            });
+    } else {
+        auth.createUserWithEmailAndPassword(email, password)
+            .then((userCredential) => {
+                authMessage.textContent = '¡Cuenta creada con éxito!';
+                setTimeout(closeAuthModal, 2000);
+            })
+            .catch((error) => {
+                authMessage.textContent = `Error al crear cuenta: ${error.message}`;
+            });
+    }
+});
+
+// Iniciar sesión con Google
+googleSignInBtn.addEventListener('click', () => {
+    const provider = new firebase.auth.GoogleAuthProvider();
+    auth.signInWithPopup(provider)
+        .then((result) => {
+            authMessage.textContent = '¡Inicio de sesión con Google exitoso!';
+            setTimeout(closeAuthModal, 2000);
+        })
+        .catch((error) => {
+            authMessage.textContent = `Error con Google: ${error.message}`;
+        });
+});
+
+// Iniciar sesión con Facebook
+facebookSignInBtn.addEventListener('click', () => {
+    const provider = new firebase.auth.FacebookAuthProvider();
+    auth.signInWithPopup(provider)
+        .then((result) => {
+            authMessage.textContent = '¡Inicio de sesión con Facebook exitoso!';
+            setTimeout(closeAuthModal, 2000);
+        })
+        .catch((error) => {
+            authMessage.textContent = `Error con Facebook: ${error.message}`;
+        });
+});
+
+// Detectar si el usuario está conectado
+auth.onAuthStateChanged(user => {
+    if (user) {
+        console.log('Usuario conectado:', user.email);
+        // Aquí puede mostrar un botón de "Cerrar Sesión" o cambiar la interfaz
+    } else {
+        console.log('No hay usuario conectado.');
+    }
+});
+
 // Navigation System
 class NavigationSystem {
     constructor() {
