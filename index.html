@@ -903,5 +903,47 @@ Creando experiencias digitales excepcionales.
     </div>
     
     <script src="js/script.js"></script>
+    
+    <div id="authModalOverlay" class="modal-overlay">
+    <div class="modal-content auth-modal">
+        <button class="modal-close" id="authModalClose">&times;</button>
+        <div class="modal-header">
+            <h3 class="auth-modal-title">Iniciar Sesión / Crear Cuenta</h3>
+        </div>
+        <div class="modal-body">
+            <form id="emailPasswordForm" class="auth-form">
+                <input type="email" id="authEmail" placeholder="Correo Electrónico" required>
+                <input type="password" id="authPassword" placeholder="Contraseña" required>
+                <button type="submit" id="authSubmitBtn" class="auth-btn">Iniciar Sesión</button>
+            </form>
+            
+            <div class="divider">
+                <span>o</span>
+            </div>
+
+            <div class="social-login-buttons">
+                <button id="googleSignInBtn" class="social-btn google-btn">
+                    <i class="fab fa-google"></i>
+                    Iniciar con Google
+                </button>
+                <button id="facebookSignInBtn" class="social-btn facebook-btn">
+                    <i class="fab fa-facebook-f"></i>
+                    Iniciar con Facebook
+                </button>
+            </div>
+
+            <p id="authMessage" class="status-message"></p>
+        </div>
+        <div class="modal-footer">
+            <p>¿No tienes cuenta? <a href="#" id="toggleAuthMode">Crea una aquí</a></p>
+        </div>
+    </div>
+</div>
+<script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-auth.js"></script>
+
+<script src="js/script.js"></script>
+</body>
+</html>
 </body>
 </html>
