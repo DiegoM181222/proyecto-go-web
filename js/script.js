@@ -1,12 +1,8 @@
-const EMAILJS_CONFIG = {
-    serviceId: 'service_fzbcjn2',
-    templateId: 'template_k956gl2', 
-    publicKey: 'Eq7na919j59oXPRcd'
-};
+// =========================================================
+// Archivo script.js final (Firebase + Navegación)
+// =========================================================
 
-// =========================================================
-// Código de Autenticación de Firebase
-// =========================================================
+// Configuración de Firebase
 const firebaseConfig = {
     apiKey: "AIzaSyB9RY4wK8PR1zIYXOqbku8_snieNY37M5k",
     authDomain: "go-web-login.firebaseapp.com",
@@ -17,12 +13,71 @@ const firebaseConfig = {
     measurementId: "G-1VNK1K706D"
 };
 
+// Configuración de EmailJS (si la sigues usando para otras cosas)
+const EMAILJS_CONFIG = {
+    serviceId: 'service_fzbcjn2',
+    templateId: 'template_k956gl2', 
+    publicKey: 'Eq7na919j59oXPRcd'
+};
+
 // Inicializa Firebase
 firebase.initializeApp(firebaseConfig);
 const auth = firebase.auth();
 const db = firebase.firestore();
 const provider = new firebase.auth.GoogleAuthProvider();
 
+// =========================================================
+// Lógica de Navegación SPA
+// =========================================================
+class Navigation {
+    constructor() {
+        this.sections = document.querySelectorAll('.page-section');
+        this.navLinks = document.querySelectorAll('.nav-link');
+        this.setupNavigation();
+    }
+
+    setupNavigation() {
+        this.navLinks.forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                const sectionId = link.dataset.section;
+                if (sectionId) {
+                    this.showSection(sectionId);
+                }
+            });
+        });
+        
+        const navLogo = document.querySelector('.nav-logo');
+        if (navLogo) {
+            navLogo.addEventListener('click', () => this.showSection('home'));
+        }
+    }
+
+    showSection(sectionId) {
+        this.sections.forEach(section => {
+            if (section.id === sectionId) {
+                section.style.display = 'block';
+            } else {
+                section.style.display = 'none';
+            }
+        });
+        this.updateActiveLink(sectionId);
+    }
+    
+    updateActiveLink(sectionId) {
+        this.navLinks.forEach(link => {
+            if (link.dataset.section === sectionId) {
+                link.classList.add('active');
+            } else {
+                link.classList.remove('active');
+            }
+        });
+    }
+}
+
+// =========================================================
+// Lógica de Autenticación de Firebase
+// =========================================================
 const signInButton = document.getElementById('google-signin-button');
 const userSignedInContainer = document.getElementById('user-signed-in');
 const userInfoSpan = document.getElementById('userInfo');
@@ -90,6 +145,21 @@ function checkUserRole(user) {
     }).catch(error => {
         console.error("Error al leer el rol del usuario:", error);
     });
+}
+
+// =========================================================
+// Inicialización
+// =========================================================
+document.addEventListener('DOMContentLoaded', () => {
+    // ESTE BLOQUE ES LA ÚNICA INICIALIZACIÓN QUE DEBES TENER
+    window.navigation = new Navigation();
+    window.navigation.showSection('home');
+    
+    // Aquí puedes añadir la inicialización de tus otros sistemas
+    // si los tienes definidos en este mismo archivo, como por ejemplo:
+    // window.adminPanel = new AdminPanelSystem();
+    // window.animations = new AnimationSystem();
+});
 }
 
 // Navigation System
