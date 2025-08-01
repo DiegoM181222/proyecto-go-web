@@ -8,7 +8,7 @@ const EMAILJS_CONFIG = {
 class NavigationSystem {
     constructor() {
         this.currentSection = 'home';
-        this.sections = ['home', 'services', 'maintenance', 'portfolio', 'about', 'contact', 'privacy', 'terms'];
+        this.sections = ['home', 'services', 'maintenance', 'portfolio', 'about', 'whyChooseUs', 'contact', 'privacy', 'terms'];
     }
 
     init() {
@@ -130,8 +130,7 @@ class NavigationSystem {
 
     updateNavDots() {
         const dots = document.querySelectorAll('.nav-dots .dot');
-        const sectionsWithoutAdmin = this.sections.filter(s => s !== 'admin');
-        const activeIndex = sectionsWithoutAdmin.indexOf(this.currentSection);
+        const activeIndex = this.sections.indexOf(this.currentSection);
         
         if (activeIndex !== -1) {
             dots.forEach((dot, index) => {
@@ -155,7 +154,21 @@ class NavigationSystem {
         e.preventDefault();
         const form = e.target;
         const formType = form.id;
-        const statusMessage = document.getElementById(formType + 'Message');
+        let statusMessage;
+
+        // Correctly find the status message element for each form
+        if (formType === 'serviceModalForm') {
+            statusMessage = document.getElementById('serviceModalMessage');
+        } else if (formType === 'maintenanceForm') {
+            statusMessage = document.getElementById('maintenanceModalMessage');
+        } else if (formType === 'maintenanceMessageForm') {
+            statusMessage = document.getElementById('maintenanceMessageFormMessage');
+        } else if (formType === 'contactForm') {
+            statusMessage = document.getElementById('contactFormMessage');
+        } else {
+            statusMessage = form.querySelector('.status-message');
+        }
+
         const submitBtn = form.querySelector('button[type="submit"]');
 
         statusMessage.textContent = 'Enviando...';
@@ -163,14 +176,23 @@ class NavigationSystem {
         statusMessage.style.display = 'block';
         submitBtn.disabled = true;
 
+        // Collect form data
+        const formData = new FormData(form);
+        const templateParams = {};
+        formData.forEach((value, key) => {
+            templateParams[key] = value;
+        });
+
+        // Add form_type based on form ID
+        templateParams.form_type = formType;
+
         try {
-            await emailjs.sendForm(
+            await emailjs.send(
                 EMAILJS_CONFIG.serviceId, 
                 EMAILJS_CONFIG.templateId, 
-                form, 
+                templateParams, 
                 {
                     publicKey: EMAILJS_CONFIG.publicKey,
-                    form_type: formType
                 }
             );
             statusMessage.textContent = '¡Mensaje enviado con éxito!';
@@ -207,7 +229,7 @@ class NavigationSystem {
         if (closeBtn) {
             closeBtn.addEventListener('click', () => {
                 modal.classList.remove('active');
-                document.getElementById('serviceModalFormMessage').style.display = 'none';
+                document.getElementById('serviceModalMessage').style.display = 'none';
             });
         }
     }
