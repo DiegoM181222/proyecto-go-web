@@ -1362,24 +1362,29 @@ body {
 }
 
 .footer-social {
-    display: flex;
-    gap: 15px;
+display: flex;
+gap: 15px;
 }
 
 .social-link {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 40px;
-    height: 40px;
-    background: #444;
-    border-radius: 50%;
-    color: white;
-    transition: background 0.3s ease;
+display: flex;
+align-items: center;
+justify-content: center;
+width: 40px;
+height: 40px;
+background: #444;
+border-radius: 50%;
+color: white;
+transition: background 0.3s ease;
+text-decoration: none; /* Para quitar la línea debajo del enlace */
 }
 
 .social-link:hover {
-    background: #667eea;
+background: #667eea;
+}
+
+.social-link i {
+font-size: 1.2rem; /* Ajusta el tamaño del icono si es necesario */
 }
 
 .footer-links-col ul,
