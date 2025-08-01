@@ -1081,7 +1081,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     
     // Initialize systems
-    window.auth = new AuthSystem();
     window.navigation = new NavigationSystem();
     window.adminPanel = new AdminPanelSystem();
     window.animations = new AnimationSystem();
