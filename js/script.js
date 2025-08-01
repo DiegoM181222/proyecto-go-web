@@ -1,127 +1,236 @@
-// Configuración de EmailJS (si la sigues usando para otras cosas)
 const EMAILJS_CONFIG = {
     serviceId: 'service_fzbcjn2',
     templateId: 'template_k956gl2', 
     publicKey: 'Eq7na919j59oXPRcd'
 };
 
-// Firebase Authentication System
-class FirebaseAuthSystem {
+class AuthSystem {
     constructor() {
+        this.users = [
+            // Oscar accounts
+            { id: '1', email: 'oscar@goweb.com', password: 'oscaruser123', name: 'Oscar Gómez', role: 'user' },
+            { id: '2', email: 'oscar@goweb.com', password: 'oscaradmin123', name: 'Oscar Gómez', role: 'admin' },
+            
+            // Sergio accounts
+            { id: '3', email: 'sergio@goweb.com', password: 'sergiouser123', name: 'Sergio Rivas', role: 'user' },
+            { id: '4', email: 'sergio@goweb.com', password: 'sergioadmin123', name: 'Sergio Rivas', role: 'admin' },
+            
+            // Diego accounts
+            { id: '5', email: 'diego@goweb.com', password: 'diegouser123', name: 'Diego Mendoza', role: 'user' },
+            { id: '6', email: 'diego@goweb.com', password: 'diegoadmin123', name: 'Diego Mendoza', role: 'admin' }
+        ];
         this.currentUser = null;
+        this.selectedRole = 'user';
         this.init();
     }
 
     init() {
-        // Wait for Firebase to be ready
-        if (typeof firebase === 'undefined') {
-            console.error('Firebase no está cargado');
-            return;
-        }
-
-        this.setupAuthStateListener();
-        this.setupAuthButtons();
+        this.setupLoginForm();
+        this.setupUserTypeButtons();
+        this.setupLogout();
+        this.setupHomeNavigation();
+        this.setupPasswordToggle();
+        this.preventPasswordSave();
     }
 
-    setupAuthStateListener() {
-        auth.onAuthStateChanged(user => {
-            this.currentUser = user;
-            this.updateAuthUI(user);
-            if (user) {
-                this.checkUserRole(user);
+    preventPasswordSave() {
+        // Prevenir que el navegador guarde contraseñas en formularios de contacto
+        const contactForms = document.querySelectorAll('#serviceModalForm, #maintenanceForm, #contactForm');
+        contactForms.forEach(form => {
+            if (form) {
+                form.setAttribute('autocomplete', 'off');
+                
+                // Agregar atributos a campos de email para prevenir autoguardado
+                const emailInputs = form.querySelectorAll('input[type="email"], input[placeholder*="correo"], input[placeholder*="email"]');
+                emailInputs.forEach(input => {
+                    input.setAttribute('autocomplete', 'new-email');
+                    input.setAttribute('data-form-type', 'other');
+                });
+
+                // Si hay campos que parecen contraseñas, marcarlos como no-password
+                const allInputs = form.querySelectorAll('input');
+                allInputs.forEach(input => {
+                    if (input.type !== 'password') {
+                        input.setAttribute('autocomplete', 'off');
+                    }
+                });
             }
+        });
+
+        // Agregar meta tag para prevenir autoguardado global
+        if (!document.querySelector('meta[name="save-password"]')) {
+            const meta = document.createElement('meta');
+            meta.name = 'save-password';
+            meta.content = 'never';
+            document.head.appendChild(meta);
+        }
+    }
+
+    setupLoginForm() {
+        const loginForm = document.getElementById('loginForm');
+        if (loginForm) {
+            loginForm.addEventListener('submit', (e) => this.handleLogin(e));
+        }
+    }
+
+    setupUserTypeButtons() {
+        const userTypeButtons = document.querySelectorAll('.user-type-btn');
+        userTypeButtons.forEach(btn => {
+            btn.addEventListener('click', () => {
+                userTypeButtons.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                this.selectedRole = btn.dataset.role;
+            });
         });
     }
 
-    setupAuthButtons() {
-        const signInButton = document.getElementById('google-signin-button');
+    setupLogout() {
         const logoutBtn = document.getElementById('logoutBtn');
-
-        if (signInButton) {
-            signInButton.addEventListener('click', () => this.signInWithGoogle());
-        }
-
+        const mobileLogoutBtn = document.getElementById('mobileLogoutBtn');
+        
         if (logoutBtn) {
-            logoutBtn.addEventListener('click', () => this.signOut());
+            logoutBtn.addEventListener('click', () => this.logout());
+        }
+        if (mobileLogoutBtn) {
+            mobileLogoutBtn.addEventListener('click', () => this.logout());
         }
     }
 
-    async signInWithGoogle() {
-        try {
-            const result = await auth.signInWithPopup(provider);
-            const user = result.user;
-            
-            // Create or update user document
-            const userRef = db.collection('users').doc(user.uid);
-            const doc = await userRef.get();
-            
-            if (!doc.exists) {
-                await userRef.set({
-                    name: user.displayName,
-                    email: user.email,
-                    role: 'user',
-                    createdAt: firebase.firestore.FieldValue.serverTimestamp()
-                });
-            }
-            
-            console.log('Usuario autenticado:', user.displayName);
-        } catch (error) {
-            console.error('Error al iniciar sesión:', error);
-            window.navigation.showAlert('Error al iniciar sesión. Inténtalo de nuevo.', 'error');
+    setupHomeNavigation() {
+        // Desktop logo navigation
+        const navLogo = document.querySelector('.nav-logo');
+        if (navLogo) {
+            navLogo.addEventListener('click', () => {
+                window.navigation.showSection('home');
+            });
+        }
+
+        // Mobile logo navigation
+        const mobileMenuLogo = document.querySelector('.mobile-menu-logo');
+        if (mobileMenuLogo) {
+            mobileMenuLogo.addEventListener('click', () => {
+                window.navigation.showSection('home');
+                window.navigation.closeMobileMenu();
+            });
         }
     }
 
-    async signOut() {
-        try {
-            await auth.signOut();
-            console.log('Sesión cerrada correctamente');
-        } catch (error) {
-            console.error('Error al cerrar sesión:', error);
+    setupPasswordToggle() {
+        const passwordInput = document.getElementById('password');
+        const passwordToggle = document.getElementById('passwordToggle');
+        
+        if (passwordToggle && passwordInput) {
+            passwordToggle.addEventListener('click', () => {
+                const isPassword = passwordInput.type === 'password';
+                
+                // Toggle input type
+                passwordInput.type = isPassword ? 'text' : 'password';
+                
+                // Toggle icon
+                const icon = passwordToggle.querySelector('i');
+                if (icon) {
+                    icon.className = isPassword ? 'fas fa-eye-slash' : 'fas fa-eye';
+                }
+                
+                // Update button title for accessibility
+                passwordToggle.title = isPassword ? 'Ocultar contraseña' : 'Mostrar contraseña';
+            });
         }
     }
 
-    updateAuthUI(user) {
-        const signInButton = document.getElementById('google-signin-button');
-        const userSignedInContainer = document.getElementById('user-signed-in');
-        const userInfoSpan = document.getElementById('userInfo');
+    async handleLogin(e) {
+        e.preventDefault();
+        
+        const email = document.getElementById('email').value;
+        const password = document.getElementById('password').value;
+        const errorMessage = document.getElementById('errorMessage');
+
+        // Hide previous error
+        errorMessage.style.display = 'none';
+
+        // Find user
+        const user = this.users.find(u => 
+            u.email === email && 
+            u.password === password && 
+            u.role === this.selectedRole
+        );
 
         if (user) {
-            if (signInButton) signInButton.style.display = 'none';
-            if (userSignedInContainer) userSignedInContainer.style.display = 'flex';
-            if (userInfoSpan) userInfoSpan.textContent = user.displayName;
+            this.currentUser = user;
+            this.showMainWebsite();
         } else {
-            if (signInButton) signInButton.style.display = 'flex';
-            if (userSignedInContainer) userSignedInContainer.style.display = 'none';
-            this.hideAdminLink();
+            errorMessage.style.display = 'flex';
         }
     }
 
-    async checkUserRole(user) {
-        try {
-            const userRef = db.collection('users').doc(user.uid);
-            const doc = await userRef.get();
-            
-            if (doc.exists) {
-                const userRole = doc.data().role;
-                this.updateAdminAccess(userRole === 'admin');
+    showMainWebsite() {
+        const loginScreen = document.getElementById('loginScreen');
+        const mainWebsite = document.getElementById('mainWebsite');
+        const userInfo = document.getElementById('userInfo');
+        const mobileUserInfo = document.getElementById('mobileUserInfo');
+
+        loginScreen.style.display = 'none';
+        mainWebsite.style.display = 'block';
+        
+        if (userInfo && this.currentUser) {
+            userInfo.textContent = `${this.currentUser.name} (${this.currentUser.role})`;
+        }
+        if (mobileUserInfo && this.currentUser) {
+            mobileUserInfo.textContent = `${this.currentUser.name} (${this.currentUser.role})`;
+        }
+
+        // Show admin menu if user is admin
+        if (this.currentUser.role === 'admin') {
+            const adminLinks = document.querySelectorAll('.admin-only');
+            adminLinks.forEach(link => {
+                link.style.display = 'flex';
+            });
+        }
+
+        // Initialize navigation
+        window.navigation.init();
+        window.adminPanel.init();
+    }
+
+    logout() {
+        this.currentUser = null;
+        const loginScreen = document.getElementById('loginScreen');
+        const mainWebsite = document.getElementById('mainWebsite');
+        
+        loginScreen.style.display = 'flex';
+        mainWebsite.style.display = 'none';
+        
+        // Reset form
+        document.getElementById('loginForm').reset();
+        document.getElementById('errorMessage').style.display = 'none';
+        
+        // Reset password toggle
+        const passwordInput = document.getElementById('password');
+        const passwordToggle = document.getElementById('passwordToggle');
+        if (passwordInput && passwordToggle) {
+            passwordInput.type = 'password';
+            const icon = passwordToggle.querySelector('i');
+            if (icon) {
+                icon.className = 'fas fa-eye';
             }
-        } catch (error) {
-            console.error('Error al verificar rol del usuario:', error);
+            passwordToggle.title = 'Mostrar contraseña';
         }
-    }
+        
+        // Reset user type selection
+        document.querySelectorAll('.user-type-btn').forEach(btn => {
+            btn.classList.remove('active');
+        });
+        document.querySelector('.user-type-btn[data-role="user"]').classList.add('active');
+        this.selectedRole = 'user';
 
-    updateAdminAccess(isAdmin) {
-        const adminLink = document.querySelector('.admin-only');
-        if (adminLink) {
-            adminLink.style.display = isAdmin ? 'flex' : 'none';
-        }
-    }
+        // Hide admin menu
+        const adminLinks = document.querySelectorAll('.admin-only');
+        adminLinks.forEach(link => {
+            link.style.display = 'none';
+        });
 
-    hideAdminLink() {
-        const adminLink = document.querySelector('.admin-only');
-        if (adminLink) {
-            adminLink.style.display = 'none';
-        }
+        // Close mobile menu if open
+        window.navigation.closeMobileMenu();
     }
 }
 
@@ -574,14 +683,11 @@ class NavigationSystem {
     }
 
     showSection(sectionName) {
-        console.log('Navegando a sección:', sectionName);
-        
         // Hide all sections
         this.sections.forEach(section => {
             const element = document.getElementById(`${section}Section`);
             if (element) {
                 element.classList.remove('active');
-                element.style.display = 'none';
             }
         });
 
@@ -589,14 +695,7 @@ class NavigationSystem {
         const targetSection = document.getElementById(`${sectionName}Section`);
         if (targetSection) {
             targetSection.classList.add('active');
-            targetSection.style.display = 'block';
-            
-            // Add fade-in animation
-            setTimeout(() => {
-                targetSection.classList.add('fade-in');
-            }, 10);
-        } else {
-            console.error('Sección no encontrada:', `${sectionName}Section`);
+            targetSection.classList.add('fade-in');
         }
 
         // Update navigation
@@ -1203,8 +1302,6 @@ class AnimationSystem {
 
 // Initialize everything when DOM is loaded
 document.addEventListener('DOMContentLoaded', () => {
-    console.log('Inicializando GoWeb...');
-    
     // Initialize EmailJS first
     if (typeof emailjs !== 'undefined') {
         emailjs.init(EMAILJS_CONFIG.publicKey);
@@ -1214,15 +1311,10 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     
     // Initialize systems
-    window.firebaseAuth = new FirebaseAuthSystem();
+    window.auth = new AuthSystem();
     window.navigation = new NavigationSystem();
     window.adminPanel = new AdminPanelSystem();
     window.animations = new AnimationSystem();
-    
-    // Show home section by default
-    setTimeout(() => {
-        window.navigation.showSection('home');
-    }, 100);
     
     console.log('GoWeb Website inicializado exitosamente!');
 });
