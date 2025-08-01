@@ -160,7 +160,6 @@ document.addEventListener('DOMContentLoaded', () => {
     // window.adminPanel = new AdminPanelSystem();
     // window.animations = new AnimationSystem();
 });
-}
 
 // Navigation System
 class NavigationSystem {
