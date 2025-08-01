@@ -816,16 +816,18 @@
                     </button>
                 </div>
                 <form id="serviceModalForm" class="service-modal-form">
-                    <input type="text" name="user_name" placeholder="Tu Nombre" required>
-                    <input type="email" name="user_email" placeholder="Tu Correo Electrónico" required>
-                    <textarea name="message" placeholder="Describe tu proyecto" required></textarea>
-                    <input type="hidden" name="service_type" id="serviceModalServiceType">
-                    <div id="serviceModalMessage" class="status-message"></div>
-                    <button type="submit" class="service-modal-submit">
-                        <i class="fas fa-paper-plane"></i>
-                        Enviar Petición
-                    </button>
-                </form>
+    <input type="text" name="user_name" placeholder="Tu nombre completo" required>
+    <input type="email" name="user_email" placeholder="Tu correo electrónico" required>
+    <input type="tel" name="user_phone" placeholder="Tu número de teléfono" required>
+    <textarea name="message" placeholder="Mensaje adicional (opcional)" rows="4"></textarea>
+    <input type="hidden" id="serviceModalServiceType" name="service_type" value="">
+    
+    <button type="submit" class="service-modal-submit">
+        <i class="fas fa-paper-plane"></i>
+        Enviar Solicitud
+    </button>
+    <p id="serviceModalMessage" class="status-message"></p>
+</form>
             </div>
         </div>
 
@@ -839,15 +841,15 @@
                     </button>
                 </div>
                 <form id="maintenanceForm" class="maintenance-modal-form">
-                    <input type="text" name="user_name" placeholder="Tu Nombre" required>
-                    <input type="email" name="user_email" placeholder="Tu Correo Electrónico" required>
-                    <input type="hidden" name="plan_type" id="maintenancePlanType">
-                    <div id="maintenanceModalMessage" class="status-message"></div>
-                    <button type="submit" class="maintenance-modal-submit">
-                        <i class="fas fa-paper-plane"></i>
-                        Contratar Plan
-                    </button>
-                </form>
+    <input type="text" name="user_name" placeholder="Tu nombre completo" required>
+    <input type="email" name="user_email" placeholder="Tu correo electrónico" required>
+    <input type="hidden" id="maintenancePlanType" name="plan_type" value="">
+    <button type="submit" class="maintenance-modal-submit">
+        <i class="fas fa-paper-plane"></i>
+        Contratar Plan
+    </button>
+    <p id="maintenanceModalMessage" class="status-message"></p>
+</form>
             </div>
         </div>
 
